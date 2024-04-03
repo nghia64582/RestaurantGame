@@ -5,24 +5,27 @@
 [ext_resource type="Texture2D" uid="uid://bcblhu5dl86qt" path="res://Assets/Png/Other Assets/Display3.png" id="3_7dlvn"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_v7tay"]
 
-[node name="Kitchen" type="Node"]
+[node name="Kitchen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
-[node name="KitchenSet" type="Sprite2D" parent="."]
-position = Vector2(405, 49)
-scale = Vector2(0.389863, 0.389863)
+[node name="components" type="Control" parent="."]
+anchors_preset = 0
+scale = Vector2(0.402433, 0.402433)
+
+[node name="KitchenSet" type="Sprite2D" parent="components"]
+position = Vector2(114.5, 34.7267)
 texture = ExtResource("1_6qkhf")
 
-[node name="FTable5" type="Sprite2D" parent="."]
-position = Vector2(404, 102)
-scale = Vector2(0.398503, 0.398503)
+[node name="FTable5" type="Sprite2D" parent="components"]
+position = Vector2(117.261, 166)
 texture = ExtResource("2_lpep0")
 
-[node name="Display3" type="Sprite2D" parent="."]
-position = Vector2(387, 133)
-scale = Vector2(0.413384, 0.413384)
+[node name="Display3" type="Sprite2D" parent="components"]
+position = Vector2(94.7272, 232.53)
 texture = ExtResource("3_7dlvn")
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.313726)
-position = Vector2(466, 300)
+position = Vector2(108, 264)
 texture = ExtResource("3_v7tay")

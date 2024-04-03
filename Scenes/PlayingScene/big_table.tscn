@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cblonxfdlktg8"]
+
+[ext_resource type="Texture2D" uid="uid://djoqjctbgoktu" path="res://Assets/Png/Other Assets/TableSet1.png" id="1_sbjqs"]
+[ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="2_et64g"]
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_se7uf"]
+
+[node name="BigTable" type="Node"]
+
+[node name="components" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.408906, 0.408906)
+
+[node name="TableSet1" type="Sprite2D" parent="components"]
+position = Vector2(139.396, 212.763)
+texture = ExtResource("1_sbjqs")
+
+[node name="Bubble" type="Sprite2D" parent="components"]
+position = Vector2(313.03, 217.654)
+texture = ExtResource("2_et64g")
+
+[node name="PlayingScene" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.192157)
+position = Vector2(8, 97)
+texture = ExtResource("3_se7uf")

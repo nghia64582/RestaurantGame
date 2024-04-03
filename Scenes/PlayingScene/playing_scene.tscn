@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxqjd0mpyns22"]
+[gd_scene load_steps=16 format=3 uid="uid://bxqjd0mpyns22"]
 
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7mtalbfwbfsn" path="res://Assets/Png/Other Assets/ShoesCarpet1.png" id="3_e6lvg"]
 [ext_resource type="Texture2D" uid="uid://blp6k383l15ag" path="res://Assets/Png/Other Assets/Stair1.png" id="4_qbml8"]
 [ext_resource type="Texture2D" uid="uid://djoqjctbgoktu" path="res://Assets/Png/Other Assets/TableSet1.png" id="5_4nydf"]
+[ext_resource type="Texture2D" uid="uid://boyd50duiklx2" path="res://Assets/Png/Other Assets/BushPot2.png" id="6_77yh2"]
 [ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="6_ylot3"]
 [ext_resource type="Texture2D" uid="uid://bp8ca3rfrn1b4" path="res://Assets/Png/Other Assets/WoodWall.png" id="7_bwd3h"]
 [ext_resource type="Texture2D" uid="uid://b8mg4tis6pxrx" path="res://Assets/Png/Other Assets/WoodWall2.png" id="8_wid07"]
@@ -26,25 +27,72 @@ floor_node = NodePath("Floor")
 z_index = -1
 position = Vector2(119, 7)
 
-[node name="Dishes" type="Sprite2D" parent="Floor"]
+[node name="Stuffs_1" type="Node2D" parent="Floor"]
+
+[node name="Dishes" type="Sprite2D" parent="Floor/Stuffs_1"]
 position = Vector2(116, 58)
 scale = Vector2(0.313981, 0.313981)
 texture = ExtResource("1_f7wxr")
 
-[node name="DrinkBox2" type="Sprite2D" parent="Floor"]
+[node name="DrinkBox2" type="Sprite2D" parent="Floor/Stuffs_1"]
 position = Vector2(59, 59)
 scale = Vector2(0.301948, 0.301948)
 texture = ExtResource("2_pajla")
 
-[node name="ShoesCarpet1" type="Sprite2D" parent="Floor"]
+[node name="ShoesCarpet1" type="Sprite2D" parent="Floor/Stuffs_1"]
 position = Vector2(82, 278)
 scale = Vector2(0.304005, 0.304005)
 texture = ExtResource("3_e6lvg")
 
-[node name="Stair1" type="Sprite2D" parent="Floor"]
+[node name="BushPot3" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(19, 186)
+scale = Vector2(0.277278, 0.277278)
+texture = ExtResource("6_77yh2")
+
+[node name="Lamp4" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(7, 413)
+scale = Vector2(0.301467, 0.301467)
+texture = ExtResource("10_yqikm")
+
+[node name="BushPot4" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(19, 68)
+scale = Vector2(0.277278, 0.277278)
+texture = ExtResource("6_77yh2")
+
+[node name="Lamp3" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(7.00001, 141)
+scale = Vector2(0.300681, 0.300681)
+texture = ExtResource("10_yqikm")
+
+[node name="WoodWall2" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(-10, 121)
+scale = Vector2(0.295766, 0.295766)
+texture = ExtResource("8_wid07")
+
+[node name="Stair1" type="Sprite2D" parent="Floor/Stuffs_1"]
 position = Vector2(22, 276)
 scale = Vector2(0.302953, 0.302953)
 texture = ExtResource("4_qbml8")
+
+[node name="BushPot2" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(20, 350)
+scale = Vector2(0.302234, 0.302234)
+texture = ExtResource("6_77yh2")
+
+[node name="WoodWall" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(-10, 401)
+scale = Vector2(0.299283, 0.299283)
+texture = ExtResource("7_bwd3h")
+
+[node name="Canov3" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(-25, 260)
+scale = Vector2(0.301917, 0.301917)
+texture = ExtResource("11_qw5ff")
+
+[node name="OpenBox2" type="Sprite2D" parent="Floor/Stuffs_1"]
+position = Vector2(-44, 372)
+scale = Vector2(0.299239, 0.299239)
+texture = ExtResource("9_3y2pe")
 
 [node name="TableSet1" type="Sprite2D" parent="Floor"]
 position = Vector2(280, 214)
@@ -56,32 +104,8 @@ position = Vector2(333, 218)
 scale = Vector2(0.302663, 0.302663)
 texture = ExtResource("6_ylot3")
 
-[node name="WoodWall" type="Sprite2D" parent="Floor"]
-position = Vector2(-9, 401)
-scale = Vector2(0.299283, 0.299283)
-texture = ExtResource("7_bwd3h")
-
-[node name="WoodWall2" type="Sprite2D" parent="Floor"]
-position = Vector2(-8, 122)
-scale = Vector2(0.295766, 0.295766)
-texture = ExtResource("8_wid07")
-
-[node name="OpenBox2" type="Sprite2D" parent="Floor"]
-position = Vector2(-44, 372)
-scale = Vector2(0.299239, 0.299239)
-texture = ExtResource("9_3y2pe")
-
-[node name="Lamp3" type="Sprite2D" parent="Floor"]
-position = Vector2(9.00003, 413)
-scale = Vector2(0.301467, 0.301467)
-texture = ExtResource("10_yqikm")
-
-[node name="Canov3" type="Sprite2D" parent="Floor"]
-position = Vector2(-25, 260)
-scale = Vector2(0.301917, 0.301917)
-texture = ExtResource("11_qw5ff")
-
 [node name="PlayingScene" type="Sprite2D" parent="Floor"]
+visible = false
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(239.538, 223.663)
 scale = Vector2(0.775205, 0.775205)

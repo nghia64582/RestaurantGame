@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbf24trwvq7ak"]
+
+[ext_resource type="Texture2D" uid="uid://dbxpw7vg217yq" path="res://Assets/Png/Other Assets/KitchenSet.png" id="1_6qkhf"]
+[ext_resource type="Texture2D" uid="uid://by34wy8f3w7u8" path="res://Assets/Png/Other Assets/FTable5.png" id="2_lpep0"]
+[ext_resource type="Texture2D" uid="uid://bcblhu5dl86qt" path="res://Assets/Png/Other Assets/Display3.png" id="3_7dlvn"]
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_v7tay"]
+
+[node name="Kitchen" type="Node"]
+
+[node name="KitchenSet" type="Sprite2D" parent="."]
+position = Vector2(405, 49)
+scale = Vector2(0.389863, 0.389863)
+texture = ExtResource("1_6qkhf")
+
+[node name="FTable5" type="Sprite2D" parent="."]
+position = Vector2(404, 102)
+scale = Vector2(0.398503, 0.398503)
+texture = ExtResource("2_lpep0")
+
+[node name="Display3" type="Sprite2D" parent="."]
+position = Vector2(387, 133)
+scale = Vector2(0.413384, 0.413384)
+texture = ExtResource("3_7dlvn")
+
+[node name="PlayingScene" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(466, 300)
+texture = ExtResource("3_v7tay")

@@ -17,8 +17,6 @@
 
 [node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node")]
 script = ExtResource("1_hm10v")
-FLOOR_WITDH = 10
-FLOOR_HEIGHT = 10
 floor_part_template = ExtResource("2_kithj")
 floor_node = NodePath("Floor")
 
@@ -82,6 +80,7 @@ scale = Vector2(0.301917, 0.301917)
 texture = ExtResource("11_qw5ff")
 
 [node name="PlayingScene" type="Sprite2D" parent="Floor"]
+visible = false
 modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(239.538, 223.663)
 scale = Vector2(0.775205, 0.775205)

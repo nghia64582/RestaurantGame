@@ -1,28 +1,64 @@
-[gd_scene load_steps=4 format=3 uid="uid://cblonxfdlktg8"]
+[gd_scene load_steps=7 format=3 uid="uid://cblonxfdlktg8"]
 
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Table/big_table.gd" id="1_4mttf"]
 [ext_resource type="Texture2D" uid="uid://djoqjctbgoktu" path="res://Assets/Png/Other Assets/TableSet1.png" id="1_sbjqs"]
 [ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="2_et64g"]
+[ext_resource type="PackedScene" uid="uid://c55xp7cmqep5n" path="res://Scenes/PlayingScene/FoodOnTable/food_on_table.tscn" id="2_h6s6n"]
+[ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_fav6a"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_se7uf"]
 
-[node name="BigTable" type="Node2D"]
+[node name="BigTable" type="Node2D" node_paths=PackedStringArray("component", "guest_nodes", "food_nodes")]
+script = ExtResource("1_4mttf")
+food_template = ExtResource("2_h6s6n")
+guest_template = ExtResource("3_fav6a")
+N_FOODS = 4
+N_GUESTS = 4
+component = NodePath("Components")
+guest_nodes = [NodePath("Components/GuestNode1"), NodePath("Components/GuestNode2"), NodePath("Components/GuestNode3"), NodePath("Components/GuestNode4")]
+food_nodes = [NodePath("Components/FoodNode1"), NodePath("Components/FoodNode2"), NodePath("Components/FoodNode3"), NodePath("Components/FoodNode4")]
 
-[node name="components" type="Control" parent="."]
+[node name="Components" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.3, 0.3)
 
-[node name="TableSet1" type="Sprite2D" parent="components"]
-position = Vector2(139.396, 212.763)
+[node name="TableSet1" type="Sprite2D" parent="Components"]
+position = Vector2(130.667, 174.776)
 texture = ExtResource("1_sbjqs")
 
-[node name="Bubble" type="Sprite2D" parent="components"]
-position = Vector2(313.03, 217.654)
+[node name="Bubble" type="Sprite2D" parent="Components"]
+position = Vector2(304.301, 179.667)
 texture = ExtResource("2_et64g")
+
+[node name="GuestNode1" type="Node2D" parent="Components"]
+position = Vector2(36.6667, 0)
+
+[node name="GuestNode2" type="Node2D" parent="Components"]
+position = Vector2(150, 0)
+
+[node name="GuestNode3" type="Node2D" parent="Components"]
+position = Vector2(36.6667, 216.667)
+
+[node name="GuestNode4" type="Node2D" parent="Components"]
+position = Vector2(150, 220)
+
+[node name="FoodNode1" type="Node2D" parent="Components"]
+position = Vector2(276.667, 23.3333)
+
+[node name="FoodNode2" type="Node2D" parent="Components"]
+position = Vector2(276.667, 106.667)
+
+[node name="FoodNode3" type="Node2D" parent="Components"]
+position = Vector2(276.667, 193.333)
+
+[node name="FoodNode4" type="Node2D" parent="Components"]
+position = Vector2(276.667, 276.667)
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.192157)
-position = Vector2(8, 97)
+position = Vector2(7, 57)
+scale = Vector2(0.691082, 0.691082)
 texture = ExtResource("3_se7uf")

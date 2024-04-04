@@ -1,0 +1,41 @@
+[gd_scene load_steps=16 format=3 uid="uid://c55xp7cmqep5n"]
+
+[ext_resource type="Script" path="res://Scenes/PlayingScene/FoodOnTable/food_on_table.gd" id="1_0482b"]
+[ext_resource type="Texture2D" uid="uid://l8xh7apfdqma" path="res://Assets/Png/Other Assets/Cake.png" id="1_mgiaf"]
+[ext_resource type="Texture2D" uid="uid://dt8theoe84f20" path="res://Assets/Png/Other Assets/Burger.png" id="2_k2frx"]
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="2_tx55t"]
+[ext_resource type="Texture2D" uid="uid://bguib3am1m0uo" path="res://Assets/Png/Other Assets/Chicken.png" id="4_3ie5j"]
+[ext_resource type="Texture2D" uid="uid://dpkkubndq4kjp" path="res://Assets/Png/Other Assets/Donuts.png" id="5_d1shi"]
+[ext_resource type="Texture2D" uid="uid://bsvkqi0pxo2tn" path="res://Assets/Png/Other Assets/Egg.png" id="6_q273r"]
+[ext_resource type="Texture2D" uid="uid://c1mi4sq4yiqwg" path="res://Assets/Png/Other Assets/Sandwich.png" id="7_wokih"]
+[ext_resource type="Texture2D" uid="uid://ce7ks0rupmf77" path="res://Assets/Png/Other Assets/Soup.png" id="8_bri8e"]
+[ext_resource type="Texture2D" uid="uid://djweyvu5hg5uo" path="res://Assets/Png/Other Assets/Bottle1.png" id="9_0d5ed"]
+[ext_resource type="Texture2D" uid="uid://mwfwn2g5ordc" path="res://Assets/Png/Other Assets/Bottle2.png" id="10_gwg1s"]
+[ext_resource type="Texture2D" uid="uid://1v35qk7r7u03" path="res://Assets/Png/Other Assets/Bottle3.png" id="11_rpsry"]
+[ext_resource type="Texture2D" uid="uid://bielsvf2u8q85" path="res://Assets/Png/Other Assets/Bottle4.png" id="12_h7wk2"]
+[ext_resource type="Texture2D" uid="uid://b5n18doik478l" path="res://Assets/Png/Other Assets/Bottle5.png" id="13_wul20"]
+[ext_resource type="Texture2D" uid="uid://txek8q5ci31e" path="res://Assets/Png/Other Assets/Bottle6.png" id="14_ibjm5"]
+
+[node name="FoodOnTable" type="Node2D" node_paths=PackedStringArray("image")]
+script = ExtResource("1_0482b")
+food_images = Array[Texture2D]([ExtResource("2_k2frx"), ExtResource("1_mgiaf"), ExtResource("4_3ie5j"), ExtResource("5_d1shi"), ExtResource("6_q273r"), ExtResource("7_wokih"), ExtResource("8_bri8e")])
+drink_images = Array[Texture2D]([ExtResource("9_0d5ed"), ExtResource("10_gwg1s"), ExtResource("11_rpsry"), ExtResource("12_h7wk2"), ExtResource("13_wul20"), ExtResource("14_ibjm5")])
+image = NodePath("Components/Cake")
+
+[node name="Components" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.3, 0.3)
+
+[node name="Cake" type="Sprite2D" parent="Components"]
+position = Vector2(33.3333, 26.6667)
+texture = ExtResource("1_mgiaf")
+
+[node name="PlayingScene" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.360784)
+position = Vector2(20, 22)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_tx55t")

@@ -26,8 +26,8 @@
 
 [node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "kitchen_nodes", "big_table_nodes", "small_table_nodes")]
 script = ExtResource("1_hm10v")
-FLOOR_WITDH = 10
-FLOOR_HEIGHT = 10
+FLOOR_WITDH = 5
+FLOOR_HEIGHT = 5
 floor_node = NodePath("Floor")
 floor_part_template = ExtResource("2_kithj")
 guest_template = ExtResource("3_yar4l")
@@ -78,7 +78,7 @@ position = Vector2(69.2931, 216.945)
 texture = ExtResource("6_77yh2")
 
 [node name="Lamp3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(33.0026, 1368.35)
+position = Vector2(29.5359, 1368.35)
 texture = ExtResource("10_yqikm")
 
 [node name="WoodWall2" type="Sprite2D" parent="Floor/Components"]

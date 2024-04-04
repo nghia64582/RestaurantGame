@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://b73bp0lys0yti"]
+[gd_scene load_steps=7 format=3 uid="uid://b73bp0lys0yti"]
 
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Table/small_table.gd" id="1_7mid7"]
 [ext_resource type="Texture2D" uid="uid://cyifqxwy0npu6" path="res://Assets/Png/Other Assets/TableSet2.png" id="1_gxttp"]
+[ext_resource type="PackedScene" uid="uid://c55xp7cmqep5n" path="res://Scenes/PlayingScene/FoodOnTable/food_on_table.tscn" id="2_oec11"]
 [ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="2_ogcnb"]
+[ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_0wt0e"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_erkad"]
 
-[node name="SmallTable" type="Node2D"]
+[node name="SmallTable" type="Node2D" node_paths=PackedStringArray("component", "guest_nodes", "food_nodes")]
+script = ExtResource("1_7mid7")
+food_template = ExtResource("2_oec11")
+guest_template = ExtResource("3_0wt0e")
+N_FOODS = 4
+N_GUESTS = 2
+component = NodePath("Component")
+guest_nodes = [NodePath("Component/GuestNode1"), NodePath("Component/GuestNode2")]
+food_nodes = [NodePath("Component/FoodNode1"), NodePath("Component/FoodNode2"), NodePath("Component/FoodNode3"), NodePath("Component/FoodNode4")]
 
 [node name="Component" type="Control" parent="."]
 layout_mode = 3
@@ -21,8 +32,27 @@ texture = ExtResource("1_gxttp")
 position = Vector2(188.147, 178.374)
 texture = ExtResource("2_ogcnb")
 
+[node name="GuestNode1" type="Node2D" parent="Component"]
+position = Vector2(16.6667, 0)
+
+[node name="GuestNode2" type="Node2D" parent="Component"]
+position = Vector2(16.6667, 206.667)
+
+[node name="FoodNode1" type="Node2D" parent="Component"]
+position = Vector2(156.667, 23.3333)
+
+[node name="FoodNode2" type="Node2D" parent="Component"]
+position = Vector2(156.667, 106.667)
+
+[node name="FoodNode3" type="Node2D" parent="Component"]
+position = Vector2(156.667, 190)
+
+[node name="FoodNode4" type="Node2D" parent="Component"]
+position = Vector2(156.667, 276.667)
+
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.341176)
-position = Vector2(130, 81)
+position = Vector2(95, 60)
+scale = Vector2(0.727218, 0.727218)
 texture = ExtResource("3_erkad")

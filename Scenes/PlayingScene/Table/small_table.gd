@@ -1,0 +1,32 @@
+extends Node2D
+
+@export var food_template: PackedScene
+@export var guest_template: PackedScene
+@export var N_FOODS: int
+@export var N_GUESTS: int
+@export var component: Control
+@export var guest_nodes: Array[Node2D] = []
+@export var food_nodes: Array[Node2D] = []
+
+func _ready():
+	init_random_foods_and_drinks()
+	init_guests()
+
+func init_random_foods_and_drinks():
+	for idx in range(N_FOODS):
+		var food = food_template.instantiate()
+		var x = food_nodes[idx].position.x * component.scale.x
+		var y = food_nodes[idx].position.y * component.scale.x
+		food.position = Vector2(x, y)
+		food.set_random_type()
+		add_child(food)
+
+		
+func init_guests():
+	for idx in range(N_GUESTS):
+		var guest = guest_template.instantiate()
+		var x = guest_nodes[idx].position.x * component.scale.x
+		var y = guest_nodes[idx].position.y * component.scale.x
+		guest.position = Vector2(x, y)
+		add_child(guest)
+

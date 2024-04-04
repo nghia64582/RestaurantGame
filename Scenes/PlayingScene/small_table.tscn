@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b73bp0lys0yti"]
+
+[ext_resource type="Texture2D" uid="uid://cyifqxwy0npu6" path="res://Assets/Png/Other Assets/TableSet2.png" id="1_gxttp"]
+[ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="2_ogcnb"]
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_erkad"]
+
+[node name="SmallTable" type="Node2D"]
+
+[node name="Component" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.3, 0.3)
+
+[node name="TableSet2" type="Sprite2D" parent="Component"]
+position = Vector2(65.9738, 175.93)
+texture = ExtResource("1_gxttp")
+
+[node name="Bubble" type="Sprite2D" parent="Component"]
+position = Vector2(188.147, 178.374)
+texture = ExtResource("2_ogcnb")
+
+[node name="PlayingScene" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.341176)
+position = Vector2(130, 81)
+texture = ExtResource("3_erkad")

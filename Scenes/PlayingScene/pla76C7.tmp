@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ds7y4q1mglbck" path="res://Scenes/PlayingScene/floor_part.tscn" id="2_kithj"]
 [ext_resource type="Texture2D" uid="uid://bv1pvurpv64sl" path="res://Assets/Png/Other Assets/DrinkBox2.png" id="2_pajla"]
 [ext_resource type="Texture2D" uid="uid://c7mtalbfwbfsn" path="res://Assets/Png/Other Assets/ShoesCarpet1.png" id="3_e6lvg"]
-[ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yar4l"]
+[ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/guest.tscn" id="3_yar4l"]
 [ext_resource type="PackedScene" uid="uid://cutvg48ivcioy" path="res://Scenes/PlayingScene/chef.tscn" id="4_ebpam"]
 [ext_resource type="Texture2D" uid="uid://blp6k383l15ag" path="res://Assets/Png/Other Assets/Stair1.png" id="4_qbml8"]
 [ext_resource type="PackedScene" uid="uid://dbf24trwvq7ak" path="res://Scenes/PlayingScene/kitchen.tscn" id="5_puifo"]
@@ -49,113 +49,113 @@ position = Vector2(119, 7)
 scale = Vector2(0.304714, 0.304714)
 
 [node name="BrownBox3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(1099.44, 32.8177)
+position = Vector2(1092.83, 26.2541)
 scale = Vector2(4.59919, 1.58828)
 texture = ExtResource("12_eghdw")
 
 [node name="Dishes" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(389.31, 203.749)
+position = Vector2(382.701, 197.949)
 texture = ExtResource("1_f7wxr")
 
 [node name="DrinkBox2" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(191.361, 197.15)
+position = Vector2(184.752, 191.35)
 texture = ExtResource("2_pajla")
 
 [node name="ShoesCarpet1" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(280.438, 919.663)
+position = Vector2(273.829, 913.863)
 texture = ExtResource("3_e6lvg")
 
 [node name="BushPot3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(65.994, 622.74)
+position = Vector2(59.3846, 616.94)
 texture = ExtResource("6_77yh2")
 
 [node name="Lamp4" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(29.7034, 467.68)
+position = Vector2(23.094, 461.88)
 texture = ExtResource("10_yqikm")
 
 [node name="BushPot4" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(69.2931, 216.945)
+position = Vector2(62.6837, 211.145)
 texture = ExtResource("6_77yh2")
 
 [node name="Lamp3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(33.0026, 1368.35)
+position = Vector2(26.3932, 1362.55)
 texture = ExtResource("10_yqikm")
 
 [node name="WoodWall2" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(-26.382, 296.125)
+position = Vector2(-32.9914, 290.325)
 texture = ExtResource("8_wid07")
 
 [node name="Stair1" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(63.2761, 919.133)
+position = Vector2(56.6667, 913.333)
 texture = ExtResource("4_qbml8")
 
 [node name="BushPot2" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(76.6094, 1165.8)
+position = Vector2(70, 1160)
 texture = ExtResource("6_77yh2")
 
 [node name="WoodWall" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(-26.7239, 1329.13)
+position = Vector2(-33.3333, 1323.33)
 texture = ExtResource("7_bwd3h")
 
 [node name="Canov3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(-76.7239, 882.467)
+position = Vector2(-83.3333, 876.667)
 texture = ExtResource("11_qw5ff")
 
 [node name="BrownBox2" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(1253.68, 164.159)
+position = Vector2(1247.07, 158.359)
 texture = ExtResource("12_eghdw")
 
 [node name="OpenBox2" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(-146.724, 1255.8)
+position = Vector2(-153.333, 1250)
 texture = ExtResource("9_3y2pe")
 
 [node name="DrinkBox3" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(1086.31, 243.338)
+position = Vector2(1079.7, 237.538)
 texture = ExtResource("13_3qio8")
 
 [node name="DonutsDisplay" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(1404.64, 243.338)
+position = Vector2(1398.03, 237.538)
 texture = ExtResource("14_x6jox")
 
 [node name="CakeTable" type="Sprite2D" parent="Floor/Components"]
-position = Vector2(1230.71, 243.338)
+position = Vector2(1224.1, 237.538)
 texture = ExtResource("15_k7k2u")
 
 [node name="KitchenNode1" type="Node2D" parent="Floor/Components"]
-position = Vector2(521.275, 68.4841)
+position = Vector2(514.666, 62.6837)
 
 [node name="KitchenNode2" type="Node2D" parent="Floor/Components"]
-position = Vector2(772.01, 68.4841)
+position = Vector2(765.401, 62.6837)
 
 [node name="KitchenNode3" type="Node2D" parent="Floor/Components"]
-position = Vector2(1504.42, 68.4841)
+position = Vector2(1497.81, 62.6837)
 
 [node name="KitchenNode4" type="Node2D" parent="Floor/Components"]
-position = Vector2(1758.46, 68.4841)
+position = Vector2(1751.85, 62.6837)
 
 [node name="BigTableNode3" type="Node2D" parent="Floor/Components"]
-position = Vector2(798.404, 1078.02)
+position = Vector2(791.795, 1072.22)
 
 [node name="BigTableNode4" type="Node2D" parent="Floor/Components"]
-position = Vector2(1247.09, 1074.72)
+position = Vector2(1240.48, 1068.92)
 
 [node name="SmallTableNode1" type="Node2D" parent="Floor/Components"]
-position = Vector2(465.19, 533.663)
+position = Vector2(458.581, 527.863)
 
 [node name="SmallTableNode2" type="Node2D" parent="Floor/Components"]
-position = Vector2(1692.47, 533.663)
+position = Vector2(1685.86, 527.863)
 
 [node name="SmallTableNode3" type="Node2D" parent="Floor/Components"]
-position = Vector2(465.19, 1081.32)
+position = Vector2(458.581, 1075.52)
 
 [node name="SmallTableNode4" type="Node2D" parent="Floor/Components"]
-position = Vector2(1689.17, 1078.02)
+position = Vector2(1682.56, 1072.22)
 
 [node name="BigTableNode1" type="Node2D" parent="Floor/Components"]
-position = Vector2(798.404, 530.364)
+position = Vector2(791.795, 524.564)
 
 [node name="BigTableNode2" type="Node2D" parent="Floor/Components"]
-position = Vector2(1247.09, 530.364)
+position = Vector2(1240.48, 524.564)
 
 [node name="PlayingScene" type="Sprite2D" parent="Floor"]
 visible = false

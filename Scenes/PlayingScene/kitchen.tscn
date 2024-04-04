@@ -11,7 +11,7 @@ anchors_preset = 0
 
 [node name="components" type="Control" parent="."]
 anchors_preset = 0
-scale = Vector2(0.402433, 0.402433)
+scale = Vector2(0.3, 0.3)
 
 [node name="KitchenSet" type="Sprite2D" parent="components"]
 position = Vector2(114.5, 34.7267)
@@ -26,6 +26,7 @@ position = Vector2(94.7272, 232.53)
 texture = ExtResource("3_7dlvn")
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.313726)
 position = Vector2(108, 264)
 texture = ExtResource("3_v7tay")

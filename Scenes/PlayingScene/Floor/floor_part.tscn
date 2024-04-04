@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds7y4q1mglbck"]
 
-[ext_resource type="Script" path="res://Scenes/PlayingScene/floor_part.gd" id="1_i4grq"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Floor/floor_part.gd" id="1_i4grq"]
 [ext_resource type="Texture2D" uid="uid://c65ekmrdnaxei" path="res://Assets/Png/Floor/15.png" id="2_sl4e5"]
 
 [node name="FloorPart" type="Node2D" node_paths=PackedStringArray("brick_image")]

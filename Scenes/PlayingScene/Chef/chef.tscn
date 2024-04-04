@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cutvg48ivcioy"]
+
+[ext_resource type="Texture2D" uid="uid://crak16xa36wsl" path="res://Assets/Png/Characters/Chef/WaitForOrder1/WaitForOrder1_00.png" id="1_5ig8e"]
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="2_7mvrt"]
+
+[node name="Chef" type="Node"]
+
+[node name="Components" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.47934, 0.47934)
+
+[node name="WaitForOrder100" type="Sprite2D" parent="Components"]
+position = Vector2(125, 125)
+texture = ExtResource("1_5ig8e")
+
+[node name="PlayingScene" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.337255)
+position = Vector2(119, 315)
+texture = ExtResource("2_7mvrt")

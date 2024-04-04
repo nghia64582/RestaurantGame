@@ -3,18 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
 [ext_resource type="Script" path="res://Scenes/PlayingScene/playing_scene.gd" id="1_hm10v"]
-[ext_resource type="PackedScene" uid="uid://ds7y4q1mglbck" path="res://Scenes/PlayingScene/floor_part.tscn" id="2_kithj"]
+[ext_resource type="PackedScene" uid="uid://ds7y4q1mglbck" path="res://Scenes/PlayingScene/Floor/floor_part.tscn" id="2_kithj"]
 [ext_resource type="Texture2D" uid="uid://bv1pvurpv64sl" path="res://Assets/Png/Other Assets/DrinkBox2.png" id="2_pajla"]
 [ext_resource type="Texture2D" uid="uid://c7mtalbfwbfsn" path="res://Assets/Png/Other Assets/ShoesCarpet1.png" id="3_e6lvg"]
 [ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yar4l"]
-[ext_resource type="PackedScene" uid="uid://cutvg48ivcioy" path="res://Scenes/PlayingScene/chef.tscn" id="4_ebpam"]
+[ext_resource type="PackedScene" uid="uid://cutvg48ivcioy" path="res://Scenes/PlayingScene/Chef/chef.tscn" id="4_ebpam"]
 [ext_resource type="Texture2D" uid="uid://blp6k383l15ag" path="res://Assets/Png/Other Assets/Stair1.png" id="4_qbml8"]
-[ext_resource type="PackedScene" uid="uid://dbf24trwvq7ak" path="res://Scenes/PlayingScene/kitchen.tscn" id="5_puifo"]
+[ext_resource type="PackedScene" uid="uid://dbf24trwvq7ak" path="res://Scenes/PlayingScene/Kitchen/kitchen.tscn" id="5_puifo"]
 [ext_resource type="Texture2D" uid="uid://boyd50duiklx2" path="res://Assets/Png/Other Assets/BushPot2.png" id="6_77yh2"]
 [ext_resource type="PackedScene" uid="uid://dgix3fjkikbgc" path="res://Scenes/PlayingScene/waiter.tscn" id="6_kqpna"]
-[ext_resource type="PackedScene" uid="uid://cblonxfdlktg8" path="res://Scenes/PlayingScene/big_table.tscn" id="7_4re7p"]
+[ext_resource type="PackedScene" uid="uid://cblonxfdlktg8" path="res://Scenes/PlayingScene/Table/big_table.tscn" id="7_4re7p"]
 [ext_resource type="Texture2D" uid="uid://bp8ca3rfrn1b4" path="res://Assets/Png/Other Assets/WoodWall.png" id="7_bwd3h"]
-[ext_resource type="PackedScene" uid="uid://b73bp0lys0yti" path="res://Scenes/PlayingScene/small_table.tscn" id="8_cevus"]
+[ext_resource type="PackedScene" uid="uid://b73bp0lys0yti" path="res://Scenes/PlayingScene/Table/small_table.tscn" id="8_cevus"]
 [ext_resource type="Texture2D" uid="uid://b8mg4tis6pxrx" path="res://Assets/Png/Other Assets/WoodWall2.png" id="8_wid07"]
 [ext_resource type="Texture2D" uid="uid://bgs1eb2vqlk1t" path="res://Assets/Png/Other Assets/OpenBox2.png" id="9_3y2pe"]
 [ext_resource type="Texture2D" uid="uid://b7tocf55h33ai" path="res://Assets/Png/Other Assets/Lamp3.png" id="10_yqikm"]
@@ -169,5 +169,12 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 1000)
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CheatButton" type="ColorRect" parent="."]
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 90.0
+offset_bottom = 60.0
+color = Color(0.320746, 0.716031, 0.874617, 1)
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]

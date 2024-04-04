@@ -2,6 +2,7 @@ extends Node
 
 var state
 var sprite_idx = 0
+@export var image: Sprite2D
 @export_group("Angry 1 images")
 @export var angry_1_images: Array[Texture2D] = []
 @export_group("Angry 2 images")
@@ -42,10 +43,45 @@ var sprite_idx = 0
 @export var waiting_for_food_3_images: Array[Texture2D] = []
 
 func _ready():
-	pass
+	state = GuestConst.STATE.BACK_VIEW
+	sprite_idx = -1
 
 func _process(delta):
-	pass
+	sprite_idx += 1
+	var textures = get_textures_of_state()
+	if sprite_idx / 1 >= len(textures):
+		sprite_idx = 0
+		state += 1
+		if state > GuestConst.STATE.WAITING_FOR_THE_FOOD:
+			state = GuestConst.STATE.ANGRY
+	image.texture = textures[sprite_idx / 1]
 
 func set_state(new_state):
 	state = new_state
+
+func get_textures_of_state():
+	if state == GuestConst.STATE.ANGRY:
+		return angry_1_images
+	if state == GuestConst.STATE.BACK_VIEW:
+		return back_view_1_images
+	if state == GuestConst.STATE.BORED:
+		return bored_1_images
+	if state == GuestConst.STATE.CALL_WAITER:
+		return call_waiter_images
+	if state == GuestConst.STATE.DRINK:
+		return drink_images
+	if state == GuestConst.STATE.EAT:
+		return eat_images
+	if state == GuestConst.STATE.READ_MENU:
+		return read_menu_images
+	if state == GuestConst.STATE.SATISFIED:
+		return satisfied_1_images
+	if state == GuestConst.STATE.STAND_AND_ANGRY:
+		return stand_and_angry_images
+	if state == GuestConst.STATE.STAND_AND_BORED:
+		return stand_and_bored_images
+	if state == GuestConst.STATE.STAND_AND_WAIT:
+		return stand_and_wait_images
+	if state == GuestConst.STATE.WAITING_FOR_THE_FOOD:
+		return waiting_for_food_1_images
+		

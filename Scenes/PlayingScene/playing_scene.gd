@@ -34,6 +34,7 @@ func _ready():
 	init_kitchens()
 	init_big_tables()
 	init_small_tables()
+	init_guests()
 	
 func init_floor():
 	for row in range(FLOOR_HEIGHT):
@@ -71,7 +72,13 @@ func init_small_tables():
 		small_table.position = Vector2(x, y)
 		small_tables.append(small_table)
 		floor_node.add_child(small_table)
-		
+
+func init_guests():
+	var guest = guest_template.instantiate()
+	guest.position = Vector2(100, 100)
+	guests.append(guest)
+	floor_node.add_child(guest)
+	
 func get_floor_scale():
 	return component_node.scale.x
 	

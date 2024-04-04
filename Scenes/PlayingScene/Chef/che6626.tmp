@@ -135,14 +135,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.425995, 0.425995)
+scale = Vector2(0.47934, 0.47934)
 
 [node name="WaitForOrder100" type="Sprite2D" parent="Components"]
-position = Vector2(56.3387, 65.7285)
+position = Vector2(125, 125)
 texture = ExtResource("1_5ig8e")
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.337255)
-position = Vector2(76, 256)
+position = Vector2(119, 315)
 texture = ExtResource("2_7mvrt")

@@ -785,7 +785,7 @@
 
 [node name="Guest" type="Node2D" node_paths=PackedStringArray("image")]
 script = ExtResource("1_5hwp8")
-image = NodePath("Control/Angry0100")
+image = NodePath("Components/Angry0100")
 angry_1_images = Array[Texture2D]([ExtResource("2_n3e7t"), ExtResource("3_wikvc"), ExtResource("4_4njif"), ExtResource("5_2m2er"), ExtResource("6_wlw83"), ExtResource("7_ics7k"), ExtResource("8_sxg81"), ExtResource("9_37eui"), ExtResource("10_5ou4d"), ExtResource("11_4hboj")])
 angry_2_images = Array[Texture2D]([ExtResource("12_gqd5h"), ExtResource("13_mear5"), ExtResource("14_q8aqt"), ExtResource("15_p1txb"), ExtResource("16_oc1rx"), ExtResource("17_8ap6t"), ExtResource("18_yau1r"), ExtResource("19_h2od5"), ExtResource("20_lek1c"), ExtResource("21_be0km")])
 back_view_1_images = Array[Texture2D]([ExtResource("22_st407"), ExtResource("23_tdcpx"), ExtResource("24_p1hmj"), ExtResource("25_0kuk0"), ExtResource("26_2eqan"), ExtResource("27_1a12c"), ExtResource("28_dexnf"), ExtResource("29_x8qs6"), ExtResource("30_p2ilp"), ExtResource("31_h6btl"), ExtResource("32_36vuy"), ExtResource("33_2xumx"), ExtResource("34_1a61b"), ExtResource("35_7qrjc"), ExtResource("36_db16s"), ExtResource("37_niieo"), ExtResource("38_m7dvn"), ExtResource("39_xuqlp"), ExtResource("40_ac4nk"), ExtResource("41_ss2ct"), ExtResource("42_7p32l"), ExtResource("43_q5ehu"), ExtResource("44_bke62"), ExtResource("45_sores"), ExtResource("46_ytfb4"), ExtResource("47_bpp1v"), ExtResource("48_wklov"), ExtResource("49_vvj8j"), ExtResource("50_lhuyu"), ExtResource("51_dil2k"), ExtResource("52_mnpc7"), ExtResource("53_5rkm3"), ExtResource("54_e5p4t"), ExtResource("55_7nfq2"), ExtResource("56_85otg"), ExtResource("57_xx4dh"), ExtResource("58_go1c8"), ExtResource("59_hyyfd"), ExtResource("60_isfmx"), ExtResource("61_oyukv")])
@@ -806,14 +806,14 @@ waiting_for_food_1_images = Array[Texture2D]([ExtResource("652_awlb8"), ExtResou
 waiting_for_food_2_images = Array[Texture2D]([ExtResource("692_voo0q"), ExtResource("693_pb0st"), ExtResource("694_blrfy"), ExtResource("695_cd2qo"), ExtResource("696_ang8y"), ExtResource("697_ckd5k"), ExtResource("698_dcqfq"), ExtResource("699_61bur"), ExtResource("700_6710h"), ExtResource("701_38wk8"), ExtResource("702_5an50"), ExtResource("703_fqdh5"), ExtResource("704_swyuv"), ExtResource("705_1jpti"), ExtResource("706_ebnui"), ExtResource("707_wt4dk"), ExtResource("708_eq8l4"), ExtResource("709_kary6"), ExtResource("710_8p12d"), ExtResource("711_rjtii"), ExtResource("712_i7nl2"), ExtResource("713_rfkok"), ExtResource("714_fjdem"), ExtResource("715_q3tnx"), ExtResource("716_5hnfp"), ExtResource("717_wgxbg"), ExtResource("718_j3t5w"), ExtResource("719_aknpc"), ExtResource("720_xadf1"), ExtResource("721_nds3n"), ExtResource("722_fra0c"), ExtResource("723_nm0vu"), ExtResource("724_e0xgm"), ExtResource("725_hcspi"), ExtResource("726_sc4dl"), ExtResource("727_hw87l"), ExtResource("728_l8665"), ExtResource("729_1q71b"), ExtResource("730_37bup"), ExtResource("731_u12ej"), ExtResource("732_0ovth"), ExtResource("733_5kp4e"), ExtResource("734_2e8nt"), ExtResource("735_hpcwv"), ExtResource("736_fgrrs"), ExtResource("737_g5ial"), ExtResource("738_sthoe"), ExtResource("739_3s6ep"), ExtResource("740_fnff8"), ExtResource("741_wvyru")])
 waiting_for_food_3_images = Array[Texture2D]([ExtResource("742_ouxfd"), ExtResource("743_7q2cw"), ExtResource("744_pjp6g"), ExtResource("745_ba0sv"), ExtResource("746_4bevv"), ExtResource("747_mx8ja"), ExtResource("748_sys5a"), ExtResource("749_6mol4"), ExtResource("750_ujso3"), ExtResource("751_l6wmh"), ExtResource("752_qfo3k"), ExtResource("753_w8ghd"), ExtResource("754_yjw1r"), ExtResource("755_nk11v"), ExtResource("756_ifxjh"), ExtResource("757_j3sqo"), ExtResource("758_3pq0u"), ExtResource("759_3hnjf"), ExtResource("760_0hqh3"), ExtResource("761_e5hqc"), ExtResource("762_n0e14"), ExtResource("763_ygo4m"), ExtResource("764_3wtlm"), ExtResource("765_d1l0h"), ExtResource("766_j768i"), ExtResource("767_q8qfw"), ExtResource("768_3b4wd"), ExtResource("769_c3sos"), ExtResource("770_g1bjr"), ExtResource("771_8wiq4"), ExtResource("772_vapwr"), ExtResource("773_ifjd1"), ExtResource("774_s6uv4"), ExtResource("775_imtpf"), ExtResource("776_m5r44"), ExtResource("777_cjmwb"), ExtResource("778_dwvsn"), ExtResource("779_ngede"), ExtResource("780_xkdq1"), ExtResource("781_xi4ox")])
 
-[node name="Control" type="Control" parent="."]
+[node name="Components" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.408784, 0.408784)
 
-[node name="Angry0100" type="Sprite2D" parent="Control"]
+[node name="Angry0100" type="Sprite2D" parent="Components"]
 position = Vector2(61.1571, 66.0496)
 texture = ExtResource("2_n3e7t")
 

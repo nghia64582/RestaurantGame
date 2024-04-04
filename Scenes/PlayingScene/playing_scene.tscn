@@ -97,6 +97,18 @@ texture = ExtResource("6_77yh2")
 position = Vector2(-26.7239, 1329.13)
 texture = ExtResource("7_bwd3h")
 
+[node name="WoodWall3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 1772.15)
+texture = ExtResource("7_bwd3h")
+
+[node name="WoodWall4" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 2208.63)
+texture = ExtResource("7_bwd3h")
+
+[node name="WoodWall5" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 2645.1)
+texture = ExtResource("7_bwd3h")
+
 [node name="Canov3" type="Sprite2D" parent="Floor/Components"]
 position = Vector2(-76.7239, 882.467)
 texture = ExtResource("11_qw5ff")

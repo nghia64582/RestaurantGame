@@ -28,13 +28,14 @@ var kitchens = []
 var big_tables = []
 var small_tables = []
 var guests = []
+var waiters = []
 
 func _ready():
 	init_floor()
 	init_kitchens()
 	init_big_tables()
 	init_small_tables()
-	init_guests()
+	init_waiter()
 	
 func init_floor():
 	for row in range(FLOOR_HEIGHT):
@@ -73,12 +74,12 @@ func init_small_tables():
 		small_tables.append(small_table)
 		floor_node.add_child(small_table)
 
-func init_guests():
-	var guest = guest_template.instantiate()
-	guest.position = Vector2(100, 100)
-	guests.append(guest)
-	floor_node.add_child(guest)
-	
+func init_waiter():
+	var waiter = waiter_template.instantiate()
+	waiter.position = Vector2(100, 100)
+	waiters.append(waiter)
+	floor_node.add_child(waiter)
+
 func get_floor_scale():
 	return component_node.scale.x
 	

@@ -3,7 +3,9 @@ extends Node2D
 
 @export var FLOOR_WITDH: int
 @export var FLOOR_HEIGHT: int
+@export var N_SIDE_WALK_BRICKS: int
 @export var floor_node: Node2D
+@export var side_walk_brick_template: PackedScene
 @export var floor_part_template: PackedScene
 @export var guest_template: PackedScene
 @export var chef_template: PackedScene
@@ -12,6 +14,7 @@ extends Node2D
 @export var big_table_template: PackedScene
 @export var small_table_template: PackedScene
 @export var component_node: Node2D
+@export var side_walk_node: Node2D
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -46,6 +49,13 @@ func init_floor():
 			floor_brick.position = Vector2(x, y)
 			floor_brick.z_index = -1
 			floor_node.add_child(floor_brick)
+	for idx in range(N_SIDE_WALK_BRICKS):
+		var side_walk_brick = side_walk_brick_template.instantiate()
+		var x = 0
+		var y = idx * side_walk_brick.get_height()
+		side_walk_brick.position = Vector2(x, y)
+		side_walk_brick.z_index = -1
+		side_walk_node.add_child(side_walk_brick)
 
 func init_kitchens():
 	for idx in range(N_KITCHENS):

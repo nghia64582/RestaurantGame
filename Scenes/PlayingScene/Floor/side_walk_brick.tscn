@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdmkhd1a8ojlr"]
+
+[ext_resource type="Texture2D" uid="uid://d32vavbpjcumf" path="res://Assets/Png/Floor/01.png" id="1_6kfby"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Floor/side_walk_brick.gd" id="1_hcs1b"]
+
+[node name="SideWalkBrick" type="Node2D" node_paths=PackedStringArray("image")]
+script = ExtResource("1_hcs1b")
+image = NodePath("01")
+
+[node name="01" type="Sprite2D" parent="."]
+position = Vector2(66, 65)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_6kfby")

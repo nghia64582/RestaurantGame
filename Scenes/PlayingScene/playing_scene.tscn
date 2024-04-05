@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://bxqjd0mpyns22"]
+[gd_scene load_steps=25 format=3 uid="uid://bxqjd0mpyns22"]
 
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
 [ext_resource type="Script" path="res://Scenes/PlayingScene/playing_scene.gd" id="1_hm10v"]
 [ext_resource type="PackedScene" uid="uid://ds7y4q1mglbck" path="res://Scenes/PlayingScene/Floor/floor_part.tscn" id="2_kithj"]
+[ext_resource type="PackedScene" uid="uid://bdmkhd1a8ojlr" path="res://Scenes/PlayingScene/Floor/side_walk_brick.tscn" id="2_m0r4i"]
 [ext_resource type="Texture2D" uid="uid://bv1pvurpv64sl" path="res://Assets/Png/Other Assets/DrinkBox2.png" id="2_pajla"]
 [ext_resource type="Texture2D" uid="uid://c7mtalbfwbfsn" path="res://Assets/Png/Other Assets/ShoesCarpet1.png" id="3_e6lvg"]
 [ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yar4l"]
@@ -24,11 +25,13 @@
 [ext_resource type="Texture2D" uid="uid://bat4xrybrm0t2" path="res://Assets/Png/Other Assets/DonutsDisplay.png" id="14_x6jox"]
 [ext_resource type="Texture2D" uid="uid://da1ybutt1342w" path="res://Assets/Png/Other Assets/CakeTable.png" id="15_k7k2u"]
 
-[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "kitchen_nodes", "big_table_nodes", "small_table_nodes")]
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "kitchen_nodes", "big_table_nodes", "small_table_nodes")]
 script = ExtResource("1_hm10v")
 FLOOR_WITDH = 5
 FLOOR_HEIGHT = 5
+N_SIDE_WALK_BRICKS = 5
 floor_node = NodePath("Floor")
+side_walk_brick_template = ExtResource("2_m0r4i")
 floor_part_template = ExtResource("2_kithj")
 guest_template = ExtResource("3_yar4l")
 chef_template = ExtResource("4_ebpam")
@@ -37,6 +40,7 @@ waiter_template = ExtResource("6_kqpna")
 big_table_template = ExtResource("7_4re7p")
 small_table_template = ExtResource("8_cevus")
 component_node = NodePath("Floor/Components")
+side_walk_node = NodePath("Floor/SideWalkNode")
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 big_table_nodes = [NodePath("Floor/Components/BigTableNode1"), NodePath("Floor/Components/BigTableNode2"), NodePath("Floor/Components/BigTableNode3"), NodePath("Floor/Components/BigTableNode4")]
 small_table_nodes = [NodePath("Floor/Components/SmallTableNode1"), NodePath("Floor/Components/SmallTableNode2"), NodePath("Floor/Components/SmallTableNode3"), NodePath("Floor/Components/SmallTableNode4")]
@@ -46,7 +50,7 @@ z_index = -1
 position = Vector2(119, 7)
 
 [node name="Components" type="Node2D" parent="Floor"]
-scale = Vector2(0.304714, 0.304714)
+scale = Vector2(0.3, 0.3)
 
 [node name="BrownBox3" type="Sprite2D" parent="Floor/Components"]
 position = Vector2(1099.44, 32.8177)
@@ -168,6 +172,9 @@ position = Vector2(798.404, 530.364)
 
 [node name="BigTableNode2" type="Node2D" parent="Floor/Components"]
 position = Vector2(1247.09, 530.364)
+
+[node name="SideWalkNode" type="Node2D" parent="Floor"]
+position = Vector2(-118, -6)
 
 [node name="PlayingScene" type="Sprite2D" parent="Floor"]
 visible = false

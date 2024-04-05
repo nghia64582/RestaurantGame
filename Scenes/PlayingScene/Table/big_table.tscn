@@ -33,10 +33,10 @@ position = Vector2(304.301, 179.667)
 texture = ExtResource("2_et64g")
 
 [node name="GuestNode1" type="Node2D" parent="Components"]
-position = Vector2(36.6667, 0)
+position = Vector2(36.6667, -43.3334)
 
 [node name="GuestNode2" type="Node2D" parent="Components"]
-position = Vector2(150, 0)
+position = Vector2(150, -43.3334)
 
 [node name="GuestNode3" type="Node2D" parent="Components"]
 position = Vector2(36.6667, 216.667)

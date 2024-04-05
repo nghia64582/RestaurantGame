@@ -29,6 +29,8 @@ func init_guests():
 		var y = guest_nodes[idx].position.y * component.scale.x
 		guest.position = Vector2(x, y)
 		add_child(guest)
+		if idx < N_GUESTS / 2:
+			guest.z_index = -1
 
 func update_z_order():
 	z_index = global_position.y

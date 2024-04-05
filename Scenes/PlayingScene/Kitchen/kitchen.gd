@@ -6,8 +6,14 @@ extends Control
 var main_chef
 
 func _ready():
+	update_z_order()
 	main_chef = chef_template.instantiate()
 	var x = chef_node.position.x * components.scale.x
 	var y = chef_node.position.y * components.scale.x
 	main_chef.position = Vector2(x, y)
+	main_chef.z_index = 1
 	add_child(main_chef)
+
+func update_z_order():
+	z_index = position.y
+	print("Z index kitchen = ", z_index)

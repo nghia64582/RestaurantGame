@@ -24,13 +24,16 @@ position = Vector2(114.5, 34.7267)
 texture = ExtResource("1_6qkhf")
 
 [node name="ChefNode" type="Node2D" parent="components"]
+z_index = 1
 position = Vector2(76.6667, 16.6667)
 
 [node name="FTable5" type="Sprite2D" parent="components"]
+z_index = 2
 position = Vector2(117.261, 166)
 texture = ExtResource("2_lpep0")
 
 [node name="Display3" type="Sprite2D" parent="components"]
+z_index = 3
 position = Vector2(70, 243.333)
 texture = ExtResource("3_7dlvn")
 

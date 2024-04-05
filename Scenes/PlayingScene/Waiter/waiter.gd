@@ -29,6 +29,7 @@ var sprite_idx = -1
 var state
 
 func _ready():
+	update_z_order()
 	sprite_idx = -1
 	state = WaiterConst.STATE.GET_ORDER
 	
@@ -66,3 +67,7 @@ func get_textures_of_state():
 	if state == WaiterConst.STATE.WALK_SIDE_WITH_PLATE:
 		return walk_side_with_plate_images
 	print(state)
+
+func update_z_order():
+	z_index = position.y + image.get_rect().size.y
+	print("Z index = ", z_index)

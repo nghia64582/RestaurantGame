@@ -9,6 +9,7 @@ extends Node2D
 @export var food_nodes: Array[Node2D] = []
 
 func _ready():
+	update_z_order()
 	init_random_foods_and_drinks()
 	init_guests()
 
@@ -29,3 +30,6 @@ func init_guests():
 		guest.position = Vector2(x, y)
 		add_child(guest)
 
+func update_z_order():
+	z_index = position.y
+	print("Z index big table = ", z_index)

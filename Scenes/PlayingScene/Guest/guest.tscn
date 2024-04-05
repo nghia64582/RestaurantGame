@@ -785,7 +785,7 @@
 
 [node name="Guest" type="Node2D" node_paths=PackedStringArray("image")]
 script = ExtResource("1_5hwp8")
-image = NodePath("Components/Angry0100")
+image = NodePath("Components/Image")
 angry_1_images = Array[Texture2D]([ExtResource("2_n3e7t"), ExtResource("3_wikvc"), ExtResource("4_4njif"), ExtResource("5_2m2er"), ExtResource("6_wlw83"), ExtResource("7_ics7k"), ExtResource("8_sxg81"), ExtResource("9_37eui"), ExtResource("10_5ou4d"), ExtResource("11_4hboj")])
 angry_2_images = Array[Texture2D]([ExtResource("12_gqd5h"), ExtResource("13_mear5"), ExtResource("14_q8aqt"), ExtResource("15_p1txb"), ExtResource("16_oc1rx"), ExtResource("17_8ap6t"), ExtResource("18_yau1r"), ExtResource("19_h2od5"), ExtResource("20_lek1c"), ExtResource("21_be0km")])
 back_view_1_images = Array[Texture2D]([ExtResource("22_st407"), ExtResource("23_tdcpx"), ExtResource("24_p1hmj"), ExtResource("25_0kuk0"), ExtResource("26_2eqan"), ExtResource("27_1a12c"), ExtResource("28_dexnf"), ExtResource("29_x8qs6"), ExtResource("30_p2ilp"), ExtResource("31_h6btl"), ExtResource("32_36vuy"), ExtResource("33_2xumx"), ExtResource("34_1a61b"), ExtResource("35_7qrjc"), ExtResource("36_db16s"), ExtResource("37_niieo"), ExtResource("38_m7dvn"), ExtResource("39_xuqlp"), ExtResource("40_ac4nk"), ExtResource("41_ss2ct"), ExtResource("42_7p32l"), ExtResource("43_q5ehu"), ExtResource("44_bke62"), ExtResource("45_sores"), ExtResource("46_ytfb4"), ExtResource("47_bpp1v"), ExtResource("48_wklov"), ExtResource("49_vvj8j"), ExtResource("50_lhuyu"), ExtResource("51_dil2k"), ExtResource("52_mnpc7"), ExtResource("53_5rkm3"), ExtResource("54_e5p4t"), ExtResource("55_7nfq2"), ExtResource("56_85otg"), ExtResource("57_xx4dh"), ExtResource("58_go1c8"), ExtResource("59_hyyfd"), ExtResource("60_isfmx"), ExtResource("61_oyukv")])
@@ -813,7 +813,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.3, 0.3)
 
-[node name="Angry0100" type="Sprite2D" parent="Components"]
+[node name="Image" type="Sprite2D" parent="Components"]
 position = Vector2(61.1571, 66.0496)
 texture = ExtResource("2_n3e7t")
 

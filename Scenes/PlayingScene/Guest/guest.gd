@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var state
 var sprite_idx = 0
@@ -43,6 +43,7 @@ var sprite_idx = 0
 @export var waiting_for_food_3_images: Array[Texture2D] = []
 
 func _ready():
+	update_z_order()
 	state = GuestConst.STATE.BACK_VIEW
 	sprite_idx = -1
 
@@ -84,4 +85,7 @@ func get_textures_of_state():
 		return stand_and_wait_images
 	if state == GuestConst.STATE.WAITING_FOR_THE_FOOD:
 		return waiting_for_food_1_images
-		
+
+func update_z_order():
+	z_index = position.y
+	print("Z index guest = ", z_index)

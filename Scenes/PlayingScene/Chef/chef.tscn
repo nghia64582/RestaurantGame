@@ -135,7 +135,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.425995, 0.425995)
+scale = Vector2(0.3, 0.3)
 
 [node name="WaitForOrder100" type="Sprite2D" parent="Components"]
 position = Vector2(56.3387, 65.7285)

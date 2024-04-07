@@ -89,7 +89,8 @@ func init_waiter():
 	waiter.update_position(400, 400)
 	waiters.append(waiter)
 	floor_node.add_child(waiter)
-	waiter.add_point(Vector2(150, 150))
+	for idx in range(4):
+		waiter.add_point(Vector2(randi_range(150, 400), randi_range(150, 400)))
 
 func get_floor_scale():
 	return component_node.scale.x

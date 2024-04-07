@@ -20,6 +20,7 @@ func init_random_foods_and_drinks():
 		var y = food_nodes[idx].position.y * component.scale.x
 		food.position = Vector2(x, y)
 		food.set_random_type()
+		food.z_index = 4096
 		add_child(food)
 		
 func init_guests():

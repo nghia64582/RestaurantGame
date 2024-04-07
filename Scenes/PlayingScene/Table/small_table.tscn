@@ -29,14 +29,9 @@ position = Vector2(65.9738, 175.93)
 texture = ExtResource("1_gxttp")
 
 [node name="Bubble" type="Sprite2D" parent="Component"]
+z_index = 4092
 position = Vector2(188.147, 178.374)
 texture = ExtResource("2_ogcnb")
-
-[node name="GuestNode1" type="Node2D" parent="Component"]
-position = Vector2(16.6667, -43.3333)
-
-[node name="GuestNode2" type="Node2D" parent="Component"]
-position = Vector2(16.6667, 206.667)
 
 [node name="FoodNode1" type="Node2D" parent="Component"]
 position = Vector2(156.667, 23.3333)
@@ -49,6 +44,12 @@ position = Vector2(156.667, 190)
 
 [node name="FoodNode4" type="Node2D" parent="Component"]
 position = Vector2(156.667, 276.667)
+
+[node name="GuestNode1" type="Node2D" parent="Component"]
+position = Vector2(16.6667, -43.3333)
+
+[node name="GuestNode2" type="Node2D" parent="Component"]
+position = Vector2(16.6667, 206.667)
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false

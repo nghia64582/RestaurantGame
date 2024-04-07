@@ -29,6 +29,7 @@ position = Vector2(130.667, 174.776)
 texture = ExtResource("1_sbjqs")
 
 [node name="Bubble" type="Sprite2D" parent="Components"]
+z_index = 4092
 position = Vector2(304.301, 179.667)
 texture = ExtResource("2_et64g")
 

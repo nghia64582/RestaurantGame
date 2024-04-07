@@ -29,7 +29,7 @@ var sprite_idx = -1
 var state
 # for moving path
 var cur_direction
-var speed = 50 # pixel per second
+var speed = 150 # pixel per second
 var list_points = []
 
 func _ready():

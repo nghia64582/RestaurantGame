@@ -27,22 +27,57 @@ extends Node2D
 
 var sprite_idx = -1
 var state
+# for moving path
+var target = Vector2()
+var next_target = Vector2()
+var cur_direction
+var speed = 100 # pixel per second
+var list_points = []
 
 func _ready():
 	update_z_order()
 	sprite_idx = -1
-	state = WaiterConst.STATE.GET_ORDER
+	state = WaiterConst.STATE.IDLE
 	
 func _process(delta):
+	update_sprite()
+	update_state()
+	check_and_move(delta)
+	
+func update_state():
+	state = get_cur_state()
+
+func get_cur_state():
+	if cur_direction == null or cur_direction == GameConst.DIRECT.NONE:
+		return WaiterConst.STATE.IDLE
+	scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
+	if cur_direction == GameConst.DIRECT.RIGHT or\
+		cur_direction == GameConst.DIRECT.LEFT:
+		return WaiterConst.STATE.WALK_SIDE
+	if cur_direction == GameConst.DIRECT.UP:
+		return WaiterConst.STATE.WALK_BACK
+	if cur_direction == GameConst.DIRECT.DOWN:
+		return WaiterConst.STATE.WALK_FRONT
+	return WaiterConst.STATE.IDLE
+
+func update_sprite():
 	sprite_idx += 1
 	var textures = get_textures_of_state()
 	if sprite_idx / 1 >= len(textures):
 		sprite_idx = 0
-		state += 1
-		if state > WaiterConst.STATE.WALK_SIDE_WITH_PLATE:
-			state = WaiterConst.STATE.GET_ORDER
 	image.texture = textures[sprite_idx / 1]
 	
+func check_and_move(delta):
+	if cur_direction == GameConst.DIRECT.NONE or cur_direction == null:
+		return
+	if position.distance_to(next_target) < GameConst.MIN_DIRECT:
+		position = next_target
+		update_next_target_and_direction()
+	else:
+		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
+		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
+		position = Vector2(x, y)
+
 func get_textures_of_state():
 	if state == WaiterConst.STATE.GET_ORDER:
 		return get_order_images
@@ -71,3 +106,24 @@ func get_textures_of_state():
 func update_z_order():
 	z_index = position.y + image.get_rect().size.y
 	print("Z index = ", z_index)
+
+func update_next_target_and_direction():
+	if target.distance_to(position) < GameConst.MIN_DIRECT:
+		cur_direction = GameConst.DIRECT.NONE
+		return
+	if target.x == position.x:
+		if target.y < position.y:
+			cur_direction = GameConst.DIRECT.UP
+		else:
+			cur_direction = GameConst.DIRECT.DOWN
+		next_target = target
+	else:
+		if target.x < position.x:
+			cur_direction = GameConst.DIRECT.LEFT
+		else:
+			cur_direction = GameConst.DIRECT.RIGHT
+		next_target = Vector2(target.x, position.y)
+	
+func update_target(pos):
+	target = pos
+	update_next_target_and_direction()

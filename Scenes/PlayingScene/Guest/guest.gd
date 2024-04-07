@@ -52,9 +52,10 @@ func _process(delta):
 	var textures = get_textures_of_state()
 	if sprite_idx / 1 >= len(textures):
 		sprite_idx = 0
-		state += 1
-		if state > GuestConst.STATE.WAITING_FOR_THE_FOOD:
-			state = GuestConst.STATE.ANGRY
+		state = randi_range(0, GuestConst.STATE.WAITING_FOR_THE_FOOD)
+		#state += 1
+		#if state > GuestConst.STATE.WAITING_FOR_THE_FOOD:
+			#state = GuestConst.STATE.ANGRY
 	image.texture = textures[sprite_idx / 1]
 
 func set_state(new_state):

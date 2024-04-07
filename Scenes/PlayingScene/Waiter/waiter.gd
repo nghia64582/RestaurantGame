@@ -28,10 +28,8 @@ extends Node2D
 var sprite_idx = -1
 var state
 # for moving path
-var target = Vector2()
-var next_target = Vector2()
 var cur_direction
-var speed = 100 # pixel per second
+var speed = 50 # pixel per second
 var list_points = []
 
 func _ready():
@@ -68,15 +66,17 @@ func update_sprite():
 	image.texture = textures[sprite_idx / 1]
 	
 func check_and_move(delta):
-	if cur_direction == GameConst.DIRECT.NONE or cur_direction == null:
+	if len(list_points) == 0:
 		return
+	var next_target = list_points[0]
 	if position.distance_to(next_target) < GameConst.MIN_DIRECT:
-		position = next_target
+		update_position(next_target.x, next_target.y)
+		list_points.remove_at(0)
 		update_next_target_and_direction()
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
 		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
-		position = Vector2(x, y)
+		update_position(x, y)
 
 func get_textures_of_state():
 	if state == WaiterConst.STATE.GET_ORDER:
@@ -108,22 +108,28 @@ func update_z_order():
 	print("Z index = ", z_index)
 
 func update_next_target_and_direction():
-	if target.distance_to(position) < GameConst.MIN_DIRECT:
+	if len(list_points) == 0:
 		cur_direction = GameConst.DIRECT.NONE
 		return
-	if target.x == position.x:
-		if target.y < position.y:
+	var next_target = list_points[0]
+	if next_target.x == position.x:
+		if next_target.y < position.y:
 			cur_direction = GameConst.DIRECT.UP
 		else:
 			cur_direction = GameConst.DIRECT.DOWN
-		next_target = target
 	else:
-		if target.x < position.x:
+		if next_target.x < position.x:
 			cur_direction = GameConst.DIRECT.LEFT
 		else:
 			cur_direction = GameConst.DIRECT.RIGHT
-		next_target = Vector2(target.x, position.y)
-	
-func update_target(pos):
-	target = pos
+			
+func add_point(pos):
+	var last_point = list_points[-1] if len(list_points) > 0 else position
+	if last_point.x != pos.x and last_point.y != pos.y:
+		list_points.append(Vector2(last_point.x, pos.y))
+	list_points.append(pos)
 	update_next_target_and_direction()
+
+func update_position(x, y):
+	position = Vector2(x, y)
+	z_index = y

@@ -86,10 +86,10 @@ func init_small_tables():
 
 func init_waiter():
 	var waiter = waiter_template.instantiate()
-	waiter.position = Vector2(400, 400)
+	waiter.update_position(400, 400)
 	waiters.append(waiter)
 	floor_node.add_child(waiter)
-	waiter.update_target(Vector2(100, 100))
+	waiter.add_point(Vector2(150, 150))
 
 func get_floor_scale():
 	return component_node.scale.x

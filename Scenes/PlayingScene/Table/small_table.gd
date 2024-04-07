@@ -33,5 +33,5 @@ func init_guests():
 			guest.z_index = -1
 
 func update_z_order():
-	z_index = global_position.y
+	z_index = position.y
 	print("Z index small table = ", z_index)

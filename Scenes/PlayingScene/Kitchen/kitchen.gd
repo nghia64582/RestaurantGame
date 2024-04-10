@@ -16,4 +16,3 @@ func _ready():
 
 func update_z_order():
 	z_index = position.y
-	print("Z index kitchen = ", z_index)

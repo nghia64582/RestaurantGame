@@ -8,10 +8,15 @@ extends Node2D
 @export var guest_nodes: Array[Node2D] = []
 @export var food_nodes: Array[Node2D] = []
 
+var guests
+var state
+
 func _ready():
+	state = TableConst.STATE.FREE
+	guests = []
 	update_z_order()
 	init_random_foods_and_drinks()
-	init_guests()
+	#init_guests()
 
 func init_random_foods_and_drinks():
 	for idx in range(N_FOODS):
@@ -35,4 +40,3 @@ func init_guests():
 
 func update_z_order():
 	z_index = position.y
-	print("Z index big table = ", z_index)

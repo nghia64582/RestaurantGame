@@ -27,6 +27,7 @@ extends Node2D
 @export var N_SMALL_TABLES = 4
 
 var dragging = false
+var guest_generator_cool_down
 var kitchens = []
 var big_tables = []
 var small_tables = []
@@ -34,12 +35,36 @@ var guests = []
 var waiters = []
 
 func _ready():
+	init_info()
 	init_floor()
 	init_kitchens()
 	init_big_tables()
 	init_small_tables()
 	init_waiter()
+
+func _process(delta):
+	check_generating_guests(delta)
+	check_waiting_guests()
 	
+func check_generating_guests(delta):
+	guest_generator_cool_down -= delta
+	if guest_generator_cool_down < 0:
+		guest_generator_cool_down = 5
+		add_random_guest()
+		
+func check_waiting_guests():
+	var waiting_guest = find_waiting_for_waiter_guest()
+	if waiting_guest == null:
+		return
+	var free_waiter = find_free_waiter()
+	if free_waiter == null:
+		return
+	free_waiter.add_point(waiting_guest.position)
+	free_waiter.update_next_state()
+
+func init_info():
+	guest_generator_cool_down = 1
+
 func init_floor():
 	for row in range(FLOOR_HEIGHT):
 		for col in range(FLOOR_WITDH):
@@ -65,7 +90,7 @@ func init_kitchens():
 		kitchen.position = Vector2(x, y)
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
-	
+
 func init_big_tables():
 	for idx in range(N_BIG_TABLES):
 		var big_table = big_table_template.instantiate()
@@ -74,7 +99,7 @@ func init_big_tables():
 		big_table.position = Vector2(x, y)
 		big_tables.append(big_table)
 		floor_node.add_child(big_table)
-	
+
 func init_small_tables():
 	for idx in range(N_SMALL_TABLES):
 		var small_table = small_table_template.instantiate()
@@ -86,15 +111,24 @@ func init_small_tables():
 
 func init_waiter():
 	var waiter = waiter_template.instantiate()
-	waiter.update_position(400, 400)
+	waiter.update_position(100, 100)
 	waiters.append(waiter)
 	floor_node.add_child(waiter)
-	for idx in range(4):
-		waiter.add_point(Vector2(randi_range(150, 400), randi_range(150, 400)))
+
+func add_random_guest():
+	var guest = guest_template.instantiate()
+	var free_table = find_free_table()
+	if free_table == null:
+		return
+	guests.append(guest)
+	guest.position = Vector2(10, 400)
+	guest.add_point(free_table.position)
+	free_table.state = TableConst.STATE.USED
+	floor_node.add_child(guest)
 
 func get_floor_scale():
 	return component_node.scale.x
-	
+
 func _on_color_rect_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
@@ -114,3 +148,24 @@ func _on_color_rect_gui_input(event):
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
 			floor_node.position = Vector2(pre_x + delta.x, pre_y + delta.y)
+
+func find_free_table():
+	for table in small_tables:
+		if table.state == TableConst.STATE.FREE:
+			return table
+	for table in big_tables:
+		if table.state == TableConst.STATE.FREE:
+			return table
+		return null
+
+func find_waiting_for_waiter_guest():
+	for guest in guests:
+		if guest.work_state == GuestConst.WORK_STATE.WAIT_FOR_WAITER:
+			return guest
+	return null
+
+func find_free_waiter():
+	for waiter in waiters:
+		if waiter.work_state == WaiterConst.WORK_STATE.IDLE:
+			return waiter
+	return null

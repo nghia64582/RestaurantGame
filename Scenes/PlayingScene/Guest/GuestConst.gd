@@ -1,7 +1,7 @@
 extends Object
 class_name GuestConst
 
-const STATE = {
+const ANIM_STATE = {
 	ANGRY = 0,
 	BACK_VIEW = 1,
 	BORED = 2,
@@ -15,3 +15,23 @@ const STATE = {
 	STAND_AND_WAIT = 10,
 	WAITING_FOR_THE_FOOD = 11
 }
+
+const WORK_STATE = {
+	GO_TO_TABLE = 0,
+	WAIT_FOR_WAITER = 1,
+	PICK_FOOD = 2,
+	WAIT_FOR_MEAL = 3,
+	HAVE_MEAL = 4,
+	REACT = 5,
+	LEAVE = 6
+}
+
+const NAME = [
+	"GO_TO_TABLE",
+	"WAIT_FOR_WAITER",
+	"PICK_FOOD",
+	"WAIT_FOR_MEAL",
+	"HAVE_MEAL",
+	"REACT",
+	"LEAVE"
+]

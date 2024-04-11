@@ -2,6 +2,13 @@ extends Object
 class_name ChefConst
 
 const STATE = {
-	COOKING = 0,
-	WAIT_FOR_ORDER = 1
+	WAIT_FOR_ORDER = 0,
+	COOKING = 1,
+	FINISH_COOKING = 2
 }
+
+const STATE_NAME = [
+	"WAIT_FOR_ORDER",
+	"COOKING",
+	"FINISH_COOKING"
+]

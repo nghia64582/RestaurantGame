@@ -37,9 +37,9 @@ var list_points = []
 
 func _ready():
 	sprite_idx = -1
-	state = WaiterConst.STATE.IDLE
 	guest_id = -1
 	id = IdGenerator.get_waiter_id()
+	update_state(WaiterConst.STATE.IDLE)
 	update_z_order()
 	update_state_label()
 
@@ -63,6 +63,7 @@ func check_and_move(delta):
 		list_points.remove_at(0)
 		update_next_target_and_direction()
 		if len(list_points) == 0:
+			print("Finish moving with state : " + WaiterConst.STATE_NAME[state])
 			update_next_state()
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
@@ -103,6 +104,7 @@ func update_next_target_and_direction():
 			cur_direction = GameConst.DIRECT.RIGHT
 
 func add_point(pos):
+	print("Waiter add point : " + str(pos))
 	var last_point = list_points[-1] if len(list_points) > 0 else position
 	if last_point.x != pos.x and last_point.y != pos.y:
 		list_points.append(Vector2(last_point.x, pos.y))
@@ -115,16 +117,28 @@ func update_position(x, y):
 
 func update_next_state():
 	if state == WaiterConst.STATE.IDLE:
-		state = WaiterConst.STATE.GO_TO_GUEST
+		update_state(WaiterConst.STATE.GO_TO_GUEST)
 	elif state == WaiterConst.STATE.GO_TO_GUEST:
-		state = WaiterConst.STATE.WAIT_FOR_GUEST
+		update_state(WaiterConst.STATE.WAIT_FOR_GUEST)
 	elif state == WaiterConst.STATE.WAIT_FOR_GUEST:
-		state = WaiterConst.STATE.GO_TO_KITCHEN
+		update_state(WaiterConst.STATE.GO_TO_KITCHEN)
 	elif state == WaiterConst.STATE.GO_TO_KITCHEN:
-		state = WaiterConst.STATE.BRING_FOOD_TO_GUEST
+		update_state(WaiterConst.STATE.SEND_ORDER_TO_CHEF)
+	elif state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
+		update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST)
 	elif state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
-		state = WaiterConst.STATE.GO_TO_IDLE_POS
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+
+func check_change_state():
+	if state == WaiterConst.STATE.GO_TO_IDLE_POS:
+		print("Waiter go to idle pos")
+		add_point(Vector2(100, 100))
+
+func update_state(new_state):
+	check_change_state()
+	state = new_state
 	update_state_label()
+	print("Waiter new state : " + WaiterConst.STATE_NAME[state])
 
 func update_state_label():
 	state_lb.text = WaiterConst.STATE_NAME[state]

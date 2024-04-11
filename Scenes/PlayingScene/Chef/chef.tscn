@@ -123,8 +123,9 @@
 [ext_resource type="Texture2D" uid="uid://w8i6lljo2d4l" path="res://Assets/Png/Characters/Chef/WaitForOrder2/WaitForOrder2_38.png" id="120_c6d8n"]
 [ext_resource type="Texture2D" uid="uid://celfph1pr6uwv" path="res://Assets/Png/Characters/Chef/WaitForOrder2/WaitForOrder2_39.png" id="121_p07es"]
 
-[node name="Chef" type="Node2D" node_paths=PackedStringArray("image")]
+[node name="Chef" type="Node2D" node_paths=PackedStringArray("state_lb", "image")]
 script = ExtResource("1_sr6y7")
+state_lb = NodePath("Components/StateLb")
 image = NodePath("Components/WaitForOrder100")
 cooking_images = Array[Texture2D]([ExtResource("2_kik2e"), ExtResource("3_50f3k"), ExtResource("4_f7jn6"), ExtResource("5_lw3s0"), ExtResource("6_tuyrq"), ExtResource("7_ssxm3"), ExtResource("8_ef6vv"), ExtResource("9_uqklk"), ExtResource("10_fuymj"), ExtResource("11_5wocm"), ExtResource("12_j4tv7"), ExtResource("13_33uji"), ExtResource("14_lnfh6"), ExtResource("15_u1wg8"), ExtResource("16_avgii"), ExtResource("17_07tcc"), ExtResource("18_v4xw0"), ExtResource("19_l11wi"), ExtResource("20_8kqd8"), ExtResource("21_4nokt"), ExtResource("22_2jxmc"), ExtResource("23_8eev1"), ExtResource("24_xrn83"), ExtResource("25_nyoi6"), ExtResource("26_x53c0"), ExtResource("27_r6ph2"), ExtResource("28_nt8wb"), ExtResource("29_i1njk"), ExtResource("30_r1vts"), ExtResource("31_ep4su"), ExtResource("32_dxfjx"), ExtResource("33_mjji2"), ExtResource("34_xyowa"), ExtResource("35_ogmj1"), ExtResource("36_kvfda"), ExtResource("37_ncpa5"), ExtResource("38_igbfl"), ExtResource("39_7txj8"), ExtResource("40_6wuce"), ExtResource("41_0waao")])
 wait_for_order_1_images = Array[Texture2D]([ExtResource("1_5ig8e"), ExtResource("43_v5hqr"), ExtResource("44_yfigk"), ExtResource("45_d7i01"), ExtResource("46_llpt8"), ExtResource("47_33ju0"), ExtResource("48_rgymh"), ExtResource("49_8oi6o"), ExtResource("50_m2jd7"), ExtResource("51_qvq1k"), ExtResource("52_b65k1"), ExtResource("53_2j4fs"), ExtResource("54_dh2mc"), ExtResource("55_tsekt"), ExtResource("56_oth8u"), ExtResource("57_01nwr"), ExtResource("58_20ost"), ExtResource("59_7kipk"), ExtResource("60_8v8u2"), ExtResource("61_fbddk"), ExtResource("62_ajkdi"), ExtResource("63_bxr3v"), ExtResource("64_j4cnt"), ExtResource("65_iwm7g"), ExtResource("66_h288s"), ExtResource("67_n0evr"), ExtResource("68_h6ovt"), ExtResource("69_tswcy"), ExtResource("70_mmki6"), ExtResource("71_0hcda"), ExtResource("72_ww8wx"), ExtResource("73_jystq"), ExtResource("74_1potb"), ExtResource("75_au8vr"), ExtResource("76_1xtp6"), ExtResource("77_u7cam"), ExtResource("78_i7ue2"), ExtResource("79_eav2x"), ExtResource("80_6q6y2"), ExtResource("81_tae11")])
@@ -140,6 +141,13 @@ scale = Vector2(0.3, 0.3)
 [node name="WaitForOrder100" type="Sprite2D" parent="Components"]
 position = Vector2(56.3387, 65.7285)
 texture = ExtResource("1_5ig8e")
+
+[node name="StateLb" type="Label" parent="Components"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 27
+text = "STATE"
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false

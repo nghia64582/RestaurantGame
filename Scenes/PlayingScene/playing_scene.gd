@@ -47,13 +47,14 @@ func _process(delta):
 	check_waiting_guests()
 	check_waiting_waiter()
 	check_guest_orders()
-	
+	check_send_order_to_chef()
+
 func check_generating_guests(delta):
 	guest_generator_cool_down -= delta
 	if guest_generator_cool_down < 0:
 		guest_generator_cool_down = 5
 		add_random_guest()
-		
+
 func check_waiting_guests():
 	var waiting_guest = find_waiting_for_waiter_guest()
 	if waiting_guest == null:
@@ -207,6 +208,19 @@ func check_guest_orders():
 			var order = guest.order
 			order.state = OrderConst.STATE.ORDERED
 			var waiter = find_waiter_by_id(order.waiter_id)
-			waiter.update_next_state()
 			waiter.add_point(kitchens[order.kitchen_id].position)
+			waiter.update_next_state()
 			print("An guest's order has been sent to chef.")
+
+func check_send_order_to_chef():
+	for waiter in waiters:
+		if waiter.state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
+			var guest = find_guest_by_id(waiter.guest_id)
+			var order = guest.order
+			var kitchen = find_kitchen_by_id(order.kitchen_id)
+			kitchen.main_chef.start_cooking()
+
+func check_finish_cook():
+	for kitchen in kitchens:
+		if kitchen.main_chef.state == ChefConst.STATE.FINISH_COOKING:
+			var waiter = find_waiter_by_id(kitchen.waiter_id)

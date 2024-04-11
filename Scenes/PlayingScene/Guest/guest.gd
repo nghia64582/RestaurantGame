@@ -175,4 +175,3 @@ func pick_food():
 	order.state = OrderConst.STATE.NOT_ORDERED
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter_id, order.kitchen_id])
-	print("Order state : " + str(order.state))

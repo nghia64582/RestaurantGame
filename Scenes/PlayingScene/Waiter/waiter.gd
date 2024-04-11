@@ -27,7 +27,9 @@ extends Node2D
 @export var walk_side_with_plate_images: Array[Texture2D] = []
 
 var sprite_idx
-var work_state
+var state
+var guest_id
+var id
 # for moving path
 var cur_direction
 var speed = 100 # pixel per second
@@ -35,7 +37,9 @@ var list_points = []
 
 func _ready():
 	sprite_idx = -1
-	work_state = WaiterConst.WORK_STATE.IDLE
+	state = WaiterConst.STATE.IDLE
+	guest_id = -1
+	id = IdGenerator.get_waiter_id()
 	update_z_order()
 	update_state_label()
 
@@ -66,19 +70,18 @@ func check_and_move(delta):
 		update_position(x, y)
 
 func get_textures_of_state():
-	if work_state == WaiterConst.WORK_STATE.WAIT_FOR_GUEST:
+	if state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		return get_order_images
-	if work_state == WaiterConst.WORK_STATE.IDLE:
+	if state == WaiterConst.STATE.IDLE:
 		return idle_images
-	if work_state == WaiterConst.WORK_STATE.GO_TO_GUEST:
-		if cur_direction == GameConst.DIRECT.DOWN:
-			return walk_front_images
-		if cur_direction == GameConst.DIRECT.UP:
-			return walk_back_images
-		if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
-			scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
-			return walk_side_images
+	if cur_direction == GameConst.DIRECT.DOWN:
+		return walk_front_images
+	if cur_direction == GameConst.DIRECT.UP:
 		return walk_back_images
+	if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
+		scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
+		return walk_side_images
+	return walk_back_images
 
 func update_z_order():
 	z_index = position.y + image.get_rect().size.y
@@ -111,17 +114,17 @@ func update_position(x, y):
 	z_index = y
 
 func update_next_state():
-	if work_state == WaiterConst.WORK_STATE.IDLE:
-		work_state = WaiterConst.WORK_STATE.GO_TO_GUEST
-	elif work_state == WaiterConst.WORK_STATE.GO_TO_GUEST:
-		work_state = WaiterConst.WORK_STATE.WAIT_FOR_GUEST
-	elif work_state == WaiterConst.WORK_STATE.WAIT_FOR_GUEST:
-		work_state = WaiterConst.WORK_STATE.GO_TO_KITCHEN
-	elif work_state == WaiterConst.WORK_STATE.GO_TO_KITCHEN:
-		work_state = WaiterConst.WORK_STATE.BRING_FOOD_TO_GUEST
-	elif work_state == WaiterConst.WORK_STATE.BRING_FOOD_TO_GUEST:
-		work_state = WaiterConst.WORK_STATE.GO_TO_IDLE_POS
+	if state == WaiterConst.STATE.IDLE:
+		state = WaiterConst.STATE.GO_TO_GUEST
+	elif state == WaiterConst.STATE.GO_TO_GUEST:
+		state = WaiterConst.STATE.WAIT_FOR_GUEST
+	elif state == WaiterConst.STATE.WAIT_FOR_GUEST:
+		state = WaiterConst.STATE.GO_TO_KITCHEN
+	elif state == WaiterConst.STATE.GO_TO_KITCHEN:
+		state = WaiterConst.STATE.BRING_FOOD_TO_GUEST
+	elif state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+		state = WaiterConst.STATE.GO_TO_IDLE_POS
 	update_state_label()
 
 func update_state_label():
-	state_lb.text = WaiterConst.STATE_NAME[work_state]
+	state_lb.text = WaiterConst.STATE_NAME[state]

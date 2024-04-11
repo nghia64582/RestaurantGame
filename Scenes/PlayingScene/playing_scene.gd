@@ -45,6 +45,8 @@ func _ready():
 func _process(delta):
 	check_generating_guests(delta)
 	check_waiting_guests()
+	check_waiting_waiter()
+	check_guest_orders()
 	
 func check_generating_guests(delta):
 	guest_generator_cool_down -= delta
@@ -61,6 +63,8 @@ func check_waiting_guests():
 		return
 	free_waiter.add_point(waiting_guest.position)
 	free_waiter.update_next_state()
+	free_waiter.guest_id = waiting_guest.id
+	waiting_guest.waiter_id = free_waiter.id
 
 func init_info():
 	guest_generator_cool_down = 1
@@ -122,6 +126,7 @@ func add_random_guest():
 		return
 	guests.append(guest)
 	guest.position = Vector2(10, 400)
+	guest.table_id = free_table.id
 	guest.add_point(free_table.position)
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
@@ -160,12 +165,48 @@ func find_free_table():
 
 func find_waiting_for_waiter_guest():
 	for guest in guests:
-		if guest.work_state == GuestConst.WORK_STATE.WAIT_FOR_WAITER:
+		if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
 			return guest
 	return null
 
 func find_free_waiter():
 	for waiter in waiters:
-		if waiter.work_state == WaiterConst.WORK_STATE.IDLE:
+		if waiter.state == WaiterConst.STATE.IDLE:
 			return waiter
 	return null
+
+func find_guest_by_id(id):
+	for guest in guests:
+		if guest.id == id:
+			return guest
+	return null
+
+func find_waiter_by_id(id):
+	for waiter in waiters:
+		if waiter.id == id:
+			return waiter
+	return null
+
+func find_kitchen_by_id(id):
+	for kitchen in kitchens:
+		if kitchen.id == id:
+			return kitchen
+	return null
+
+func check_waiting_waiter():
+	for waiter in waiters:
+		if waiter.state == WaiterConst.STATE.WAIT_FOR_GUEST:
+			var guest = find_guest_by_id(waiter.guest_id)
+			if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
+				guest.update_state(GuestConst.STATE.PICK_FOOD, 1)
+				print("A guest has responsed by a waiter, he pick food now.")
+
+func check_guest_orders():
+	for guest in guests:
+		if guest.order != null and guest.order.state == OrderConst.STATE.NOT_ORDERED:
+			var order = guest.order
+			order.state = OrderConst.STATE.ORDERED
+			var waiter = find_waiter_by_id(order.waiter_id)
+			waiter.update_next_state()
+			waiter.add_point(kitchens[order.kitchen_id].position)
+			print("An guest's order has been sent to chef.")

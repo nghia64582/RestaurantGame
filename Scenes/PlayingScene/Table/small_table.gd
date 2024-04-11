@@ -10,12 +10,14 @@ extends Node2D
 
 var guests
 var state
+var id
 
 func _ready():
-	update_z_order()
-	init_random_foods_and_drinks()
 	guests = []
 	state = TableConst.STATE.FREE
+	id = IdGenerator.get_table_id()
+	update_z_order()
+	init_random_foods_and_drinks()
 	# init_guests()
 
 func init_random_foods_and_drinks():

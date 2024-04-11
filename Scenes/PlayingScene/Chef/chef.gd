@@ -2,6 +2,7 @@ extends Node2D
 
 var state
 var sprite_idx
+var count_down
 
 @export var image: Sprite2D
 @export_group("Cooking images")
@@ -12,7 +13,7 @@ var sprite_idx
 @export var wait_for_order_2_images: Array[Texture2D] = []
 
 func _ready():
-	state = ChefConst.STATE.COOKING
+	state = ChefConst.STATE.WAIT_FOR_ORDER
 	sprite_idx = -1
 
 func _process(delta):
@@ -20,9 +21,6 @@ func _process(delta):
 	var textures = get_textures_of_state()
 	if sprite_idx / 1 >= len(textures):
 		sprite_idx = 0
-		state += 1
-		if state > ChefConst.STATE.WAIT_FOR_ORDER:
-			state = ChefConst.STATE.COOKING
 	image.texture = textures[sprite_idx / 1]
 
 func get_textures_of_state():

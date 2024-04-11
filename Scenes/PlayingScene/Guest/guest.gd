@@ -1,12 +1,16 @@
 extends Node2D
 
 var sprite_idx
-var anim_state
-var work_state
+var state
+var id
+var table_id
+var waiter_id
 # for moving path
 var cur_direction
-var speed = 100 # pixel per second
+var speed = 200 # pixel per second
 var list_points = []
+var state_count_down
+var order
 @export var state_lb: Label
 @export var image: Sprite2D
 @export_group("Angry 1 images")
@@ -49,23 +53,29 @@ var list_points = []
 @export var waiting_for_food_3_images: Array[Texture2D] = []
 
 func _ready():
-	anim_state = GuestConst.ANIM_STATE.BACK_VIEW
-	work_state = GuestConst.WORK_STATE.GO_TO_TABLE
+	update_state(GuestConst.STATE.GO_TO_TABLE, 0)
 	sprite_idx = -1
+	id = IdGenerator.get_guest_id()
 	update_z_order()
 	update_state_label()
 
 func _process(delta):
 	update_sprite()
-	update_anim_state()
 	check_and_move(delta)
+	update_state_count_down(delta)
 	
+func update_state_count_down(delta):
+	if state not in [GuestConst.STATE.PICK_FOOD, GuestConst.STATE.HAVE_MEAL]:
+		return
+	state_count_down -= delta
+	if state_count_down <= 0:
+		update_next_state()
+
 func update_sprite():
 	sprite_idx += 1
 	var textures = get_textures_of_state()
 	if sprite_idx / 1 >= len(textures):
 		sprite_idx = 0
-		anim_state = randi_range(0, GuestConst.ANIM_STATE.WAITING_FOR_THE_FOOD)
 	image.texture = textures[sprite_idx / 1]
 
 func check_and_move(delta):
@@ -83,49 +93,21 @@ func check_and_move(delta):
 		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
 		update_position(x, y)
 
-func update_anim_state():
-	anim_state = get_cur_state()
-
-func get_cur_state():
-	if cur_direction == null or cur_direction == GameConst.DIRECT.NONE:
-		return GuestConst.ANIM_STATE.READ_MENU
-	scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
-	if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
-		return GuestConst.ANIM_STATE.BACK_VIEW
-	if cur_direction == GameConst.DIRECT.UP:
-		return GuestConst.ANIM_STATE.BACK_VIEW
-	if cur_direction == GameConst.DIRECT.DOWN:
-		return GuestConst.ANIM_STATE.BACK_VIEW
-	return GuestConst.ANIM_STATE.BACK_VIEW
-
-func set_anim_state(new_state):
-	anim_state = new_state
-
 func get_textures_of_state():
-	if anim_state == GuestConst.ANIM_STATE.ANGRY:
+	if state == GuestConst.STATE.GO_TO_TABLE:
 		return angry_1_images
-	if anim_state == GuestConst.ANIM_STATE.BACK_VIEW:
-		return back_view_1_images
-	if anim_state == GuestConst.ANIM_STATE.BORED:
-		return bored_1_images
-	if anim_state == GuestConst.ANIM_STATE.CALL_WAITER:
+	if state == GuestConst.STATE.WAIT_FOR_WAITER:
 		return call_waiter_images
-	if anim_state == GuestConst.ANIM_STATE.DRINK:
-		return drink_images
-	if anim_state == GuestConst.ANIM_STATE.EAT:
-		return eat_images
-	if anim_state == GuestConst.ANIM_STATE.READ_MENU:
+	if state == GuestConst.STATE.PICK_FOOD:
 		return read_menu_images
-	if anim_state == GuestConst.ANIM_STATE.SATISFIED:
-		return satisfied_1_images
-	if anim_state == GuestConst.ANIM_STATE.STAND_AND_ANGRY:
-		return stand_and_angry_images
-	if anim_state == GuestConst.ANIM_STATE.STAND_AND_BORED:
-		return stand_and_bored_images
-	if anim_state == GuestConst.ANIM_STATE.STAND_AND_WAIT:
-		return stand_and_wait_images
-	if anim_state == GuestConst.ANIM_STATE.WAITING_FOR_THE_FOOD:
+	if state == GuestConst.STATE.WAIT_FOR_MEAL:
 		return waiting_for_food_1_images
+	if state == GuestConst.STATE.HAVE_MEAL:
+		return eat_images
+	if state == GuestConst.STATE.REACT:
+		return angry_1_images
+	if state == GuestConst.STATE.LEAVE:
+		return back_view_1_images
 
 func update_z_order():
 	z_index = position.y
@@ -158,19 +140,39 @@ func update_position(x, y):
 	z_index = y
 
 func update_next_state():
-	if work_state == GuestConst.WORK_STATE.GO_TO_TABLE:
-		work_state = GuestConst.WORK_STATE.WAIT_FOR_WAITER
-	elif work_state == GuestConst.WORK_STATE.WAIT_FOR_WAITER:
-		work_state = GuestConst.WORK_STATE.PICK_FOOD
-	elif work_state == GuestConst.WORK_STATE.PICK_FOOD:
-		work_state = GuestConst.WORK_STATE.WAIT_FOR_MEAL
-	elif work_state == GuestConst.WORK_STATE.WAIT_FOR_MEAL:
-		work_state = GuestConst.WORK_STATE.HAVE_MEAL
-	elif work_state == GuestConst.WORK_STATE.HAVE_MEAL:
-		work_state = GuestConst.WORK_STATE.REACT
-	elif work_state == GuestConst.WORK_STATE.REACT:
-		work_state = GuestConst.WORK_STATE.LEAVE
+	if state == GuestConst.STATE.GO_TO_TABLE:
+		update_state(GuestConst.STATE.WAIT_FOR_WAITER, 0)
+	elif state == GuestConst.STATE.PICK_FOOD:
+		update_state(GuestConst.STATE.WAIT_FOR_MEAL, 0)
+	elif state == GuestConst.STATE.WAIT_FOR_MEAL:
+		update_state(GuestConst.STATE.HAVE_MEAL, 10)
+	elif state == GuestConst.STATE.HAVE_MEAL:
+		update_state(GuestConst.STATE.REACT, 0)
+	elif state == GuestConst.STATE.REACT:
+		update_state(GuestConst.STATE.LEAVE, 0)
 	update_state_label()
 
 func update_state_label():
-	state_lb.text = GuestConst.NAME[work_state]
+	state_lb.text = GuestConst.NAME[state]
+
+func update_state(new_state, count_down):
+	check_change_state()
+	state = new_state
+	state_count_down = count_down
+	update_state_label()
+	
+func check_change_state():
+	if state == GuestConst.STATE.PICK_FOOD:
+		pick_food()
+
+func pick_food():
+	order = Order.new()
+	order.foods_id = [1, 2]
+	order.guest_id = id
+	order.waiter_id = waiter_id
+	order.table_id = table_id
+	order.kitchen_id = 1
+	order.state = OrderConst.STATE.NOT_ORDERED
+	print("Guest %d picked food %s, waiter %d, kitchen %d" %
+		[id, str(order.foods_id), waiter_id, order.kitchen_id])
+	print("Order state : " + str(order.state))

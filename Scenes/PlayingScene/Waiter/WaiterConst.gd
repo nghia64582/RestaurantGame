@@ -2,7 +2,7 @@ extends Object
 class_name WaiterConst
 
 
-const WORK_STATE = {
+const STATE = {
 	IDLE = 0,
 	GO_TO_GUEST = 1,
 	WAIT_FOR_GUEST = 2,

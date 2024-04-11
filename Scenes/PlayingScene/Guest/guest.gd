@@ -7,7 +7,7 @@ var table_id
 var waiter_id
 # for moving path
 var cur_direction
-var speed = 200 # pixel per second
+var speed = 100 # pixel per second
 var list_points = []
 var state_count_down
 var order
@@ -108,6 +108,7 @@ func get_textures_of_state():
 		return angry_1_images
 	if state == GuestConst.STATE.LEAVE:
 		return back_view_1_images
+	return back_view_1_images
 
 func update_z_order():
 	z_index = position.y
@@ -145,25 +146,29 @@ func update_next_state():
 	elif state == GuestConst.STATE.PICK_FOOD:
 		update_state(GuestConst.STATE.WAIT_FOR_MEAL, 0)
 	elif state == GuestConst.STATE.WAIT_FOR_MEAL:
-		update_state(GuestConst.STATE.HAVE_MEAL, 10)
+		update_state(GuestConst.STATE.HAVE_MEAL, 5)
 	elif state == GuestConst.STATE.HAVE_MEAL:
 		update_state(GuestConst.STATE.REACT, 0)
 	elif state == GuestConst.STATE.REACT:
 		update_state(GuestConst.STATE.LEAVE, 0)
+	elif state == GuestConst.STATE.LEAVE:
+		update_state(GuestConst.STATE.LEFT, 0)
 	update_state_label()
 
 func update_state_label():
 	state_lb.text = GuestConst.NAME[state]
 
 func update_state(new_state, count_down):
-	check_change_state()
+	check_change_state(new_state)
 	state = new_state
 	state_count_down = count_down
 	update_state_label()
 	
-func check_change_state():
+func check_change_state(new_state):
 	if state == GuestConst.STATE.PICK_FOOD:
 		pick_food()
+	if new_state == GuestConst.STATE.LEAVE:
+		add_point(Vector2(10, 250)) 
 
 func pick_food():
 	order = Order.new()

@@ -50,5 +50,6 @@ func start_cooking():
 	count_down = 3
 
 func update_state(new_state):
+	print("Chef change state to : " + ChefConst.STATE_NAME[new_state])
 	state = new_state
 	state_lb.text = ChefConst.STATE_NAME[state]

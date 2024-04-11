@@ -48,24 +48,11 @@ func _process(delta):
 	check_waiting_waiter()
 	check_guest_orders()
 	check_send_order_to_chef()
-
-func check_generating_guests(delta):
-	guest_generator_cool_down -= delta
-	if guest_generator_cool_down < 0:
-		guest_generator_cool_down = 5
-		add_random_guest()
-
-func check_waiting_guests():
-	var waiting_guest = find_waiting_for_waiter_guest()
-	if waiting_guest == null:
-		return
-	var free_waiter = find_free_waiter()
-	if free_waiter == null:
-		return
-	free_waiter.add_point(waiting_guest.position)
-	free_waiter.update_next_state()
-	free_waiter.guest_id = waiting_guest.id
-	waiting_guest.waiter_id = free_waiter.id
+	check_finish_cook()
+	check_send_food_to_guest()
+	check_guest_react()
+	check_create_payment()
+	remove_left_guests()
 
 func init_info():
 	guest_generator_cool_down = 1
@@ -194,6 +181,33 @@ func find_kitchen_by_id(id):
 			return kitchen
 	return null
 
+func find_table_by_id(id):
+	for table in big_tables:
+		if table.id == id:
+			return table
+	for table in small_tables:
+		if table.id == id:
+			return table
+	return null
+
+func check_generating_guests(delta):
+	guest_generator_cool_down -= delta
+	if guest_generator_cool_down < 0:
+		guest_generator_cool_down = 5
+		add_random_guest()
+
+func check_waiting_guests():
+	var waiting_guest = find_waiting_for_waiter_guest()
+	if waiting_guest == null:
+		return
+	var free_waiter = find_free_waiter()
+	if free_waiter == null:
+		return
+	free_waiter.add_point(waiting_guest.position)
+	free_waiter.update_next_state()
+	free_waiter.guest_id = waiting_guest.id
+	waiting_guest.waiter_id = free_waiter.id
+
 func check_waiting_waiter():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.WAIT_FOR_GUEST:
@@ -219,8 +233,43 @@ func check_send_order_to_chef():
 			var order = guest.order
 			var kitchen = find_kitchen_by_id(order.kitchen_id)
 			kitchen.main_chef.start_cooking()
+			kitchen.waiter_id = waiter.id
 
 func check_finish_cook():
 	for kitchen in kitchens:
 		if kitchen.main_chef.state == ChefConst.STATE.FINISH_COOKING:
 			var waiter = find_waiter_by_id(kitchen.waiter_id)
+			waiter.update_next_state()
+			var guest = find_guest_by_id(waiter.guest_id)
+			var table = find_table_by_id(guest.order.table_id)
+			waiter.add_point(table.position)
+			kitchen.main_chef.update_state(ChefConst.STATE.WAIT_FOR_ORDER)
+
+func check_send_food_to_guest():
+	for waiter in waiters:
+		if waiter.state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
+			waiter.update_next_state()
+			var guest = find_guest_by_id(waiter.guest_id)
+			guest.update_next_state()
+
+func check_guest_react():
+	for guest in guests:
+		if guest.state == GuestConst.STATE.REACT:
+			var free_waiter = find_free_waiter()
+			if free_waiter == null:
+				return
+			free_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
+			free_waiter.add_point(guest.position)
+
+func check_create_payment():
+	for waiter in waiters:
+		if waiter.state == WaiterConst.STATE.CREATE_PAYMENT:
+			var guest = find_guest_by_id(waiter.guest_id)
+			guest.update_next_state()
+			waiter.update_next_state()
+
+func remove_left_guests():
+	for guest in guests:
+		if guest.state == GuestConst.STATE.LEFT:
+			floor_node.remove_child(guest)
+			guests.erase(guest)

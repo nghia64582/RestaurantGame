@@ -8,7 +8,8 @@ const STATE = {
 	WAIT_FOR_MEAL = 3,
 	HAVE_MEAL = 4,
 	REACT = 5,
-	LEAVE = 6
+	LEAVE = 6,
+	LEFT = 7
 }
 
 const NAME = [
@@ -18,5 +19,6 @@ const NAME = [
 	"WAIT_FOR_MEAL",
 	"HAVE_MEAL",
 	"REACT",
-	"LEAVE"
+	"LEAVE",
+	"LEFT"
 ]

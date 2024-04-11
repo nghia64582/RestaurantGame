@@ -71,16 +71,16 @@ func check_and_move(delta):
 		update_position(x, y)
 
 func get_textures_of_state():
+	scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
 	if state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		return get_order_images
-	if state == WaiterConst.STATE.IDLE:
+	if state == WaiterConst.STATE.IDLE or len(list_points) == 0:
 		return idle_images
 	if cur_direction == GameConst.DIRECT.DOWN:
 		return walk_front_images
 	if cur_direction == GameConst.DIRECT.UP:
 		return walk_back_images
 	if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
-		scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
 		return walk_side_images
 	return walk_back_images
 
@@ -127,15 +127,23 @@ func update_next_state():
 	elif state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
 		update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST)
 	elif state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+		update_state(WaiterConst.STATE.SEND_FOOD_TO_GUEST)
+	elif state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+	elif state == WaiterConst.STATE.GO_TO_IDLE_POS:
+		update_state(WaiterConst.STATE.IDLE)
+	elif state == WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT:
+		update_state(WaiterConst.STATE.CREATE_PAYMENT)
+	elif state == WaiterConst.STATE.CREATE_PAYMENT:
 		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 
-func check_change_state():
-	if state == WaiterConst.STATE.GO_TO_IDLE_POS:
+func check_change_state(new_state):
+	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
 		print("Waiter go to idle pos")
 		add_point(Vector2(100, 100))
 
 func update_state(new_state):
-	check_change_state()
+	check_change_state(new_state)
 	state = new_state
 	update_state_label()
 	print("Waiter new state : " + WaiterConst.STATE_NAME[state])

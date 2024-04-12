@@ -77,10 +77,18 @@ func get_textures_of_state():
 	if state == WaiterConst.STATE.IDLE or len(list_points) == 0:
 		return idle_images
 	if cur_direction == GameConst.DIRECT.DOWN:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return walk_front_with_1_plate_images
 		return walk_front_images
 	if cur_direction == GameConst.DIRECT.UP:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return walk_back_with_plate_images
 		return walk_back_images
 	if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return walk_side_with_plate_images
+		if state in [WaiterConst.STATE.GO_TO_GUEST, WaiterConst.STATE.GO_TO_KITCHEN]:
+			return walk_side_with_menu_images
 		return walk_side_images
 	return walk_back_images
 
@@ -139,7 +147,7 @@ func update_next_state():
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
-		print("Waiter go to idle pos")
+		print("Waiter goes to idle pos")
 		add_point(Vector2(100, 100))
 
 func update_state(new_state):

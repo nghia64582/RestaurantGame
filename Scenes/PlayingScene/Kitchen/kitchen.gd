@@ -3,6 +3,7 @@ extends Control
 @export var chef_template: PackedScene
 @export var chef_node: Node2D
 @export var components: Control
+@export var waiter_pos: Node2D
 var main_chef
 var id
 var waiter_id

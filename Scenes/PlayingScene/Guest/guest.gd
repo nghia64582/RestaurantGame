@@ -11,6 +11,7 @@ var speed = 100 # pixel per second
 var list_points = []
 var state_count_down
 var order
+var react_anim
 @export var state_lb: Label
 @export var image: Sprite2D
 @export_group("Angry 1 images")
@@ -57,12 +58,12 @@ func _ready():
 	sprite_idx = -1
 	id = IdGenerator.get_guest_id()
 	update_z_order()
-	update_state_label()
 
 func _process(delta):
 	update_sprite()
 	check_and_move(delta)
 	update_state_count_down(delta)
+	update_state_label()
 	
 func update_state_count_down(delta):
 	if state not in [GuestConst.STATE.PICK_FOOD, GuestConst.STATE.HAVE_MEAL]:
@@ -74,9 +75,9 @@ func update_state_count_down(delta):
 func update_sprite():
 	sprite_idx += 1
 	var textures = get_textures_of_state()
-	if sprite_idx / 1 >= len(textures):
+	if sprite_idx / 3 >= len(textures):
 		sprite_idx = 0
-	image.texture = textures[sprite_idx / 1]
+	image.texture = textures[sprite_idx / 3]
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -105,7 +106,7 @@ func get_textures_of_state():
 	if state == GuestConst.STATE.HAVE_MEAL:
 		return eat_images
 	if state == GuestConst.STATE.REACT:
-		return angry_1_images
+		return react_anim
 	if state == GuestConst.STATE.LEAVE:
 		return back_view_1_images
 	return back_view_1_images
@@ -153,22 +154,22 @@ func update_next_state():
 		update_state(GuestConst.STATE.LEAVE, 0)
 	elif state == GuestConst.STATE.LEAVE:
 		update_state(GuestConst.STATE.LEFT, 0)
-	update_state_label()
 
 func update_state_label():
-	state_lb.text = GuestConst.NAME[state]
+	state_lb.text = GuestConst.NAME[state] + "\n" + str(position)
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)
 	state = new_state
 	state_count_down = count_down
-	update_state_label()
 	
 func check_change_state(new_state):
 	if state == GuestConst.STATE.PICK_FOOD:
 		pick_food()
 	if new_state == GuestConst.STATE.LEAVE:
 		add_point(Vector2(10, 250)) 
+	if new_state == GuestConst.STATE.REACT:
+		pick_random_react_anim()
 
 func pick_food():
 	order = Order.new()
@@ -180,3 +181,9 @@ func pick_food():
 	order.state = OrderConst.STATE.NOT_ORDERED
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter_id, order.kitchen_id])
+
+func pick_random_react_anim():
+	var list_anim = [angry_1_images, angry_2_images, satisfied_1_images,\
+					 satisfied_2_images, satisfied_3_images]
+	var idx = randi_range(0, len(list_anim) - 1)
+	react_anim = list_anim[idx]

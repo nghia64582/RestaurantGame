@@ -34,6 +34,7 @@ var id
 var cur_direction
 var speed = 100 # pixel per second
 var list_points = []
+var guest_paid_id
 
 func _ready():
 	sprite_idx = -1
@@ -41,18 +42,18 @@ func _ready():
 	id = IdGenerator.get_waiter_id()
 	update_state(WaiterConst.STATE.IDLE)
 	update_z_order()
-	update_state_label()
 
 func _process(delta):
 	update_sprite()
 	check_and_move(delta)
+	update_state_label()
 
 func update_sprite():
 	sprite_idx += 1
 	var textures = get_textures_of_state()
-	if sprite_idx / 1 >= len(textures):
+	if sprite_idx / 3 >= len(textures):
 		sprite_idx = 0
-	image.texture = textures[sprite_idx / 1]
+	image.texture = textures[sprite_idx / 3]
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -142,8 +143,8 @@ func update_next_state():
 		update_state(WaiterConst.STATE.IDLE)
 	elif state == WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT:
 		update_state(WaiterConst.STATE.CREATE_PAYMENT)
-	elif state == WaiterConst.STATE.CREATE_PAYMENT:
-		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+	#elif state == WaiterConst.STATE.CREATE_PAYMENT:
+		#update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
@@ -153,8 +154,7 @@ func check_change_state(new_state):
 func update_state(new_state):
 	check_change_state(new_state)
 	state = new_state
-	update_state_label()
 	print("Waiter new state : " + WaiterConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = WaiterConst.STATE_NAME[state]
+	state_lb.text = WaiterConst.STATE_NAME[state] + "\n" + str(position)

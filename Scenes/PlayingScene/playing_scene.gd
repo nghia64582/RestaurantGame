@@ -157,9 +157,10 @@ func find_waiting_for_waiter_guest():
 			return guest
 	return null
 
-func find_free_waiter():
+func find_idle_waiter():
 	for waiter in waiters:
-		if waiter.state == WaiterConst.STATE.IDLE:
+		if waiter.state in [WaiterConst.STATE.IDLE, 
+							WaiterConst.STATE.GO_TO_IDLE_POS]:
 			return waiter
 	return null
 
@@ -200,13 +201,13 @@ func check_waiting_guests():
 	var waiting_guest = find_waiting_for_waiter_guest()
 	if waiting_guest == null:
 		return
-	var free_waiter = find_free_waiter()
-	if free_waiter == null:
+	var idle_waiter = find_idle_waiter()
+	if idle_waiter == null:
 		return
-	free_waiter.add_point(waiting_guest.position)
-	free_waiter.update_next_state()
-	free_waiter.guest_id = waiting_guest.id
-	waiting_guest.waiter_id = free_waiter.id
+	idle_waiter.add_point(waiting_guest.position)
+	idle_waiter.update_next_state()
+	idle_waiter.guest_id = waiting_guest.id
+	waiting_guest.waiter_id = idle_waiter.id
 
 func check_waiting_waiter():
 	for waiter in waiters:
@@ -222,8 +223,14 @@ func check_guest_orders():
 			var order = guest.order
 			order.state = OrderConst.STATE.ORDERED
 			var waiter = find_waiter_by_id(order.waiter_id)
-			waiter.add_point(kitchens[order.kitchen_id].position)
+			var kitchen = find_kitchen_by_id(order.kitchen_id)
+			var kitchen_pos = kitchen.position
+			var waiter_pos = kitchen.waiter_pos.position
+			var x = kitchen_pos.x + waiter_pos.x * component_node.scale.x
+			var y = kitchen_pos.y + waiter_pos.y * component_node.scale.x
+			waiter.add_point(Vector2(x, y))
 			waiter.update_next_state()
+			print("Go to kitchen, id ", kitchen.id, ", pos : ", x,":", y)
 			print("An guest's order has been sent to chef.")
 
 func check_send_order_to_chef():
@@ -255,16 +262,20 @@ func check_send_food_to_guest():
 func check_guest_react():
 	for guest in guests:
 		if guest.state == GuestConst.STATE.REACT:
-			var free_waiter = find_free_waiter()
-			if free_waiter == null:
+			var idle_waiter = find_idle_waiter()
+			if idle_waiter == null:
 				return
-			free_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
-			free_waiter.add_point(guest.position)
+			idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
+			idle_waiter.guest_paid_id = guest.id
+			idle_waiter.add_point(guest.position)
 
 func check_create_payment():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.CREATE_PAYMENT:
-			var guest = find_guest_by_id(waiter.guest_id)
+			var guest = find_guest_by_id(waiter.guest_paid_id)
+			if guest == null:
+				continue
+			print("Finish payment")
 			guest.update_next_state()
 			waiter.update_next_state()
 

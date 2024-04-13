@@ -32,7 +32,7 @@ var guest_id
 var id
 # for moving path
 var cur_direction
-var speed = 100 # pixel per second
+var speed = 200 # pixel per second
 var list_points = []
 var guest_paid_id
 

@@ -273,11 +273,13 @@ func check_create_payment():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.CREATE_PAYMENT:
 			var guest = find_guest_by_id(waiter.guest_paid_id)
+			var table = find_table_by_id(guest.table_id)
 			if guest == null:
 				continue
 			print("Finish payment")
 			guest.update_next_state()
 			waiter.update_next_state()
+			table.update_state(TableConst.STATE.FREE)
 
 func remove_left_guests():
 	for guest in guests:

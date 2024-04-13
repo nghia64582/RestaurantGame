@@ -42,3 +42,6 @@ func init_guests():
 
 func update_z_order():
 	z_index = position.y
+
+func update_state(new_state):
+	state = new_state

@@ -143,6 +143,9 @@ func update_next_state():
 		update_state(WaiterConst.STATE.IDLE)
 	elif state == WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT:
 		update_state(WaiterConst.STATE.CREATE_PAYMENT)
+	elif state == WaiterConst.STATE.CREATE_PAYMENT:
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+	print("Waiter change to state : " + WaiterConst.STATE_NAME[state])
 	#elif state == WaiterConst.STATE.CREATE_PAYMENT:
 		#update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 

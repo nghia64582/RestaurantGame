@@ -12,7 +12,7 @@ const STATE = {
 	LEFT = 7
 }
 
-const NAME = [
+const STATE_NAME = [
 	"GO_TO_TABLE",
 	"WAIT_FOR_WAITER",
 	"PICK_FOOD",

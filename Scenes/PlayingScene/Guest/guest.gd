@@ -154,9 +154,10 @@ func update_next_state():
 		update_state(GuestConst.STATE.LEAVE, 0)
 	elif state == GuestConst.STATE.LEAVE:
 		update_state(GuestConst.STATE.LEFT, 0)
+	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = GuestConst.NAME[state] + "\n" + str(position)
+	state_lb.text = GuestConst.STATE_NAME[state] + "\n" + str(position)
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)

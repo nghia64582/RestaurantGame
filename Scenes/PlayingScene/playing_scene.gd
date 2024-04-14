@@ -15,6 +15,7 @@ extends Node2D
 @export var small_table_template: PackedScene
 @export var component_node: Node2D
 @export var side_walk_node: Node2D
+@export var guest_node: Node2D
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -113,7 +114,7 @@ func add_random_guest():
 	if free_table == null:
 		return
 	guests.append(guest)
-	guest.position = Vector2(10, 400)
+	guest.position = Vector2(10, 300)
 	guest.table_id = free_table.id
 	guest.add_point(free_table.position)
 	free_table.state = TableConst.STATE.USED
@@ -149,7 +150,7 @@ func find_free_table():
 	for table in big_tables:
 		if table.state == TableConst.STATE.FREE:
 			return table
-		return null
+	return null
 
 func find_waiting_for_waiter_guest():
 	for guest in guests:
@@ -191,6 +192,17 @@ func find_table_by_id(id):
 			return table
 	return null
 
+func find_free_kitchen():
+	var result = []
+	for kitchen in kitchens:
+		if kitchen.main_chef.state == ChefConst.STATE.WAIT_FOR_ORDER:
+			result.append(kitchen.id)
+	if len(result) == 0:
+		return null
+	else:
+		var idx = randi_range(0, len(result) - 1)
+		return result[idx]
+
 func check_generating_guests(delta):
 	guest_generator_cool_down -= delta
 	if guest_generator_cool_down < 0:
@@ -223,6 +235,8 @@ func check_guest_orders():
 			var order = guest.order
 			order.state = OrderConst.STATE.ORDERED
 			var waiter = find_waiter_by_id(order.waiter_id)
+			if order.kitchen_id == -1:
+				order.kitchen_id = find_free_kitchen()
 			var kitchen = find_kitchen_by_id(order.kitchen_id)
 			var kitchen_pos = kitchen.position
 			var waiter_pos = kitchen.waiter_pos.position

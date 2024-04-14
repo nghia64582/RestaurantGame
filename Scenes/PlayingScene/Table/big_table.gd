@@ -21,15 +21,17 @@ func _ready():
 	#init_guests()
 
 func init_random_foods_and_drinks():
-	for idx in range(N_FOODS):
-		var food = food_template.instantiate()
-		var x = food_nodes[idx].position.x * component.scale.x
-		var y = food_nodes[idx].position.y * component.scale.x
-		food.position = Vector2(x, y)
-		food.set_random_type()
-		food.z_index = 4096
-		add_child(food)
-		
+	pass
+
+func add_food(food_id, idx):
+	var food = food_template.instantiate()
+	var x = food_nodes[idx].position.x * component.scale.x
+	var y = food_nodes[idx].position.y * component.scale.x
+	food.position = Vector2(x, y)
+	food.set_random_type()
+	food.z_index = 4096
+	add_child(food)
+
 func init_guests():
 	for idx in range(N_GUESTS):
 		var guest = guest_template.instantiate()

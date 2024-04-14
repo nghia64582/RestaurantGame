@@ -10,3 +10,4 @@ var state
 
 func _ready():
 	state = OrderConst.STATE.NOT_ORDERED
+	kitchen_id = -1

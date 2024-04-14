@@ -157,7 +157,7 @@ func update_next_state():
 	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = GuestConst.STATE_NAME[state] + "\n" + str(position)
+	state_lb.text = GuestConst.STATE_NAME[state]
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)
@@ -174,11 +174,11 @@ func check_change_state(new_state):
 
 func pick_food():
 	order = Order.new()
-	order.foods_id = [1, 2]
+	order.foods_id = FoodHelper.get_random_foods()
 	order.guest_id = id
 	order.waiter_id = waiter_id
 	order.table_id = table_id
-	order.kitchen_id = 1
+	order.kitchen_id = -1
 	order.state = OrderConst.STATE.NOT_ORDERED
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter_id, order.kitchen_id])

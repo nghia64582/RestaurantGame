@@ -15,3 +15,4 @@ func set_type(food_type):
 func set_random_type():
 	type = randi_range(0, 6)
 	image.texture = food_images[type]
+	

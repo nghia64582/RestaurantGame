@@ -28,17 +28,18 @@ extends Node2D
 
 var sprite_idx
 var state
-var guest_id
+var guest
 var id
 # for moving path
 var cur_direction
 var speed = 200 # pixel per second
 var list_points = []
-var guest_paid_id
+var guest_paid
+var game
 
 func _ready():
 	sprite_idx = -1
-	guest_id = -1
+	guest = null
 	id = IdGenerator.get_waiter_id()
 	update_state(WaiterConst.STATE.IDLE)
 	update_z_order()

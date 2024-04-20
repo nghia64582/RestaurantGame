@@ -11,6 +11,7 @@ extends Node2D
 var guests
 var state
 var id
+var game
 
 func _ready():
 	guests = []

@@ -1,13 +1,13 @@
 extends Object
 class_name Order
 
-var guest_id
-var table_id
+var guest
+var table
 var foods_id = []
-var waiter_id
-var kitchen_id
+var waiter
+var kitchen
 var state
 
 func _ready():
 	state = OrderConst.STATE.NOT_ORDERED
-	kitchen_id = -1
+	kitchen = null

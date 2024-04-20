@@ -3,8 +3,8 @@ extends Node2D
 var sprite_idx
 var state
 var id
-var table_id
-var waiter_id
+var table
+var waiter
 # for moving path
 var cur_direction
 var speed = 100 # pixel per second
@@ -12,6 +12,7 @@ var list_points = []
 var state_count_down
 var order
 var react_anim
+var game
 @export var state_lb: Label
 @export var image: Sprite2D
 @export_group("Angry 1 images")
@@ -96,7 +97,7 @@ func check_and_move(delta):
 
 func get_textures_of_state():
 	if state == GuestConst.STATE.GO_TO_TABLE:
-		return angry_1_images
+		return stand_and_wait_images
 	if state == GuestConst.STATE.WAIT_FOR_WAITER:
 		return call_waiter_images
 	if state == GuestConst.STATE.PICK_FOOD:
@@ -108,8 +109,8 @@ func get_textures_of_state():
 	if state == GuestConst.STATE.REACT:
 		return react_anim
 	if state == GuestConst.STATE.LEAVE:
-		return back_view_1_images
-	return back_view_1_images
+		return stand_and_wait_images
+	return stand_and_wait_images
 
 func update_z_order():
 	z_index = position.y
@@ -172,16 +173,19 @@ func check_change_state(new_state):
 	if new_state == GuestConst.STATE.REACT:
 		pick_random_react_anim()
 
+func get_waiter_id():
+	return waiter.id
+
 func pick_food():
 	order = Order.new()
 	order.foods_id = FoodHelper.get_random_foods()
-	order.guest_id = id
-	order.waiter_id = waiter_id
-	order.table_id = table_id
-	order.kitchen_id = -1
+	order.guest = self
+	order.waiter = waiter
+	order.table = table
+	order.kitchen = game.find_free_kitchen()
 	order.state = OrderConst.STATE.NOT_ORDERED
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
-		[id, str(order.foods_id), waiter_id, order.kitchen_id])
+		[id, str(order.foods_id), get_waiter_id(), order.kitchen])
 
 func pick_random_react_anim():
 	var list_anim = [angry_1_images, angry_2_images, satisfied_1_images,\

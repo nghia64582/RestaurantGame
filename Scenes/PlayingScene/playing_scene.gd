@@ -80,6 +80,7 @@ func init_kitchens():
 		var kitchen = kitchen_template.instantiate()
 		var x = kitchen_nodes[idx].position.x * get_floor_scale()
 		var y = kitchen_nodes[idx].position.y * get_floor_scale()
+		kitchen.game = self
 		kitchen.position = Vector2(x, y)
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
@@ -91,6 +92,7 @@ func init_big_tables():
 		var y = big_table_nodes[idx].position.y * get_floor_scale()
 		big_table.position = Vector2(x, y)
 		big_tables.append(big_table)
+		big_table.game = self
 		floor_node.add_child(big_table)
 
 func init_small_tables():
@@ -99,23 +101,26 @@ func init_small_tables():
 		var x = small_table_nodes[idx].position.x * get_floor_scale()
 		var y = small_table_nodes[idx].position.y * get_floor_scale()
 		small_table.position = Vector2(x, y)
+		small_table.game = self
 		small_tables.append(small_table)
 		floor_node.add_child(small_table)
 
 func init_waiter():
 	var waiter = waiter_template.instantiate()
+	waiter.game = self
 	waiter.update_position(100, 100)
 	waiters.append(waiter)
 	floor_node.add_child(waiter)
 
 func add_random_guest():
 	var guest = guest_template.instantiate()
+	guest.game = self
 	var free_table = find_free_table()
 	if free_table == null:
 		return
 	guests.append(guest)
 	guest.position = Vector2(10, 300)
-	guest.table_id = free_table.id
+	guest.table = free_table
 	guest.add_point(free_table.position)
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
@@ -152,7 +157,7 @@ func find_free_table():
 			return table
 	return null
 
-func find_waiting_for_waiter_guest():
+func find_waiter_for_waiting_guest():
 	for guest in guests:
 		if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
 			return guest
@@ -165,38 +170,11 @@ func find_idle_waiter():
 			return waiter
 	return null
 
-func find_guest_by_id(id):
-	for guest in guests:
-		if guest.id == id:
-			return guest
-	return null
-
-func find_waiter_by_id(id):
-	for waiter in waiters:
-		if waiter.id == id:
-			return waiter
-	return null
-
-func find_kitchen_by_id(id):
-	for kitchen in kitchens:
-		if kitchen.id == id:
-			return kitchen
-	return null
-
-func find_table_by_id(id):
-	for table in big_tables:
-		if table.id == id:
-			return table
-	for table in small_tables:
-		if table.id == id:
-			return table
-	return null
-
 func find_free_kitchen():
 	var result = []
 	for kitchen in kitchens:
 		if kitchen.main_chef.state == ChefConst.STATE.WAIT_FOR_ORDER:
-			result.append(kitchen.id)
+			result.append(kitchen)
 	if len(result) == 0:
 		return null
 	else:
@@ -210,7 +188,7 @@ func check_generating_guests(delta):
 		add_random_guest()
 
 func check_waiting_guests():
-	var waiting_guest = find_waiting_for_waiter_guest()
+	var waiting_guest = find_waiter_for_waiting_guest()
 	if waiting_guest == null:
 		return
 	var idle_waiter = find_idle_waiter()
@@ -218,13 +196,13 @@ func check_waiting_guests():
 		return
 	idle_waiter.add_point(waiting_guest.position)
 	idle_waiter.update_next_state()
-	idle_waiter.guest_id = waiting_guest.id
-	waiting_guest.waiter_id = idle_waiter.id
+	idle_waiter.guest = waiting_guest
+	waiting_guest.waiter = idle_waiter
 
 func check_waiting_waiter():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.WAIT_FOR_GUEST:
-			var guest = find_guest_by_id(waiter.guest_id)
+			var guest = waiter.guest
 			if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
 				guest.update_state(GuestConst.STATE.PICK_FOOD, 1)
 				print("A guest has responsed by a waiter, he pick food now.")
@@ -234,10 +212,10 @@ func check_guest_orders():
 		if guest.order != null and guest.order.state == OrderConst.STATE.NOT_ORDERED:
 			var order = guest.order
 			order.state = OrderConst.STATE.ORDERED
-			var waiter = find_waiter_by_id(order.waiter_id)
-			if order.kitchen_id == -1:
-				order.kitchen_id = find_free_kitchen()
-			var kitchen = find_kitchen_by_id(order.kitchen_id)
+			var waiter = order.waiter
+			if order.kitchen == null:
+				order.kitchen = find_free_kitchen()
+			var kitchen = order.kitchen
 			var kitchen_pos = kitchen.position
 			var waiter_pos = kitchen.waiter_pos.position
 			var x = kitchen_pos.x + waiter_pos.x * component_node.scale.x
@@ -250,19 +228,19 @@ func check_guest_orders():
 func check_send_order_to_chef():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
-			var guest = find_guest_by_id(waiter.guest_id)
+			var guest = waiter.guest
 			var order = guest.order
-			var kitchen = find_kitchen_by_id(order.kitchen_id)
+			var kitchen = order.kitchen
 			kitchen.main_chef.start_cooking()
-			kitchen.waiter_id = waiter.id
+			kitchen.waiter = waiter
 
 func check_finish_cook():
 	for kitchen in kitchens:
 		if kitchen.main_chef.state == ChefConst.STATE.FINISH_COOKING:
-			var waiter = find_waiter_by_id(kitchen.waiter_id)
+			var waiter = kitchen.waiter
 			waiter.update_next_state()
-			var guest = find_guest_by_id(waiter.guest_id)
-			var table = find_table_by_id(guest.order.table_id)
+			var guest = waiter.guest
+			var table = guest.order.table
 			waiter.add_point(table.position)
 			kitchen.main_chef.update_state(ChefConst.STATE.WAIT_FOR_ORDER)
 
@@ -270,7 +248,7 @@ func check_send_food_to_guest():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
 			waiter.update_next_state()
-			var guest = find_guest_by_id(waiter.guest_id)
+			var guest = waiter.guest
 			guest.update_next_state()
 
 func check_guest_react():
@@ -280,14 +258,14 @@ func check_guest_react():
 			if idle_waiter == null:
 				return
 			idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
-			idle_waiter.guest_paid_id = guest.id
+			idle_waiter.guest_paid = guest
 			idle_waiter.add_point(guest.position)
 
 func check_create_payment():
 	for waiter in waiters:
 		if waiter.state == WaiterConst.STATE.CREATE_PAYMENT:
-			var guest = find_guest_by_id(waiter.guest_paid_id)
-			var table = find_table_by_id(guest.table_id)
+			var guest = waiter.guest_paid
+			var table = guest.table
 			if guest == null:
 				continue
 			print("Finish payment")

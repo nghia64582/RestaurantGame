@@ -3,6 +3,7 @@ extends Node2D
 var state
 var sprite_idx
 var count_down
+var game
 
 @export var state_lb: Label
 @export var image: Sprite2D

@@ -146,18 +146,33 @@ func update_next_state():
 		update_state(WaiterConst.STATE.CREATE_PAYMENT)
 	elif state == WaiterConst.STATE.CREATE_PAYMENT:
 		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
-	print("Waiter change to state : " + WaiterConst.STATE_NAME[state])
-	#elif state == WaiterConst.STATE.CREATE_PAYMENT:
-		#update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
 		print("Waiter goes to idle pos")
 		add_point(Vector2(100, 100))
+	elif new_state == WaiterConst.STATE.WAIT_FOR_GUEST:
+		guest.update_state(GuestConst.STATE.PICK_FOOD, 1)
+	elif new_state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
+		var order = guest.order
+		var kitchen = order.kitchen
+		kitchen.main_chef.start_cooking()
+		kitchen.waiter = self
+	elif new_state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
+		update_next_state()
+		guest.update_next_state()
+	elif new_state == WaiterConst.STATE.CREATE_PAYMENT:
+		var guest = guest_paid
+		var table = guest.table
+		if guest == null:
+			return
+		guest.update_next_state()
+		update_next_state()
+		table.update_state(TableConst.STATE.FREE)
 
 func update_state(new_state):
-	check_change_state(new_state)
 	state = new_state
+	check_change_state(new_state)
 	print("Waiter new state : " + WaiterConst.STATE_NAME[state])
 
 func update_state_label():

@@ -4,6 +4,7 @@ var state
 var sprite_idx
 var count_down
 var game
+var kitchen
 
 @export var state_lb: Label
 @export var image: Sprite2D
@@ -50,7 +51,17 @@ func start_cooking():
 	update_state(ChefConst.STATE.COOKING)
 	count_down = 3
 
+func check_change_state(new_state):
+	if new_state == ChefConst.STATE.FINISH_COOKING:
+		var waiter = kitchen.waiter
+		waiter.update_next_state()
+		var guest = waiter.guest
+		var table = guest.order.table
+		waiter.add_point(table.position)
+		update_state(ChefConst.STATE.WAIT_FOR_ORDER)
+
 func update_state(new_state):
 	print("Chef change state to : " + ChefConst.STATE_NAME[new_state])
 	state = new_state
+	check_change_state(new_state)
 	state_lb.text = ChefConst.STATE_NAME[state]

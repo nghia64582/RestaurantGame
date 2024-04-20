@@ -21,6 +21,7 @@ func init_chef():
 	main_chef = chef_template.instantiate()
 	var x = chef_node.position.x * components.scale.x
 	var y = chef_node.position.y * components.scale.x
+	main_chef.kitchen = self
 	main_chef.position = Vector2(x, y)
 	main_chef.z_index = 1
 	add_child(main_chef)

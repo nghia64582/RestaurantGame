@@ -7,12 +7,13 @@ var table
 var waiter
 # for moving path
 var cur_direction
-var speed = 100 # pixel per second
+var speed = 300 # pixel per second
 var list_points = []
 var state_count_down
 var order
 var react_anim
 var game
+var called_waiter
 @export var state_lb: Label
 @export var image: Sprite2D
 @export_group("Angry 1 images")
@@ -57,12 +58,14 @@ var game
 func _ready():
 	update_state(GuestConst.STATE.GO_TO_TABLE, 0)
 	sprite_idx = -1
+	called_waiter = false
 	id = IdGenerator.get_guest_id()
 	update_z_order()
 
 func _process(delta):
 	update_sprite()
 	check_and_move(delta)
+	check_current_state()
 	update_state_count_down(delta)
 	update_state_label()
 	
@@ -79,6 +82,16 @@ func update_sprite():
 	if sprite_idx / 3 >= len(textures):
 		sprite_idx = 0
 	image.texture = textures[sprite_idx / 3]
+
+func check_current_state():
+	if state == GuestConst.STATE.REACT and not called_waiter:
+		var success = game.call_waiter_for_payment(self)
+		if success:
+			called_waiter = true
+	if state == GuestConst.STATE.WAIT_FOR_WAITER and not called_waiter:
+		var success = game.call_waiter_for_menu(self)
+		if success:
+			called_waiter = true
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -172,6 +185,14 @@ func check_change_state(new_state):
 		add_point(Vector2(10, 250)) 
 	if new_state == GuestConst.STATE.REACT:
 		pick_random_react_anim()
+	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
+		called_waiter = false
+	if new_state == GuestConst.STATE.REACT:
+		called_waiter = false
+	if new_state == GuestConst.STATE.LEFT:
+		game.floor_node.remove_child(self)
+		game.guests.erase(self)
+		free()
 
 func get_waiter_id():
 	return waiter.id
@@ -184,6 +205,12 @@ func pick_food():
 	order.table = table
 	order.kitchen = game.find_free_kitchen()
 	order.state = OrderConst.STATE.NOT_ORDERED
+	var kitchen_pos = order.kitchen.position
+	var waiter_pos = order.kitchen.waiter_pos.position
+	var x = kitchen_pos.x + waiter_pos.x * game.component_node.scale.x
+	var y = kitchen_pos.y + waiter_pos.y * game.component_node.scale.x
+	waiter.add_point(Vector2(x, y))
+	waiter.update_next_state()
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), get_waiter_id(), order.kitchen])
 

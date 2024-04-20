@@ -45,15 +45,7 @@ func _ready():
 
 func _process(delta):
 	check_generating_guests(delta)
-	check_waiting_guests()
-	check_waiting_waiter()
-	check_guest_orders()
-	check_send_order_to_chef()
-	check_finish_cook()
-	check_send_food_to_guest()
-	check_guest_react()
-	check_create_payment()
-	remove_left_guests()
+	#remove_left_guests()
 
 func init_info():
 	guest_generator_cool_down = 1
@@ -184,97 +176,31 @@ func find_free_kitchen():
 func check_generating_guests(delta):
 	guest_generator_cool_down -= delta
 	if guest_generator_cool_down < 0:
-		guest_generator_cool_down = 5
+		guest_generator_cool_down = 115
 		add_random_guest()
 
-func check_waiting_guests():
-	var waiting_guest = find_waiter_for_waiting_guest()
-	if waiting_guest == null:
-		return
+func call_waiter_for_menu(guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
-		return
-	idle_waiter.add_point(waiting_guest.position)
+		return false
+	idle_waiter.add_point(guest.position)
 	idle_waiter.update_next_state()
-	idle_waiter.guest = waiting_guest
-	waiting_guest.waiter = idle_waiter
+	idle_waiter.guest = guest
+	guest.waiter = idle_waiter
+	return true
 
-func check_waiting_waiter():
-	for waiter in waiters:
-		if waiter.state == WaiterConst.STATE.WAIT_FOR_GUEST:
-			var guest = waiter.guest
-			if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
-				guest.update_state(GuestConst.STATE.PICK_FOOD, 1)
-				print("A guest has responsed by a waiter, he pick food now.")
-
-func check_guest_orders():
-	for guest in guests:
-		if guest.order != null and guest.order.state == OrderConst.STATE.NOT_ORDERED:
-			var order = guest.order
-			order.state = OrderConst.STATE.ORDERED
-			var waiter = order.waiter
-			if order.kitchen == null:
-				order.kitchen = find_free_kitchen()
-			var kitchen = order.kitchen
-			var kitchen_pos = kitchen.position
-			var waiter_pos = kitchen.waiter_pos.position
-			var x = kitchen_pos.x + waiter_pos.x * component_node.scale.x
-			var y = kitchen_pos.y + waiter_pos.y * component_node.scale.x
-			waiter.add_point(Vector2(x, y))
-			waiter.update_next_state()
-			print("Go to kitchen, id ", kitchen.id, ", pos : ", x,":", y)
-			print("An guest's order has been sent to chef.")
-
-func check_send_order_to_chef():
-	for waiter in waiters:
-		if waiter.state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
-			var guest = waiter.guest
-			var order = guest.order
-			var kitchen = order.kitchen
-			kitchen.main_chef.start_cooking()
-			kitchen.waiter = waiter
-
-func check_finish_cook():
-	for kitchen in kitchens:
-		if kitchen.main_chef.state == ChefConst.STATE.FINISH_COOKING:
-			var waiter = kitchen.waiter
-			waiter.update_next_state()
-			var guest = waiter.guest
-			var table = guest.order.table
-			waiter.add_point(table.position)
-			kitchen.main_chef.update_state(ChefConst.STATE.WAIT_FOR_ORDER)
-
-func check_send_food_to_guest():
-	for waiter in waiters:
-		if waiter.state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
-			waiter.update_next_state()
-			var guest = waiter.guest
-			guest.update_next_state()
-
-func check_guest_react():
-	for guest in guests:
-		if guest.state == GuestConst.STATE.REACT:
-			var idle_waiter = find_idle_waiter()
-			if idle_waiter == null:
-				return
-			idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
-			idle_waiter.guest_paid = guest
-			idle_waiter.add_point(guest.position)
-
-func check_create_payment():
-	for waiter in waiters:
-		if waiter.state == WaiterConst.STATE.CREATE_PAYMENT:
-			var guest = waiter.guest_paid
-			var table = guest.table
-			if guest == null:
-				continue
-			print("Finish payment")
-			guest.update_next_state()
-			waiter.update_next_state()
-			table.update_state(TableConst.STATE.FREE)
+func call_waiter_for_payment(guest):
+	var idle_waiter = find_idle_waiter()
+	if idle_waiter == null:
+		return false
+	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
+	idle_waiter.guest_paid = guest
+	idle_waiter.add_point(guest.position)
+	return true
 
 func remove_left_guests():
 	for guest in guests:
 		if guest.state == GuestConst.STATE.LEFT:
 			floor_node.remove_child(guest)
 			guests.erase(guest)
+			guest.free()

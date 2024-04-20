@@ -1,0 +1,14 @@
+ - Cần nhiều assets 
+   + Art move back
+	 => Thử gen art bằng ai
+ - Cần tổ chức Class hiệu quả, tránh cyclic reference
+   => Dùng cyclic và kiểm soát việc free, free guest khi ăn xong.
+ - Chỉnh các node để guest, waiter khớp với các sprite khác
+   => TODO
+ - Cần tính quỹ đạo của guest và waiter
+   => Tạo lưới để tính quỹ đạo
+ - Cần design progress của nhà hàng
+ - Info board
+   => Hiển thị không nền, quanh màn hình, không nền
+   => Tham khảo Craftpix về UI
+ - Giới hạn kích thước kéo, kéo smooth hơn, không cho vùng đen vào

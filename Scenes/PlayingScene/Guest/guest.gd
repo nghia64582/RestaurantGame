@@ -190,9 +190,10 @@ func check_change_state(new_state):
 	if new_state == GuestConst.STATE.REACT:
 		called_waiter = false
 	if new_state == GuestConst.STATE.LEFT:
+		table.update_state(TableConst.STATE.FREE)
 		game.floor_node.remove_child(self)
 		game.guests.erase(self)
-		free()
+		queue_free()
 
 func get_waiter_id():
 	return waiter.id

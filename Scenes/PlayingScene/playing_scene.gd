@@ -45,7 +45,6 @@ func _ready():
 
 func _process(delta):
 	check_generating_guests(delta)
-	#remove_left_guests()
 
 func init_info():
 	guest_generator_cool_down = 1
@@ -176,7 +175,7 @@ func find_free_kitchen():
 func check_generating_guests(delta):
 	guest_generator_cool_down -= delta
 	if guest_generator_cool_down < 0:
-		guest_generator_cool_down = 115
+		guest_generator_cool_down = 5
 		add_random_guest()
 
 func call_waiter_for_menu(guest):
@@ -197,10 +196,3 @@ func call_waiter_for_payment(guest):
 	idle_waiter.guest_paid = guest
 	idle_waiter.add_point(guest.position)
 	return true
-
-func remove_left_guests():
-	for guest in guests:
-		if guest.state == GuestConst.STATE.LEFT:
-			floor_node.remove_child(guest)
-			guests.erase(guest)
-			guest.free()

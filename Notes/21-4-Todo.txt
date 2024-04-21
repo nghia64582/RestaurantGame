@@ -1,0 +1,10 @@
+TODO
+ - Chỉnh lại node để guest khớp với table
+ - Tính quỹ đạo cho guest với waiter để không va vào bàn
+ - Chỉnh scale và limit x, y cho playing scene để không hiển thị vùng đen bên ngoài
+ - Khởi tạo info board cơ bản
+ - Thêm food vào bubble trong table và remove khi khách ăn xong
+ - Kiếm thêm sprite backward cho guest
+DONE : 
+ - Dùng cyclic ref trong game và free object khi không dùng
+ - Remove hàm check trong process của game

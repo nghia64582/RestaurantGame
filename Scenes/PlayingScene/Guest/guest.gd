@@ -171,7 +171,7 @@ func update_next_state():
 	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = GuestConst.STATE_NAME[state]
+	state_lb.text = "Id %d\n%s\nC %d" % [id, GuestConst.STATE_NAME[state], 1 if called_waiter else 0]
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)

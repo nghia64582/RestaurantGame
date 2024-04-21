@@ -65,7 +65,8 @@ func check_and_move(delta):
 		list_points.remove_at(0)
 		update_next_target_and_direction()
 		if len(list_points) == 0:
-			print("Finish moving with state : " + WaiterConst.STATE_NAME[state])
+			print("Waiter %d moved to target, old state %s "\
+				% [id, WaiterConst.STATE_NAME[state]])
 			update_next_state()
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
@@ -176,4 +177,4 @@ func update_state(new_state):
 	print("Waiter new state : " + WaiterConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = WaiterConst.STATE_NAME[state] + "\n" + str(position)
+	state_lb.text = "Id %s\n%s" % [id, WaiterConst.STATE_NAME[state]]

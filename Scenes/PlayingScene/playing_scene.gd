@@ -48,6 +48,8 @@ func _process(delta):
 
 func init_info():
 	guest_generator_cool_down = 1
+	floor_node.scale = Vector2(1.27, 1.27)
+	floor_node.position = Vector2(147, 41)
 
 func init_floor():
 	for row in range(FLOOR_HEIGHT):
@@ -97,11 +99,12 @@ func init_small_tables():
 		floor_node.add_child(small_table)
 
 func init_waiter():
-	var waiter = waiter_template.instantiate()
-	waiter.game = self
-	waiter.update_position(100, 100)
-	waiters.append(waiter)
-	floor_node.add_child(waiter)
+	for idx in range(2):
+		var waiter = waiter_template.instantiate()
+		waiter.game = self
+		waiter.update_position(idx * 50 + 50, 100)
+		waiters.append(waiter)
+		floor_node.add_child(waiter)
 
 func add_random_guest():
 	var guest = guest_template.instantiate()
@@ -124,10 +127,13 @@ func _on_color_rect_gui_input(event):
 		if event.pressed:
 			# zoom in
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				floor_node.scale *= 1.1
+				floor_node.scale *= 1.01
+				print(floor_node.scale)
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				floor_node.scale /= 1.1
+				floor_node.scale /= 1.01
+				if floor_node.scale.x < 1.27:
+					floor_node.scale = Vector2(1.27, 1.27)
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			dragging = true
 		else:
@@ -137,7 +143,7 @@ func _on_color_rect_gui_input(event):
 			var delta = event.relative
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
-			floor_node.position = Vector2(pre_x + delta.x, pre_y + delta.y)
+			floor_node.position = Vector2(pre_x + delta.x, pre_y)
 
 func find_free_table():
 	for table in small_tables:
@@ -156,8 +162,7 @@ func find_waiter_for_waiting_guest():
 
 func find_idle_waiter():
 	for waiter in waiters:
-		if waiter.state in [WaiterConst.STATE.IDLE, 
-							WaiterConst.STATE.GO_TO_IDLE_POS]:
+		if waiter.state in [WaiterConst.STATE.IDLE]:
 			return waiter
 	return null
 

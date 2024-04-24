@@ -146,19 +146,18 @@ func _on_color_rect_gui_input(event):
 			floor_node.position = Vector2(pre_x + delta.x, pre_y)
 
 func find_free_table():
+	var result = []
 	for table in small_tables:
 		if table.state == TableConst.STATE.FREE:
-			return table
+			result.append(table)
 	for table in big_tables:
 		if table.state == TableConst.STATE.FREE:
-			return table
-	return null
-
-func find_waiter_for_waiting_guest():
-	for guest in guests:
-		if guest.state == GuestConst.STATE.WAIT_FOR_WAITER:
-			return guest
-	return null
+			result.append(table)
+	if len(result) == 0:
+		return null
+	else:
+		var idx = randi_range(0, len(result) - 1)
+		return result[idx]
 
 func find_idle_waiter():
 	for waiter in waiters:

@@ -159,14 +159,15 @@ func check_change_state(new_state):
 		var kitchen = order.kitchen
 		kitchen.main_chef.start_cooking()
 		kitchen.waiter = self
+		print("Kitchen %d has start cooking." % [kitchen.id])
 	elif new_state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
 		update_next_state()
 		guest.update_next_state()
 	elif new_state == WaiterConst.STATE.CREATE_PAYMENT:
 		var guest = guest_paid
-		var table = guest.table
 		if guest == null:
 			return
+		var table = guest.table
 		guest.update_next_state()
 		update_next_state()
 		table.update_state(TableConst.STATE.FREE)

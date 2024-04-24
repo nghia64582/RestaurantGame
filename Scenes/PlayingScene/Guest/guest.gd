@@ -92,6 +92,8 @@ func check_current_state():
 		var success = game.call_waiter_for_menu(self)
 		if success:
 			called_waiter = true
+	if state == GuestConst.STATE.PICK_FOOD:
+		pick_food()
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -179,8 +181,6 @@ func update_state(new_state, count_down):
 	state_count_down = count_down
 	
 func check_change_state(new_state):
-	if state == GuestConst.STATE.PICK_FOOD:
-		pick_food()
 	if new_state == GuestConst.STATE.LEAVE:
 		add_point(Vector2(10, 250)) 
 	if new_state == GuestConst.STATE.REACT:
@@ -190,7 +190,7 @@ func check_change_state(new_state):
 	if new_state == GuestConst.STATE.REACT:
 		called_waiter = false
 	if new_state == GuestConst.STATE.LEFT:
-		table.update_state(TableConst.STATE.FREE)
+		#table.update_state(TableConst.STATE.FREE)
 		game.floor_node.remove_child(self)
 		game.guests.erase(self)
 		queue_free()
@@ -199,6 +199,9 @@ func get_waiter_id():
 	return waiter.id
 
 func pick_food():
+	var kitchen = game.find_free_kitchen()
+	if kitchen == null:
+		return
 	order = Order.new()
 	order.foods_id = FoodHelper.get_random_foods()
 	order.guest = self
@@ -206,6 +209,7 @@ func pick_food():
 	order.table = table
 	order.kitchen = game.find_free_kitchen()
 	order.state = OrderConst.STATE.NOT_ORDERED
+	kitchen.main_chef.update_state(ChefConst.STATE.ORDERED)
 	var kitchen_pos = order.kitchen.position
 	var waiter_pos = order.kitchen.waiter_pos.position
 	var x = kitchen_pos.x + waiter_pos.x * game.component_node.scale.x

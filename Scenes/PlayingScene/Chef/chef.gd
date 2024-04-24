@@ -33,9 +33,7 @@ func update_sprite():
 func get_textures_of_state():
 	if state == ChefConst.STATE.COOKING:
 		return cooking_images
-	if state in [ChefConst.STATE.WAIT_FOR_ORDER, \
-				ChefConst.STATE.FINISH_COOKING]:
-		return wait_for_order_1_images
+	return wait_for_order_1_images
 
 func check_and_update_cooking(delta):
 	if state != ChefConst.STATE.COOKING:
@@ -46,7 +44,7 @@ func check_and_update_cooking(delta):
 		update_state(ChefConst.STATE.FINISH_COOKING)
 
 func start_cooking():
-	if state != ChefConst.STATE.WAIT_FOR_ORDER:
+	if state != ChefConst.STATE.ORDERED:
 		return
 	update_state(ChefConst.STATE.COOKING)
 	count_down = 3

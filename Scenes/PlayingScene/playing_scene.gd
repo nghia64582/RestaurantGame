@@ -119,6 +119,15 @@ func add_random_guest():
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
 
+func do_guest_sit_on_table(guest):
+	floor_node.remove_child(guest)
+	guest.table.add_child(guest)
+	guest.table.set_guest_pos(guest, 0)
+
+func do_guest_leave_table(guest):
+	floor_node.add_child(guest)
+	guest.table.remove_child(guest)
+
 func get_floor_scale():
 	return component_node.scale.x
 
@@ -186,7 +195,7 @@ func call_waiter_for_menu(guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
 		return false
-	idle_waiter.add_point(guest.position)
+	idle_waiter.add_point(guest.table.position)
 	idle_waiter.update_next_state()
 	idle_waiter.guest = guest
 	guest.waiter = idle_waiter

@@ -29,6 +29,13 @@ func add_food(food_id, idx):
 	food.z_index = 4096
 	add_child(food)
 
+func set_guest_pos(guest, idx):
+	var x = guest_nodes[idx].position.x * component.scale.x
+	var y = guest_nodes[idx].position.y * component.scale.x
+	guest.position = Vector2(x, y)
+	if idx < N_GUESTS / 2:
+		guest.z_index = -1
+
 func init_random_foods_and_drinks():
 	pass
 

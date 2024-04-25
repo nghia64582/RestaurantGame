@@ -194,6 +194,10 @@ func check_change_state(new_state):
 		queue_free()
 	if new_state == GuestConst.STATE.WAIT_FOR_MEAL:
 		pick_food()
+	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
+		game.do_guest_sit_on_table(self)
+	if new_state == GuestConst.STATE.LEAVE:
+		game.do_guest_leave_table(self)
 	#if state == GuestConst.STATE.
 
 func pick_food():

@@ -43,6 +43,13 @@ func init_guests():
 		if idx < N_GUESTS / 2:
 			guest.z_index = -1
 
+func set_guest_pos(guest, idx):
+	var x = guest_nodes[idx].position.x * component.scale.x
+	var y = guest_nodes[idx].position.y * component.scale.x
+	guest.position = Vector2(x, y)
+	if idx < N_GUESTS / 2:
+		guest.z_index = -1
+
 func update_z_order():
 	z_index = position.y
 

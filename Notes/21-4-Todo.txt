@@ -8,7 +8,8 @@ TODO
  - Cải thiện flow cho game thật hơn
  - Thêm config để dễ kiểm soát
  - Thêm 1 waiter để phân tích
- - Lỗi : một số bàn có 2 guest
+ - 
 DONE : 
  - Dùng cyclic ref trong game và free object khi không dùng
  - Remove các hàm check trong process của game
+ - Lỗi : một số bàn có 2 guest

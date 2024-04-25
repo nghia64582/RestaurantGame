@@ -92,8 +92,6 @@ func check_current_state():
 		var success = game.call_waiter_for_menu(self)
 		if success:
 			called_waiter = true
-	if state == GuestConst.STATE.PICK_FOOD:
-		pick_food()
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -173,7 +171,8 @@ func update_next_state():
 	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func update_state_label():
-	state_lb.text = "Id %d\n%s\nC %d" % [id, GuestConst.STATE_NAME[state], 1 if called_waiter else 0]
+	state_lb.text = "Id %d\n%s\nC %d\nT %.2f" % [id, GuestConst.STATE_NAME[state]\
+		, 1 if called_waiter else 0, state_count_down]
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)
@@ -185,18 +184,17 @@ func check_change_state(new_state):
 		add_point(Vector2(10, 250)) 
 	if new_state == GuestConst.STATE.REACT:
 		pick_random_react_anim()
-	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
 		called_waiter = false
-	if new_state == GuestConst.STATE.REACT:
+	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
 		called_waiter = false
 	if new_state == GuestConst.STATE.LEFT:
 		#table.update_state(TableConst.STATE.FREE)
 		game.floor_node.remove_child(self)
 		game.guests.erase(self)
 		queue_free()
-
-func get_waiter_id():
-	return waiter.id
+	if new_state == GuestConst.STATE.WAIT_FOR_MEAL:
+		pick_food()
+	#if state == GuestConst.STATE.
 
 func pick_food():
 	var kitchen = game.find_free_kitchen()
@@ -207,7 +205,7 @@ func pick_food():
 	order.guest = self
 	order.waiter = waiter
 	order.table = table
-	order.kitchen = game.find_free_kitchen()
+	order.kitchen = kitchen
 	order.state = OrderConst.STATE.NOT_ORDERED
 	kitchen.main_chef.update_state(ChefConst.STATE.ORDERED)
 	var kitchen_pos = order.kitchen.position
@@ -217,7 +215,7 @@ func pick_food():
 	waiter.add_point(Vector2(x, y))
 	waiter.update_next_state()
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
-		[id, str(order.foods_id), get_waiter_id(), order.kitchen])
+		[id, str(order.foods_id), waiter.id, order.kitchen])
 
 func pick_random_react_anim():
 	var list_anim = [angry_1_images, angry_2_images, satisfied_1_images,\

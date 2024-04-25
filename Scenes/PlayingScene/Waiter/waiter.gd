@@ -153,7 +153,7 @@ func check_change_state(new_state):
 		print("Waiter goes to idle pos")
 		add_point(Vector2(100, 100))
 	elif new_state == WaiterConst.STATE.WAIT_FOR_GUEST:
-		guest.update_state(GuestConst.STATE.PICK_FOOD, 1)
+		guest.update_state(GuestConst.STATE.PICK_FOOD, 3)
 	elif new_state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
 		var order = guest.order
 		var kitchen = order.kitchen

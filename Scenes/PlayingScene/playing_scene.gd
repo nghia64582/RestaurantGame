@@ -120,13 +120,18 @@ func add_random_guest():
 	floor_node.add_child(guest)
 
 func do_guest_sit_on_table(guest):
+	guest.pre_pos = guest.position
+	guest.pre_z_index = guest.z_index
 	floor_node.remove_child(guest)
 	guest.table.add_child(guest)
 	guest.table.set_guest_pos(guest, 0)
 
 func do_guest_leave_table(guest):
-	floor_node.add_child(guest)
 	guest.table.remove_child(guest)
+	floor_node.add_child(guest)
+	guest.position = guest.pre_pos
+	guest.z_index = guest.pre_z_index
+	guest.add_point(Vector2(10, 250))
 
 func get_floor_scale():
 	return component_node.scale.x
@@ -137,12 +142,11 @@ func _on_color_rect_gui_input(event):
 			# zoom in
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 				floor_node.scale *= 1.01
-				print(floor_node.scale)
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				floor_node.scale /= 1.01
-				if floor_node.scale.x < 1.27:
-					floor_node.scale = Vector2(1.27, 1.27)
+				#if floor_node.scale.x < 1.27:
+					#floor_node.scale = Vector2(1.27, 1.27)
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			dragging = true
 		else:
@@ -152,7 +156,7 @@ func _on_color_rect_gui_input(event):
 			var delta = event.relative
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
-			floor_node.position = Vector2(pre_x + delta.x, pre_y)
+			floor_node.position = Vector2(pre_x + delta.x, pre_y + delta.y)
 
 func find_free_table():
 	var result = []
@@ -207,5 +211,5 @@ func call_waiter_for_payment(guest):
 		return false
 	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
 	idle_waiter.guest_paid = guest
-	idle_waiter.add_point(guest.position)
+	idle_waiter.add_point(guest.table.position)
 	return true

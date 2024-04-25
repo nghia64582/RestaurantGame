@@ -13,6 +13,8 @@ var state_count_down
 var order
 var react_anim
 var game
+var pre_pos
+var pre_z_index
 var called_waiter
 @export var state_lb: Label
 @export var image: Sprite2D
@@ -149,6 +151,7 @@ func add_point(pos):
 	if last_point.x != pos.x and last_point.y != pos.y:
 		list_points.append(Vector2(last_point.x, pos.y))
 	list_points.append(pos)
+	print("Addpoint %s, new list point %s" % [pos, list_points])
 	update_next_target_and_direction()
 
 func update_position(x, y):
@@ -168,7 +171,6 @@ func update_next_state():
 		update_state(GuestConst.STATE.LEAVE, 0)
 	elif state == GuestConst.STATE.LEAVE:
 		update_state(GuestConst.STATE.LEFT, 0)
-	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func update_state_label():
 	state_lb.text = "Id %d\n%s\nC %d\nT %.2f" % [id, GuestConst.STATE_NAME[state]\
@@ -178,27 +180,23 @@ func update_state(new_state, count_down):
 	check_change_state(new_state)
 	state = new_state
 	state_count_down = count_down
-	
+	print("Guest change to state : " + GuestConst.STATE_NAME[state])
+
 func check_change_state(new_state):
-	if new_state == GuestConst.STATE.LEAVE:
-		add_point(Vector2(10, 250)) 
 	if new_state == GuestConst.STATE.REACT:
 		pick_random_react_anim()
 		called_waiter = false
-	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
-		called_waiter = false
 	if new_state == GuestConst.STATE.LEFT:
-		#table.update_state(TableConst.STATE.FREE)
 		game.floor_node.remove_child(self)
 		game.guests.erase(self)
 		queue_free()
 	if new_state == GuestConst.STATE.WAIT_FOR_MEAL:
 		pick_food()
 	if new_state == GuestConst.STATE.WAIT_FOR_WAITER:
+		called_waiter = false
 		game.do_guest_sit_on_table(self)
 	if new_state == GuestConst.STATE.LEAVE:
 		game.do_guest_leave_table(self)
-	#if state == GuestConst.STATE.
 
 func pick_food():
 	var kitchen = game.find_free_kitchen()

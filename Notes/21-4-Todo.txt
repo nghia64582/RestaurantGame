@@ -1,5 +1,4 @@
 TODO
- - Chỉnh lại node để guest khớp với table
  - Tính quỹ đạo cho guest với waiter để không va vào bàn
  - Chỉnh scale và limit x, y cho playing scene để không hiển thị vùng đen bên ngoài
  - Khởi tạo info board cơ bản
@@ -7,9 +6,10 @@ TODO
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
  - Thêm config để dễ kiểm soát
- - Thêm 1 waiter để phân tích
- - 
+
 DONE : 
  - Dùng cyclic ref trong game và free object khi không dùng
  - Remove các hàm check trong process của game
  - Lỗi : một số bàn có 2 guest
+ - Thêm 1 waiter để phân tích
+ - Chỉnh lại node để guest khớp với table

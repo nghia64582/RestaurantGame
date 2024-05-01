@@ -186,6 +186,8 @@ position = Vector2(239.538, 223.663)
 scale = Vector2(0.775205, 0.775205)
 texture = ExtResource("1_2175a")
 
+[node name="InfoBoard" type="Node2D" parent="."]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 1000)

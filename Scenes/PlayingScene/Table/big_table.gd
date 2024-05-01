@@ -55,3 +55,8 @@ func update_z_order():
 
 func update_state(new_state):
 	state = new_state
+
+func update_foods(food_ids):
+	for idx in range(len(food_ids)):
+		var food_id = food_ids[idx]
+		add_food(food_id, idx)

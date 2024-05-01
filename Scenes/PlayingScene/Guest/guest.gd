@@ -197,6 +197,8 @@ func check_change_state(new_state):
 		game.do_guest_sit_on_table(self)
 	if new_state == GuestConst.STATE.LEAVE:
 		game.do_guest_leave_table(self)
+	if new_state == GuestConst.STATE.HAVE_MEAL:
+		table.update_foods(order.foods_id)
 
 func pick_food():
 	var kitchen = game.find_free_kitchen()

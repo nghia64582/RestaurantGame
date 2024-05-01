@@ -1,7 +1,7 @@
 TODO
  - Tính quỹ đạo cho guest với waiter để không va vào bàn
  - Khởi tạo info board cơ bản
- - Thêm food vào bubble trong table và remove khi khách ăn xong
+ - Remove food khi khách ăn xong
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
@@ -14,3 +14,4 @@ DONE :
  - Thêm 1 waiter để phân tích
  - Chỉnh lại node để guest khớp với table
  - Chỉnh scale và limit x, y cho playing scene để không hiển thị vùng đen bên ngoài
+ - Thêm food vào bubble trong table khi waiter mang ra

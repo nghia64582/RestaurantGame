@@ -35,8 +35,7 @@ func _ready():
 	init_info()
 	init_floor()
 	init_kitchens()
-	init_big_tables()
-	init_small_tables()
+	init_tables()
 	init_waiter()
 
 func _process(delta):
@@ -75,29 +74,20 @@ func init_kitchens():
 		floor_node.add_child(kitchen)
 
 func init_tables():
-	pass
-
-func init_big_tables():
 	for idx in range(len(big_table_nodes)):
-		var big_table = table_template.instantiate()
-		var x = big_table_nodes[idx].position.x * get_floor_scale()
-		var y = big_table_nodes[idx].position.y * get_floor_scale()
-		big_table.position = Vector2(x, y)
-		tables.append(big_table)
-		big_table.game = self
-		big_table.init_type(TableConst.TYPE.BIG)
-		floor_node.add_child(big_table)
-
-func init_small_tables():
+		init_table(big_table_nodes[idx], TableConst.TYPE.BIG)
 	for idx in range(len(small_table_nodes)):
-		var small_table = table_template.instantiate()
-		var x = small_table_nodes[idx].position.x * get_floor_scale()
-		var y = small_table_nodes[idx].position.y * get_floor_scale()
-		small_table.position = Vector2(x, y)
-		small_table.game = self
-		small_table.init_type(TableConst.TYPE.SMALL)
-		tables.append(small_table)
-		floor_node.add_child(small_table)
+		init_table(small_table_nodes[idx], TableConst.TYPE.SMALL)
+
+func init_table(node, type):
+	var table = table_template.instantiate()
+	var x = node.position.x * get_floor_scale()
+	var y = node.position.y * get_floor_scale()
+	table.position = Vector2(x, y)
+	tables.append(table)
+	table.game = self
+	table.init_type(type)
+	floor_node.add_child(table)
 
 func init_waiter():
 	for idx in range(2):

@@ -12,10 +12,12 @@ var guests
 var state
 var id
 var game
+var foods = []
 
 func _ready():
 	state = TableConst.STATE.FREE
 	guests = []
+	foods = []
 	id = IdGenerator.get_table_id()
 	update_z_order()
 	init_random_foods_and_drinks()
@@ -32,6 +34,7 @@ func add_food(food_id, idx):
 	food.set_random_type()
 	food.z_index = 4096
 	add_child(food)
+	foods.append(food)
 
 func init_guests():
 	for idx in range(N_GUESTS):
@@ -60,3 +63,8 @@ func update_foods(food_ids):
 	for idx in range(len(food_ids)):
 		var food_id = food_ids[idx]
 		add_food(food_id, idx)
+
+func remove_food_with_idx(idx):
+	var last_idx = len(foods) - 1
+	remove_child(foods[last_idx])
+	foods.remove_at(last_idx)

@@ -77,6 +77,9 @@ func update_state_count_down(delta):
 	state_count_down -= delta
 	if state_count_down <= 0:
 		update_next_state()
+	if state == GuestConst.STATE.HAVE_MEAL:
+		if GameUtils.float_modulo(state_count_down, 3) < delta:
+			table.remove_food_with_idx(int(state_count_down) / 3)
 
 func update_sprite():
 	sprite_idx += 1
@@ -164,7 +167,7 @@ func update_next_state():
 	elif state == GuestConst.STATE.PICK_FOOD:
 		update_state(GuestConst.STATE.WAIT_FOR_MEAL, 0)
 	elif state == GuestConst.STATE.WAIT_FOR_MEAL:
-		update_state(GuestConst.STATE.HAVE_MEAL, 5)
+		update_state(GuestConst.STATE.HAVE_MEAL, 3 * len(order.foods_id))
 	elif state == GuestConst.STATE.HAVE_MEAL:
 		update_state(GuestConst.STATE.REACT, 0)
 	elif state == GuestConst.STATE.REACT:

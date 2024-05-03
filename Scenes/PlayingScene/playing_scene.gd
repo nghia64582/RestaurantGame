@@ -11,8 +11,7 @@ extends Node2D
 @export var chef_template: PackedScene
 @export var kitchen_template: PackedScene
 @export var waiter_template: PackedScene
-@export var big_table_template: PackedScene
-@export var small_table_template: PackedScene
+@export var table_template: PackedScene
 @export var component_node: Node2D
 @export var side_walk_node: Node2D
 @export var guest_node: Node2D
@@ -22,16 +21,13 @@ extends Node2D
 @export var N_KITCHENS = 4
 @export_group("big table nodes")
 @export var big_table_nodes: Array[Node2D] = []
-@export var N_BIG_TABLES = 4
 @export_group("small table nodes")
 @export var small_table_nodes: Array[Node2D] = []
-@export var N_SMALL_TABLES = 4
 
 var dragging = false
 var guest_generator_cool_down
 var kitchens = []
-var big_tables = []
-var small_tables = []
+var tables = []
 var guests = []
 var waiters = []
 
@@ -78,24 +74,29 @@ func init_kitchens():
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
 
+func init_tables():
+	pass
+
 func init_big_tables():
-	for idx in range(N_BIG_TABLES):
-		var big_table = big_table_template.instantiate()
+	for idx in range(len(big_table_nodes)):
+		var big_table = table_template.instantiate()
 		var x = big_table_nodes[idx].position.x * get_floor_scale()
 		var y = big_table_nodes[idx].position.y * get_floor_scale()
 		big_table.position = Vector2(x, y)
-		big_tables.append(big_table)
+		tables.append(big_table)
 		big_table.game = self
+		big_table.init_type(TableConst.TYPE.BIG)
 		floor_node.add_child(big_table)
 
 func init_small_tables():
-	for idx in range(N_SMALL_TABLES):
-		var small_table = small_table_template.instantiate()
+	for idx in range(len(small_table_nodes)):
+		var small_table = table_template.instantiate()
 		var x = small_table_nodes[idx].position.x * get_floor_scale()
 		var y = small_table_nodes[idx].position.y * get_floor_scale()
 		small_table.position = Vector2(x, y)
 		small_table.game = self
-		small_tables.append(small_table)
+		small_table.init_type(TableConst.TYPE.SMALL)
+		tables.append(small_table)
 		floor_node.add_child(small_table)
 
 func init_waiter():
@@ -160,10 +161,7 @@ func _on_color_rect_gui_input(event):
 
 func find_free_table():
 	var result = []
-	for table in small_tables:
-		if table.state == TableConst.STATE.FREE:
-			result.append(table)
-	for table in big_tables:
+	for table in tables:
 		if table.state == TableConst.STATE.FREE:
 			result.append(table)
 	if len(result) == 0:

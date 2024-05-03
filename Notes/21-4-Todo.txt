@@ -1,7 +1,7 @@
 TODO
+ - Gộp 2 table lại làm 1 script và 1 scene
  - Tính quỹ đạo cho guest với waiter để không va vào bàn
  - Khởi tạo info board cơ bản
- - Remove food khi khách ăn xong
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
@@ -15,3 +15,4 @@ DONE :
  - Chỉnh lại node để guest khớp với table
  - Chỉnh scale và limit x, y cho playing scene để không hiển thị vùng đen bên ngoài
  - Thêm food vào bubble trong table khi waiter mang ra
+ - Remove food khi khách ăn xong

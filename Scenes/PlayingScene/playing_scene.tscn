@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bat4xrybrm0t2" path="res://Assets/Png/Other Assets/DonutsDisplay.png" id="14_x6jox"]
 [ext_resource type="Texture2D" uid="uid://da1ybutt1342w" path="res://Assets/Png/Other Assets/CakeTable.png" id="15_k7k2u"]
 
-[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "guest_node", "kitchen_nodes", "big_table_nodes", "small_table_nodes")]
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "kitchen_nodes", "big_table_nodes", "small_table_nodes")]
 script = ExtResource("1_hm10v")
 FLOOR_WITDH = 5
 FLOOR_HEIGHT = 5
@@ -39,7 +39,6 @@ waiter_template = ExtResource("6_kqpna")
 table_template = ExtResource("10_w3448")
 component_node = NodePath("Floor/Components")
 side_walk_node = NodePath("Floor/SideWalkNode")
-guest_node = NodePath("Floor/Components/GuestNode")
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 big_table_nodes = [NodePath("Floor/Components/BigTableNode1"), NodePath("Floor/Components/BigTableNode2"), NodePath("Floor/Components/BigTableNode3"), NodePath("Floor/Components/BigTableNode4")]
 small_table_nodes = [NodePath("Floor/Components/SmallTableNode1"), NodePath("Floor/Components/SmallTableNode2"), NodePath("Floor/Components/SmallTableNode3"), NodePath("Floor/Components/SmallTableNode4")]

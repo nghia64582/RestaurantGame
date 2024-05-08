@@ -10,6 +10,7 @@ var cur_direction
 var speed = 300 # pixel per second
 var list_points = []
 var state_count_down
+var max_count_down
 var order
 var react_anim
 var game
@@ -18,6 +19,7 @@ var pre_z_index
 var called_waiter
 @export var state_lb: Label
 @export var image: Sprite2D
+@export var progress_bar: ProgressBar
 @export_group("Angry 1 images")
 @export var angry_1_images: Array[Texture2D] = []
 @export_group("Angry 2 images")
@@ -70,6 +72,7 @@ func _process(delta):
 	check_current_state()
 	update_state_count_down(delta)
 	update_state_label()
+	update_progress_bar()
 	
 func update_state_count_down(delta):
 	if state not in [GuestConst.STATE.PICK_FOOD, GuestConst.STATE.HAVE_MEAL]:
@@ -80,6 +83,13 @@ func update_state_count_down(delta):
 	if state == GuestConst.STATE.HAVE_MEAL:
 		if GameUtils.float_modulo(state_count_down, 3) < delta:
 			table.remove_food_with_idx(int(state_count_down) / 3)
+
+func update_progress_bar():
+	if max_count_down == 0 or state_count_down <= 0.1:
+		progress_bar.visible = false
+	else:
+		progress_bar.visible = true
+		progress_bar.value = (state_count_down / max_count_down) * 100
 
 func update_sprite():
 	sprite_idx += 1
@@ -183,6 +193,7 @@ func update_state(new_state, count_down):
 	check_change_state(new_state)
 	state = new_state
 	state_count_down = count_down
+	max_count_down = count_down
 	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func check_change_state(new_state):

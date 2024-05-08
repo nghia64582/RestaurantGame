@@ -123,10 +123,11 @@
 [ext_resource type="Texture2D" uid="uid://w8i6lljo2d4l" path="res://Assets/Png/Characters/Chef/WaitForOrder2/WaitForOrder2_38.png" id="120_c6d8n"]
 [ext_resource type="Texture2D" uid="uid://celfph1pr6uwv" path="res://Assets/Png/Characters/Chef/WaitForOrder2/WaitForOrder2_39.png" id="121_p07es"]
 
-[node name="Chef" type="Node2D" node_paths=PackedStringArray("state_lb", "image")]
+[node name="Chef" type="Node2D" node_paths=PackedStringArray("state_lb", "image", "progress_bar")]
 script = ExtResource("1_sr6y7")
 state_lb = NodePath("Components/StateLb")
 image = NodePath("Components/WaitForOrder100")
+progress_bar = NodePath("Components/ProgressBar")
 cooking_images = Array[Texture2D]([ExtResource("2_kik2e"), ExtResource("3_50f3k"), ExtResource("4_f7jn6"), ExtResource("5_lw3s0"), ExtResource("6_tuyrq"), ExtResource("7_ssxm3"), ExtResource("8_ef6vv"), ExtResource("9_uqklk"), ExtResource("10_fuymj"), ExtResource("11_5wocm"), ExtResource("12_j4tv7"), ExtResource("13_33uji"), ExtResource("14_lnfh6"), ExtResource("15_u1wg8"), ExtResource("16_avgii"), ExtResource("17_07tcc"), ExtResource("18_v4xw0"), ExtResource("19_l11wi"), ExtResource("20_8kqd8"), ExtResource("21_4nokt"), ExtResource("22_2jxmc"), ExtResource("23_8eev1"), ExtResource("24_xrn83"), ExtResource("25_nyoi6"), ExtResource("26_x53c0"), ExtResource("27_r6ph2"), ExtResource("28_nt8wb"), ExtResource("29_i1njk"), ExtResource("30_r1vts"), ExtResource("31_ep4su"), ExtResource("32_dxfjx"), ExtResource("33_mjji2"), ExtResource("34_xyowa"), ExtResource("35_ogmj1"), ExtResource("36_kvfda"), ExtResource("37_ncpa5"), ExtResource("38_igbfl"), ExtResource("39_7txj8"), ExtResource("40_6wuce"), ExtResource("41_0waao")])
 wait_for_order_1_images = Array[Texture2D]([ExtResource("1_5ig8e"), ExtResource("43_v5hqr"), ExtResource("44_yfigk"), ExtResource("45_d7i01"), ExtResource("46_llpt8"), ExtResource("47_33ju0"), ExtResource("48_rgymh"), ExtResource("49_8oi6o"), ExtResource("50_m2jd7"), ExtResource("51_qvq1k"), ExtResource("52_b65k1"), ExtResource("53_2j4fs"), ExtResource("54_dh2mc"), ExtResource("55_tsekt"), ExtResource("56_oth8u"), ExtResource("57_01nwr"), ExtResource("58_20ost"), ExtResource("59_7kipk"), ExtResource("60_8v8u2"), ExtResource("61_fbddk"), ExtResource("62_ajkdi"), ExtResource("63_bxr3v"), ExtResource("64_j4cnt"), ExtResource("65_iwm7g"), ExtResource("66_h288s"), ExtResource("67_n0evr"), ExtResource("68_h6ovt"), ExtResource("69_tswcy"), ExtResource("70_mmki6"), ExtResource("71_0hcda"), ExtResource("72_ww8wx"), ExtResource("73_jystq"), ExtResource("74_1potb"), ExtResource("75_au8vr"), ExtResource("76_1xtp6"), ExtResource("77_u7cam"), ExtResource("78_i7ue2"), ExtResource("79_eav2x"), ExtResource("80_6q6y2"), ExtResource("81_tae11")])
 wait_for_order_2_images = Array[Texture2D]([ExtResource("82_mmw1n"), ExtResource("83_xjmwd"), ExtResource("84_jjhre"), ExtResource("85_w1873"), ExtResource("86_vs2p1"), ExtResource("87_raakv"), ExtResource("88_2cuyi"), ExtResource("89_fsbom"), ExtResource("90_u6s2a"), ExtResource("91_ti68v"), ExtResource("92_vhmd4"), ExtResource("93_s8iav"), ExtResource("94_v7r6x"), ExtResource("95_5qedk"), ExtResource("96_470i2"), ExtResource("97_s3if2"), ExtResource("98_f1qxa"), ExtResource("99_xbsea"), ExtResource("100_5lngf"), ExtResource("101_krn7i"), ExtResource("102_loi4j"), ExtResource("103_mtfi6"), ExtResource("104_iyxqb"), ExtResource("105_dh6vb"), ExtResource("106_mujo6"), ExtResource("107_506o8"), ExtResource("108_eej1x"), ExtResource("109_2q1q1"), ExtResource("110_cu33q"), ExtResource("111_oir2r"), ExtResource("112_vwefa"), ExtResource("113_nkkkq"), ExtResource("114_3wtw2"), ExtResource("115_l1urf"), ExtResource("116_hy1c0"), ExtResource("117_c2adm"), ExtResource("118_vbojx"), ExtResource("119_3daay"), ExtResource("120_c6d8n"), ExtResource("121_p07es")])
@@ -148,6 +149,16 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 27
 text = "STATE"
+
+[node name="ProgressBar" type="ProgressBar" parent="Components"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 36.6667
+offset_right = 170.0
+offset_bottom = 63.6667
+step = 1.0
+value = 50.0
+show_percentage = false
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false

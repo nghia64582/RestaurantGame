@@ -14,7 +14,6 @@ extends Node2D
 @export var table_template: PackedScene
 @export var component_node: Node2D
 @export var side_walk_node: Node2D
-@export var guest_node: Node2D
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []

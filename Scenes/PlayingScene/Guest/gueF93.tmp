@@ -1,4 +1,4 @@
-[gd_scene load_steps=784 format=3 uid="uid://ckyrth6w7gpya"]
+[gd_scene load_steps=783 format=3 uid="uid://ckyrth6w7gpya"]
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Guest/guest.gd" id="1_5hwp8"]
 [ext_resource type="Texture2D" uid="uid://qgtbuuas22iy" path="res://Assets/Png/Characters/Customer01/Angry01/Angry01_00.png" id="2_n3e7t"]
@@ -783,8 +783,6 @@
 [ext_resource type="Texture2D" uid="uid://ctpyojk7csfl3" path="res://Assets/Png/Characters/Customer01/Waiting For the Food03/Wff3_39.png" id="781_xi4ox"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="782_vkkf1"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a423t"]
-
 [node name="Guest" type="Node2D" node_paths=PackedStringArray("state_lb", "image", "progress_bar")]
 script = ExtResource("1_5hwp8")
 state_lb = NodePath("Components/StateLb")
@@ -837,8 +835,6 @@ offset_left = 60.0
 offset_top = 23.3333
 offset_right = 160.0
 offset_bottom = 50.3333
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/background = SubResource("StyleBoxTexture_a423t")
 step = 1.0
 value = 50.0
 

@@ -187,7 +187,7 @@ func call_waiter_for_menu(guest):
 	if idle_waiter == null:
 		return false
 	idle_waiter.add_point(guest.table.position)
-	idle_waiter.update_next_state()
+	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST)
 	idle_waiter.guest = guest
 	guest.waiter = idle_waiter
 	return true

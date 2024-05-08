@@ -127,9 +127,7 @@ func update_position(x, y):
 	z_index = y
 
 func update_next_state():
-	if state == WaiterConst.STATE.IDLE:
-		update_state(WaiterConst.STATE.GO_TO_GUEST)
-	elif state == WaiterConst.STATE.GO_TO_GUEST:
+	if state == WaiterConst.STATE.GO_TO_GUEST:
 		update_state(WaiterConst.STATE.WAIT_FOR_GUEST)
 	elif state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		update_state(WaiterConst.STATE.GO_TO_KITCHEN)
@@ -159,17 +157,16 @@ func check_change_state(new_state):
 		var kitchen = order.kitchen
 		kitchen.main_chef.start_cooking()
 		kitchen.waiter = self
-		print("Kitchen %d has start cooking." % [kitchen.id])
 	elif new_state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
-		update_next_state()
-		guest.update_next_state()
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+		guest.update_state(GuestConst.STATE.HAVE_MEAL, 3 * len(guest.order.foods_id))
 	elif new_state == WaiterConst.STATE.CREATE_PAYMENT:
 		var guest = guest_paid
 		if guest == null:
 			return
 		var table = guest.table
-		guest.update_next_state()
-		update_next_state()
+		guest.update_state(GuestConst.STATE.LEAVE, 0)
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 		table.update_state(TableConst.STATE.FREE)
 
 func update_state(new_state):

@@ -231,7 +231,7 @@ func pick_food():
 	var x = kitchen_pos.x + waiter_pos.x * game.component_node.scale.x
 	var y = kitchen_pos.y + waiter_pos.y * game.component_node.scale.x
 	waiter.add_point(Vector2(x, y))
-	waiter.update_next_state()
+	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN)
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
 

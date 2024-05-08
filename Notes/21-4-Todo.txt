@@ -16,3 +16,4 @@ DONE :
  - Chỉnh scale và limit x, y cho playing scene để không hiển thị vùng đen bên ngoài
  - Thêm food vào bubble trong table khi waiter mang ra
  - Remove food khi khách ăn xong
+ - Thêm progress bar cho guest + chef

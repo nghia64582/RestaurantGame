@@ -1,15 +1,23 @@
 extends Control
+class_name Kitchen
 
 @export var chef_template: PackedScene
 @export var chef_node: Node2D
 @export var components: Control
 @export var waiter_pos: Node2D
+@export var collide_area: ColorRect
 var main_chef
 var id
 var waiter
 var game
 
+func _draw():
+	var rect = collide_area.get_rect()
+	draw_rect(Rect2(rect.position, Vector2(rect.size.x * components.scale.x, \
+		rect.size.y * components.scale.y)), Color.PURPLE, false, 1.0)
+
 func _ready():
+	queue_redraw()
 	update_z_order()
 	init_chef()
 	init_info()
@@ -28,3 +36,6 @@ func init_chef():
 
 func update_z_order():
 	z_index = position.y
+
+func is_inside(point: Vector2):
+	return collide_area.get_rect().has_point(point / components.scale.x)

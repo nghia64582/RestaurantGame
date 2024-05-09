@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yevug"]
 [ext_resource type="Texture2D" uid="uid://cyifqxwy0npu6" path="res://Assets/Png/Other Assets/TableSet2.png" id="4_tqrcq"]
 
-[node name="Table" type="Node2D" node_paths=PackedStringArray("bt_component", "bt_guest_nodes", "bt_food_nodes", "st_component", "st_guest_nodes", "st_food_nodes")]
+[node name="Table" type="Node2D" node_paths=PackedStringArray("bt_component", "bt_guest_nodes", "bt_food_nodes", "bt_collide_area", "st_component", "st_guest_nodes", "st_food_nodes", "st_collide_area")]
 script = ExtResource("1_hbyus")
 food_template = ExtResource("2_0vsbi")
 guest_template = ExtResource("3_yevug")
@@ -16,11 +16,13 @@ bt_N_GUESTS = 4
 bt_component = NodePath("BigTable/Components")
 bt_guest_nodes = [NodePath("BigTable/Components/GuestNode1"), NodePath("BigTable/Components/GuestNode2"), NodePath("BigTable/Components/GuestNode3"), NodePath("BigTable/Components/GuestNode4")]
 bt_food_nodes = [NodePath("BigTable/Components/FoodNode1"), NodePath("BigTable/Components/FoodNode2"), NodePath("BigTable/Components/FoodNode3"), NodePath("BigTable/Components/FoodNode4")]
+bt_collide_area = NodePath("BigTable/Components/ColorRect")
 st_N_FOODS = 4
 st_N_GUESTS = 2
 st_component = NodePath("SmallTable/Component")
 st_guest_nodes = [NodePath("SmallTable/Component/GuestNode1"), NodePath("SmallTable/Component/GuestNode2")]
 st_food_nodes = [NodePath("SmallTable/Component/FoodNode1"), NodePath("SmallTable/Component/FoodNode2"), NodePath("SmallTable/Component/FoodNode3"), NodePath("SmallTable/Component/FoodNode4")]
+st_collide_area = NodePath("SmallTable/Component/ColorRect")
 
 [node name="BigTable" type="Node2D" parent="."]
 
@@ -41,16 +43,16 @@ position = Vector2(304.301, 179.667)
 texture = ExtResource("3_c1edj")
 
 [node name="GuestNode1" type="Node2D" parent="BigTable/Components"]
-position = Vector2(36.6667, -43.3334)
+position = Vector2(70, 76.6667)
 
 [node name="GuestNode2" type="Node2D" parent="BigTable/Components"]
-position = Vector2(150, -43.3334)
+position = Vector2(183.333, 76.6667)
 
 [node name="GuestNode3" type="Node2D" parent="BigTable/Components"]
-position = Vector2(36.6667, 216.667)
+position = Vector2(70, 230)
 
 [node name="GuestNode4" type="Node2D" parent="BigTable/Components"]
-position = Vector2(150, 220)
+position = Vector2(183.333, 233.333)
 
 [node name="FoodNode1" type="Node2D" parent="BigTable/Components"]
 position = Vector2(276.667, 23.3333)
@@ -63,6 +65,12 @@ position = Vector2(276.667, 193.333)
 
 [node name="FoodNode4" type="Node2D" parent="BigTable/Components"]
 position = Vector2(276.667, 276.667)
+
+[node name="ColorRect" type="ColorRect" parent="BigTable/Components"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 351.0
+color = Color(0, 0, 0, 0)
 
 [node name="SmallTable" type="Node2D" parent="."]
 
@@ -95,7 +103,13 @@ position = Vector2(156.667, 190)
 position = Vector2(156.667, 276.667)
 
 [node name="GuestNode1" type="Node2D" parent="SmallTable/Component"]
-position = Vector2(16.6667, -43.3333)
+position = Vector2(66.6667, 80)
 
 [node name="GuestNode2" type="Node2D" parent="SmallTable/Component"]
-position = Vector2(16.6667, 206.667)
+position = Vector2(66.6667, 273.333)
+
+[node name="ColorRect" type="ColorRect" parent="SmallTable/Component"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 352.0
+color = Color(1, 1, 1, 0)

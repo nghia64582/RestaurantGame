@@ -1,7 +1,9 @@
 extends Node2D
+class_name Waiter
 
 @export var image: Sprite2D
 @export var state_lb: Label
+@export var component: Control
 
 @export_group("get order image")
 @export var get_order_images: Array[Texture2D] = []
@@ -37,6 +39,14 @@ var list_points = []
 var guest_paid
 var game
 
+func _draw():
+	for idx in range(len(list_points)):
+		var point = list_points[idx]
+		var pre_point = position if idx == 0 else list_points[idx - 1]
+		var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
+		var p2 = Vector2(point.x - position.x, point.y - position.y)
+		draw_line(p1, p2, Color.RED, 1.0, true)
+
 func _ready():
 	sprite_idx = -1
 	guest = null
@@ -46,6 +56,7 @@ func _ready():
 
 func _process(delta):
 	update_sprite()
+	queue_redraw()
 	check_and_move(delta)
 	update_state_label()
 
@@ -74,7 +85,9 @@ func check_and_move(delta):
 		update_position(x, y)
 
 func get_textures_of_state():
-	scale.x = -1 if cur_direction == GameConst.DIRECT.LEFT else 1
+	component.scale.x = -abs(component.scale.x) \
+		if cur_direction == GameConst.DIRECT.LEFT else \
+		abs(component.scale.x)
 	if state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		return get_order_images
 	if state == WaiterConst.STATE.IDLE or len(list_points) == 0:

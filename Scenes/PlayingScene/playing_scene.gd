@@ -29,6 +29,7 @@ var kitchens = []
 var tables = []
 var guests = []
 var waiters = []
+var walls = []
 
 func _ready():
 	init_info()
@@ -109,14 +110,14 @@ func add_random_guest():
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
 
-func do_guest_sit_on_table(guest):
+func do_guest_sit_on_table(guest: Guest):
 	guest.pre_pos = guest.position
 	guest.pre_z_index = guest.z_index
 	floor_node.remove_child(guest)
 	guest.table.add_child(guest)
 	guest.table.set_guest_pos(guest, 0)
 
-func do_guest_leave_table(guest):
+func do_guest_leave_table(guest: Guest):
 	guest.table.remove_child(guest)
 	floor_node.add_child(guest)
 	guest.position = guest.pre_pos
@@ -146,9 +147,9 @@ func _on_color_rect_gui_input(event):
 			var delta = event.relative
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
-			floor_node.position = Vector2(pre_x + delta.x, pre_y)
+			floor_node.position = Vector2(pre_x + delta.x, pre_y + delta.y)
 
-func find_free_table():
+func find_free_table() -> Table:
 	var result = []
 	for table in tables:
 		if table.state == TableConst.STATE.FREE:
@@ -159,7 +160,7 @@ func find_free_table():
 		var idx = randi_range(0, len(result) - 1)
 		return result[idx]
 
-func find_idle_waiter():
+func find_idle_waiter() -> Waiter:
 	for waiter in waiters:
 		if waiter.state in [WaiterConst.STATE.IDLE]:
 			return waiter
@@ -176,13 +177,13 @@ func find_free_kitchen():
 		var idx = randi_range(0, len(result) - 1)
 		return result[idx]
 
-func check_generating_guests(delta):
+func check_generating_guests(delta: float):
 	guest_generator_cool_down -= delta
 	if guest_generator_cool_down < 0:
 		guest_generator_cool_down = 5
 		add_random_guest()
 
-func call_waiter_for_menu(guest):
+func call_waiter_for_menu(guest: Guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
 		return false
@@ -192,7 +193,7 @@ func call_waiter_for_menu(guest):
 	guest.waiter = idle_waiter
 	return true
 
-func call_waiter_for_payment(guest):
+func call_waiter_for_payment(guest: Guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
 		return false
@@ -200,3 +201,12 @@ func call_waiter_for_payment(guest):
 	idle_waiter.guest_paid = guest
 	idle_waiter.add_point(guest.table.position)
 	return true
+
+func is_collide_point(point: Vector2):
+	for table in tables:
+		if table.has_point(point):
+			return true
+	for kitchen in kitchens:
+		if kitchen.has_point(point):
+			return true
+	return false

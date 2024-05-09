@@ -1,4 +1,5 @@
 extends Node2D
+class_name Table
 
 @export var food_template: PackedScene
 @export var guest_template: PackedScene
@@ -9,18 +10,21 @@ extends Node2D
 @export var bt_component: Control
 @export var bt_guest_nodes: Array[Node2D] = []
 @export var bt_food_nodes: Array[Node2D] = []
+@export var bt_collide_area: ColorRect
 # small table 
 @export var st_N_FOODS: int
 @export var st_N_GUESTS: int
 @export var st_component: Control
 @export var st_guest_nodes: Array[Node2D] = []
 @export var st_food_nodes: Array[Node2D] = []
+@export var st_collide_area: ColorRect
 
 var N_FOODS: int
 var N_GUESTS: int
 var component: Control
 var guest_nodes: Array[Node2D] = []
 var food_nodes: Array[Node2D] = []
+var collide_area: ColorRect
 
 var guests
 var state
@@ -28,6 +32,14 @@ var id
 var game
 var foods = []
 var type
+
+func _draw():
+	var rect = collide_area.get_rect()
+	var pos = rect.position
+	var width = rect.size.x
+	var height = rect.size.y
+	draw_rect(Rect2(pos, Vector2(width * component.scale.x, height * \
+		component.scale.y)), Color.CYAN, false, 1.0)
 
 func _ready():
 	guests = []
@@ -44,6 +56,7 @@ func init_type(n_type):
 		component = bt_component
 		guest_nodes = bt_guest_nodes
 		food_nodes = bt_food_nodes
+		collide_area = bt_collide_area
 		st_component.visible = false
 		bt_component.visible = true
 	elif type == TableConst.TYPE.SMALL:
@@ -52,8 +65,10 @@ func init_type(n_type):
 		component = st_component
 		guest_nodes = st_guest_nodes
 		food_nodes = st_food_nodes
+		collide_area = st_collide_area
 		bt_component.visible = false
 		st_component.visible = true
+	queue_redraw()
 
 func add_food(food_id, idx):
 	var food = food_template.instantiate()
@@ -100,3 +115,6 @@ func remove_food_with_idx(idx):
 	var last_idx = len(foods) - 1
 	remove_child(foods[last_idx])
 	foods.remove_at(last_idx)
+
+func has_point(point: Vector2):
+	return collide_area.has_point(point / component.scale.x)

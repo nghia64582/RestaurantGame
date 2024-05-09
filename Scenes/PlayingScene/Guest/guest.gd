@@ -1,4 +1,5 @@
 extends Node2D
+class_name Guest
 
 var sprite_idx
 var state
@@ -59,6 +60,14 @@ var called_waiter
 @export_group("Waiting for the food 3")
 @export var waiting_for_food_3_images: Array[Texture2D] = []
 
+func _draw():
+	for idx in range(len(list_points)):
+		var point = list_points[idx]
+		var pre_point = position if idx == 0 else list_points[idx - 1]
+		var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
+		var p2 = Vector2(point.x - position.x, point.y - position.y)
+		draw_line(p1, p2, Color.RED, 1.0, true)
+
 func _ready():
 	update_state(GuestConst.STATE.GO_TO_TABLE, 0)
 	sprite_idx = -1
@@ -67,6 +76,7 @@ func _ready():
 	update_z_order()
 
 func _process(delta):
+	queue_redraw()
 	update_sprite()
 	check_and_move(delta)
 	check_current_state()
@@ -232,7 +242,7 @@ func pick_food():
 	var y = kitchen_pos.y + waiter_pos.y * game.component_node.scale.x
 	waiter.add_point(Vector2(x, y))
 	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN)
-	print("Guest %d picked food %s, waiter %d, kitchen %d" %
+	print("Guest %d picked food  	%s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
 
 func pick_random_react_anim():

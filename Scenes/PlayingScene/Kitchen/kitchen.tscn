@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bcblhu5dl86qt" path="res://Assets/Png/Other Assets/Display3.png" id="3_7dlvn"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="3_v7tay"]
 
-[node name="Kitchen" type="Control" node_paths=PackedStringArray("chef_node", "components", "waiter_pos")]
+[node name="Kitchen" type="Control" node_paths=PackedStringArray("chef_node", "components", "waiter_pos", "collide_area")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ofp4v")
@@ -15,6 +15,7 @@ chef_template = ExtResource("2_2mvw0")
 chef_node = NodePath("components/ChefNode")
 components = NodePath("components")
 waiter_pos = NodePath("components/WaiterPos")
+collide_area = NodePath("components/ColorRect")
 
 [node name="components" type="Control" parent="."]
 anchors_preset = 0
@@ -40,6 +41,12 @@ texture = ExtResource("3_7dlvn")
 
 [node name="WaiterPos" type="Node2D" parent="components"]
 position = Vector2(0, 330)
+
+[node name="ColorRect" type="ColorRect" parent="components"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 331.0
+color = Color(1, 1, 1, 0)
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false

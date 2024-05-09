@@ -813,8 +813,10 @@ waiting_for_food_3_images = Array[Texture2D]([ExtResource("742_ouxfd"), ExtResou
 [node name="Components" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -14.0
+offset_top = -41.0
+offset_right = 26.0
+offset_bottom = -1.0
 scale = Vector2(0.3, 0.3)
 
 [node name="Image" type="Sprite2D" parent="Components"]

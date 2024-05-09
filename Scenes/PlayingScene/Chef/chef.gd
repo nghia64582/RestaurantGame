@@ -23,6 +23,7 @@ func _ready():
 	count_down = 0
 
 func _process(delta):
+	queue_redraw()
 	update_sprite()
 	update_progress_bar()
 	check_and_update_cooking(delta)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bxqjd0mpyns22"]
+[gd_scene load_steps=25 format=3 uid="uid://bxqjd0mpyns22"]
 
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bp8ca3rfrn1b4" path="res://Assets/Png/Other Assets/WoodWall.png" id="7_bwd3h"]
 [ext_resource type="Texture2D" uid="uid://b8mg4tis6pxrx" path="res://Assets/Png/Other Assets/WoodWall2.png" id="8_wid07"]
 [ext_resource type="Texture2D" uid="uid://bgs1eb2vqlk1t" path="res://Assets/Png/Other Assets/OpenBox2.png" id="9_3y2pe"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Floor/Floor.gd" id="9_biof0"]
 [ext_resource type="PackedScene" uid="uid://dvtjp0tmfp2db" path="res://Scenes/PlayingScene/Table/table.tscn" id="10_w3448"]
 [ext_resource type="Texture2D" uid="uid://b7tocf55h33ai" path="res://Assets/Png/Other Assets/Lamp3.png" id="10_yqikm"]
 [ext_resource type="Texture2D" uid="uid://lvcrhmslyr5n" path="res://Assets/Png/Other Assets/Canov3.png" id="11_qw5ff"]
@@ -46,6 +47,7 @@ small_table_nodes = [NodePath("Floor/Components/SmallTableNode1"), NodePath("Flo
 [node name="Floor" type="Node2D" parent="."]
 z_index = -1
 position = Vector2(119, 7)
+script = ExtResource("9_biof0")
 
 [node name="Components" type="Node2D" parent="Floor"]
 scale = Vector2(0.3, 0.3)

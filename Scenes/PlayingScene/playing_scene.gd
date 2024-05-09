@@ -1,4 +1,5 @@
 extends Node2D
+class_name MainGame
 
 
 @export var FLOOR_WITDH: int
@@ -210,3 +211,9 @@ func is_collide_point(point: Vector2):
 		if kitchen.has_point(point):
 			return true
 	return false
+
+func contains(point: Vector2):
+	return point.x > 10 and point.y > 10 and point.x < 1000 and point.y < 700
+
+func is_available(point: Vector2):
+	return not is_collide_point(point) and contains(point)

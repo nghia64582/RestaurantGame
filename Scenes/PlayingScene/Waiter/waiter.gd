@@ -37,7 +37,7 @@ var cur_direction
 var speed = 200 # pixel per second
 var list_points = []
 var guest_paid
-var game
+var game: MainGame
 
 func _draw():
 	for idx in range(len(list_points)):
@@ -189,3 +189,10 @@ func update_state(new_state):
 
 func update_state_label():
 	state_lb.text = "Id %s\n%s" % [id, WaiterConst.STATE_NAME[state]]
+
+func find_path(taget: Vector2):
+	var queue = []
+	var directs = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+	while not queue.is_empty():
+		var start = queue.pop_front()
+		pass

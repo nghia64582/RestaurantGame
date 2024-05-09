@@ -29,7 +29,7 @@ var collide_area: ColorRect
 var guests
 var state
 var id
-var game
+var game: MainGame
 var foods = []
 var type
 

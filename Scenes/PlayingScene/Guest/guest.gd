@@ -14,7 +14,7 @@ var state_count_down
 var max_count_down
 var order
 var react_anim
-var game
+var game: MainGame
 var pre_pos
 var pre_z_index
 var called_waiter

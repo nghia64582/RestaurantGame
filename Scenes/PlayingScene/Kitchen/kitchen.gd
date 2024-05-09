@@ -9,7 +9,7 @@ class_name Kitchen
 var main_chef
 var id
 var waiter
-var game
+var game: MainGame
 
 func _draw():
 	var rect = collide_area.get_rect()

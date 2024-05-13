@@ -16,4 +16,12 @@ const DIRECT_COOR = [
 	Vector2(-1, 0)
 ]
 
-const MIN_DIRECT = 10
+const ERROR = {
+	IS_AVAILABLE = 0,
+	IS_INSIDE_TABLE = 1,
+	IS_INSIDE_KITCHEN = 2,
+	IS_INSIDE_WALL = 3,
+	IS_OUTSIDE_MAP = 4
+}
+
+const MIN_DIRECT = 3

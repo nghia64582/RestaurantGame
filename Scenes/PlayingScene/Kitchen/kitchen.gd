@@ -37,5 +37,7 @@ func init_chef():
 func update_z_order():
 	z_index = position.y
 
-func is_inside(point: Vector2):
-	return collide_area.get_rect().has_point(point / components.scale.x)
+func has_point(point: Vector2):
+	var up_left = position + collide_area.get_rect().position * components.scale.x
+	var size = collide_area.get_rect().size * components.scale.x
+	return Rect2(up_left, size).has_point(point)

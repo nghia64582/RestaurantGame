@@ -38,8 +38,9 @@ func _draw():
 	var pos = rect.position
 	var width = rect.size.x
 	var height = rect.size.y
-	draw_rect(Rect2(pos, Vector2(width * component.scale.x, height * \
-		component.scale.y)), Color.CYAN, false, 1.0)
+	draw_rect(Rect2(pos * component.scale.x, Vector2(width * component.scale.x, \
+		height * component.scale.y)), Color.CYAN, false, 1.0)
+	draw_string(ThemeDB.fallback_font, Vector2(100, 100), str(id))
 
 func _ready():
 	guests = []
@@ -117,4 +118,6 @@ func remove_food_with_idx(idx):
 	foods.remove_at(last_idx)
 
 func has_point(point: Vector2):
-	return collide_area.has_point(point / component.scale.x)
+	var up_left = position + collide_area.get_rect().position * component.scale.x
+	var size = collide_area.get_rect().size * component.scale.x
+	return Rect2(up_left, size).has_point(point)

@@ -1,6 +1,8 @@
 extends Node2D
 class_name Waiter
 
+
+
 @export var image: Sprite2D
 @export var state_lb: Label
 @export var component: Control
@@ -82,6 +84,9 @@ func check_and_move(delta):
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
 		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
+		if GameUtils.is_middle_straight(next_target, position, Vector2(x, y)):
+			x = next_target.x
+			y = next_target.y
 		update_position(x, y)
 
 func get_textures_of_state():
@@ -128,12 +133,10 @@ func update_next_target_and_direction():
 			cur_direction = GameConst.DIRECT.RIGHT
 
 func add_point(pos):
-	print("Waiter add point : " + str(pos))
 	var last_point = list_points[-1] if len(list_points) > 0 else position
 	if last_point.x != pos.x and last_point.y != pos.y:
 		list_points.append(Vector2(last_point.x, pos.y))
 	list_points.append(pos)
-	update_next_target_and_direction()
 
 func update_position(x, y):
 	position = Vector2(x, y)
@@ -162,7 +165,7 @@ func update_next_state():
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
 		print("Waiter goes to idle pos")
-		add_point(Vector2(100, 100))
+		find_path(Vector2(100, 100))
 	elif new_state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		guest.update_state(GuestConst.STATE.PICK_FOOD, 3)
 	elif new_state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
@@ -190,9 +193,59 @@ func update_state(new_state):
 func update_state_label():
 	state_lb.text = "Id %s\n%s" % [id, WaiterConst.STATE_NAME[state]]
 
-func find_path(taget: Vector2):
-	var queue = []
-	var directs = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+func find_path(target: Vector2):
+	var start_time = Time.get_ticks_msec()
+	# Use BFS to find path to all available points in game
+	var queue = [position]
+	var directs = [Vector2.RIGHT * 10, Vector2.DOWN * 10, Vector2.LEFT * 10, Vector2.UP * 10]
+	var distance = {GameUtils.get_hash(position): 0}
+	var stop = false
+	var last_point
+	var count = 0
+	var min_dist = 100000
+	print("Waiter start find path, start %s, target %s" % [position, target])
 	while not queue.is_empty():
-		var start = queue.pop_front()
-		pass
+		var cur_point = queue.pop_front()
+		var head_hash = GameUtils.get_hash(cur_point)
+		for t_direct in directs:
+			var next_point = Vector2(cur_point.x + t_direct.x, \
+				cur_point.y + t_direct.y)
+			var hash = GameUtils.get_hash(next_point)
+			var b1 = game.get_point_error(next_point) == GameConst.ERROR.IS_AVAILABLE
+			var b2 = distance.get(hash, -1) == -1
+			if b1 and b2:
+				distance[hash] = distance[head_hash] + 10
+				var dist_to_target = next_point.distance_to(target)
+				if dist_to_target < min_dist:
+					min_dist = dist_to_target
+				if dist_to_target <= 15:
+					stop = true
+					last_point = next_point
+				queue.push_back(next_point)
+		if stop:
+			break
+	# traceback to find the shortest path
+	var path = [last_point]
+	var cur_point = last_point
+	stop = false
+	while cur_point.distance_to(position) > 15:
+		var cur_distance = distance[GameUtils.get_hash(cur_point)]
+		for t_direct in directs:
+			var next_point = Vector2(cur_point.x + t_direct.x, cur_point.y + t_direct.y)
+			var hash = GameUtils.get_hash(next_point)
+			if distance.get(hash, -1) == cur_distance - 10:
+				cur_point = next_point
+				path.insert(0, cur_point)
+				if cur_point.distance_to(position) < 15:
+					stop = true
+				break
+		if stop:
+			break
+	
+	# concatenate path to list points
+	for point in path:
+		add_point(point)
+	update_next_target_and_direction()
+	print("Waiter cur pos %s, path %s" % [position, list_points])
+	print("Waiter find path time : %.2f, points size : %d" % [Time.get_ticks_msec() - \
+		start_time, distance.size()])

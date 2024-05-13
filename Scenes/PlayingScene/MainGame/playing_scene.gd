@@ -56,6 +56,7 @@ func init_floor():
 			floor_brick.position = Vector2(x, y)
 			floor_brick.z_index = -1
 			floor_node.add_child(floor_brick)
+	floor_node.init(self)
 	for idx in range(N_SIDE_WALK_BRICKS):
 		var side_walk_brick = side_walk_brick_template.instantiate()
 		var x = 0
@@ -107,7 +108,7 @@ func add_random_guest():
 	guests.append(guest)
 	guest.position = Vector2(10, 300)
 	guest.table = free_table
-	guest.add_point(free_table.position)
+	guest.find_path(free_table.position)
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
 
@@ -123,7 +124,7 @@ func do_guest_leave_table(guest: Guest):
 	floor_node.add_child(guest)
 	guest.position = guest.pre_pos
 	guest.z_index = guest.pre_z_index
-	guest.add_point(Vector2(10, 250))
+	guest.find_path(Vector2(10, 250))
 
 func get_floor_scale():
 	return component_node.scale.x
@@ -133,12 +134,12 @@ func _on_color_rect_gui_input(event):
 		if event.pressed:
 			# zoom in
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				floor_node.scale *= 1.01
+				floor_node.scale *= 1.05
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				floor_node.scale /= 1.01
-				if floor_node.scale.x < 1.27:
-					floor_node.scale = Vector2(1.27, 1.27)
+				floor_node.scale /= 1.05
+				#if floor_node.scale.x < 1.27:
+					#floor_node.scale = Vector2(1.27, 1.27)
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			dragging = true
 		else:
@@ -188,7 +189,7 @@ func call_waiter_for_menu(guest: Guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
 		return false
-	idle_waiter.add_point(guest.table.position)
+	idle_waiter.find_path(guest.table.position)
 	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST)
 	idle_waiter.guest = guest
 	guest.waiter = idle_waiter
@@ -200,20 +201,19 @@ func call_waiter_for_payment(guest: Guest):
 		return false
 	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
 	idle_waiter.guest_paid = guest
-	idle_waiter.add_point(guest.table.position)
+	idle_waiter.find_path(guest.table.position)
 	return true
 
-func is_collide_point(point: Vector2):
-	for table in tables:
-		if table.has_point(point):
-			return true
-	for kitchen in kitchens:
-		if kitchen.has_point(point):
-			return true
-	return false
-
-func contains(point: Vector2):
+func has_point(point: Vector2):
 	return point.x > 10 and point.y > 10 and point.x < 1000 and point.y < 700
 
-func is_available(point: Vector2):
-	return not is_collide_point(point) and contains(point)
+func get_point_error(point: Vector2):
+	if not has_point(point):
+		return GameConst.ERROR.IS_OUTSIDE_MAP
+	for table in tables:
+		if table.has_point(point):
+			return GameConst.ERROR.IS_INSIDE_TABLE
+	for kitchen in kitchens:
+		if kitchen.has_point(point):
+			return GameConst.ERROR.IS_INSIDE_KITCHEN
+	return GameConst.ERROR.IS_AVAILABLE

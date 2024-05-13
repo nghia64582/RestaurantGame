@@ -131,6 +131,9 @@ func check_and_move(delta):
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
 		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
+		if GameUtils.is_middle_straight(next_target, position, Vector2(x, y)):
+			x = next_target.x
+			y = next_target.y
 		update_position(x, y)
 
 func get_textures_of_state():
@@ -158,7 +161,7 @@ func update_next_target_and_direction():
 		cur_direction = GameConst.DIRECT.NONE
 		return
 	var next_target = list_points[0]
-	if next_target.x == position.x:
+	if abs(next_target.x - position.x) < 1e-2:
 		if next_target.y < position.y:
 			cur_direction = GameConst.DIRECT.UP
 		else:
@@ -174,8 +177,6 @@ func add_point(pos):
 	if last_point.x != pos.x and last_point.y != pos.y:
 		list_points.append(Vector2(last_point.x, pos.y))
 	list_points.append(pos)
-	print("Addpoint %s, new list point %s" % [pos, list_points])
-	update_next_target_and_direction()
 
 func update_position(x, y):
 	position = Vector2(x, y)
@@ -240,9 +241,9 @@ func pick_food():
 	var waiter_pos = order.kitchen.waiter_pos.position
 	var x = kitchen_pos.x + waiter_pos.x * game.component_node.scale.x
 	var y = kitchen_pos.y + waiter_pos.y * game.component_node.scale.x
-	waiter.add_point(Vector2(x, y))
+	waiter.find_path(Vector2(x, y))
 	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN)
-	print("Guest %d picked food  	%s, waiter %d, kitchen %d" %
+	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
 
 func pick_random_react_anim():
@@ -250,3 +251,76 @@ func pick_random_react_anim():
 					 satisfied_2_images, satisfied_3_images]
 	var idx = randi_range(0, len(list_anim) - 1)
 	react_anim = list_anim[idx]
+
+func find_path(target: Vector2):
+	var start_time = Time.get_ticks_msec()
+	# Use BFS to find path to all available points in game
+	var queue = [position]
+	var directs = [Vector2.RIGHT * 10, Vector2.DOWN * 10, Vector2.LEFT * 10, Vector2.UP * 10]
+	var distance = {GameUtils.get_hash(position): 0}
+	var stop = false
+	var last_point
+	var count = 0
+	var min_dist = 100000
+	print("Guest start find path, start %s, target %s" % [position, target])
+	while not queue.is_empty():
+		var cur_point = queue.pop_front()
+		var head_hash = GameUtils.get_hash(cur_point)
+		for t_direct in directs:
+			var next_point = Vector2(cur_point.x + t_direct.x, \
+				cur_point.y + t_direct.y)
+			var hash = GameUtils.get_hash(next_point)
+			var b1 = game.get_point_error(next_point) == GameConst.ERROR.IS_AVAILABLE
+			var b2 = distance.get(hash, -1) == -1
+			if b1 and b2:
+				distance[hash] = distance[head_hash] + 10
+				var dist_to_target = next_point.distance_to(target)
+				if dist_to_target < min_dist:
+					min_dist = dist_to_target
+				if dist_to_target <= 15:
+					stop = true
+					last_point = next_point
+				queue.push_back(next_point)
+		if stop:
+			break
+	# traceback to find the shortest path
+	var path = [last_point]
+	var cur_point = last_point
+	stop = false
+	while cur_point.distance_to(position) > 15:
+		var cur_distance = distance[GameUtils.get_hash(cur_point)]
+		for t_direct in directs:
+			var next_point = Vector2(cur_point.x + t_direct.x, cur_point.y + t_direct.y)
+			var hash = GameUtils.get_hash(next_point)
+			if distance.get(hash, -1) == cur_distance - 10:
+				cur_point = next_point
+				path.insert(0, cur_point)
+				if cur_point.distance_to(position) < 15:
+					stop = true
+				break
+		if stop:
+			break
+	# remove redundant points in path
+	var new_path = []
+	if len(path) >= 1:
+		new_path.append(path[0])
+	for idx in range(1, len(path) - 1):
+		var pre_point = path[idx - 1]
+		var point = path[idx]
+		var next_point = path[idx + 1]
+		var straight = false
+		if pre_point.x == point.x and point.x == next_point.x:
+			straight = true
+		if pre_point.y == point.y and point.y == next_point.y:
+			straight = true
+		if not straight:
+			new_path.append(path[idx])
+	new_path.append(path[len(path) - 1])
+	# concatenate path to list points
+	for point in new_path:
+		add_point(point)
+	update_next_target_and_direction()
+	print("Final path %s" % [new_path])
+	print("Guest cur pos %s, path %s" % [position, list_points])
+	print("Guest find path time : %.2f, points size : %d" % [Time.get_ticks_msec() - \
+		start_time, distance.size()])

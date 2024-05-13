@@ -68,7 +68,7 @@ func check_change_state(new_state):
 		waiter.update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST)
 		var guest = waiter.guest
 		var table = guest.order.table
-		waiter.add_point(table.position)
+		waiter.find_path(table.position)
 		update_state(ChefConst.STATE.WAIT_FOR_ORDER)
 
 func update_state(new_state):

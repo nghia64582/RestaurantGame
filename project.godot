@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Restaurant Game"
-run/main_scene="res://Scenes/PlayingScene/playing_scene.tscn"
+run/main_scene="res://Scenes/PlayingScene/MainGame/playing_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -242,8 +242,23 @@ func find_path(target: Vector2):
 		if stop:
 			break
 	
-	# concatenate path to list points
-	for point in path:
+	# concatenate path to list points# remove redundant points in path
+	var new_path = []
+	if len(path) >= 1:
+		new_path.append(path[0])
+	for idx in range(1, len(path) - 1):
+		var pre_point = path[idx - 1]
+		var point = path[idx]
+		var next_point = path[idx + 1]
+		var straight = false
+		if pre_point.x == point.x and point.x == next_point.x:
+			straight = true
+		if pre_point.y == point.y and point.y == next_point.y:
+			straight = true
+		if not straight:
+			new_path.append(path[idx])
+	new_path.append(path[len(path) - 1])
+	for point in new_path:
 		add_point(point)
 	update_next_target_and_direction()
 	print("Waiter cur pos %s, path %s" % [position, list_points])

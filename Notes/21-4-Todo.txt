@@ -1,6 +1,4 @@
 TODO
- - Gộp 2 table lại làm 1 script và 1 scene
- - Tính quỹ đạo cho guest với waiter để không va vào bàn
  - Khởi tạo info board cơ bản
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
@@ -17,3 +15,5 @@ DONE :
  - Thêm food vào bubble trong table khi waiter mang ra
  - Remove food khi khách ăn xong
  - Thêm progress bar cho guest + chef
+ - Gộp 2 table lại làm 1 script và 1 scene
+ - Tính quỹ đạo cho guest với waiter để không va vào bàn

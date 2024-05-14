@@ -12,9 +12,10 @@ var waiter
 var game: MainGame
 
 func _draw():
-	var rect = collide_area.get_rect()
-	draw_rect(Rect2(rect.position, Vector2(rect.size.x * components.scale.x, \
-		rect.size.y * components.scale.y)), Color.PURPLE, false, 1.0)
+	if DevConfig.SHOW_GRID:
+		var rect = collide_area.get_rect()
+		draw_rect(Rect2(rect.position, Vector2(rect.size.x * components.scale.x, \
+			rect.size.y * components.scale.y)), Color.PURPLE, false, 1.0)
 
 func _ready():
 	queue_redraw()

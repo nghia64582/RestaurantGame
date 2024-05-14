@@ -138,8 +138,8 @@ func _on_color_rect_gui_input(event):
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				floor_node.scale /= 1.05
-				#if floor_node.scale.x < 1.27:
-					#floor_node.scale = Vector2(1.27, 1.27)
+				if floor_node.scale.x < 1.27 and DevConfig.LIMIT_SCALE_OUT:
+					floor_node.scale = Vector2(1.27, 1.27)
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			dragging = true
 		else:
@@ -149,7 +149,8 @@ func _on_color_rect_gui_input(event):
 			var delta = event.relative
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
-			floor_node.position = Vector2(pre_x + delta.x, pre_y + delta.y)
+			floor_node.position = Vector2(pre_x + delta.x, pre_y + \
+				(delta.y if DevConfig.UP_DOWN_DRAG else 0))
 
 func find_free_table() -> Table:
 	var result = []

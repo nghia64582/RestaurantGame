@@ -38,15 +38,16 @@ position = Vector2(130.667, 174.776)
 texture = ExtResource("2_16qmh")
 
 [node name="Bubble" type="Sprite2D" parent="BigTable/Components"]
+self_modulate = Color(1, 1, 1, 0.392157)
 z_index = 4092
 position = Vector2(304.301, 179.667)
 texture = ExtResource("3_c1edj")
 
 [node name="GuestNode1" type="Node2D" parent="BigTable/Components"]
-position = Vector2(70, 76.6667)
+position = Vector2(70, 86.6667)
 
 [node name="GuestNode2" type="Node2D" parent="BigTable/Components"]
-position = Vector2(183.333, 76.6667)
+position = Vector2(183.333, 86.6667)
 
 [node name="GuestNode3" type="Node2D" parent="BigTable/Components"]
 position = Vector2(70, 230)
@@ -88,6 +89,7 @@ position = Vector2(65.9738, 175.93)
 texture = ExtResource("4_tqrcq")
 
 [node name="Bubble" type="Sprite2D" parent="SmallTable/Component"]
+self_modulate = Color(1, 1, 1, 0.392157)
 z_index = 4092
 position = Vector2(188.147, 178.374)
 texture = ExtResource("3_c1edj")
@@ -105,7 +107,7 @@ position = Vector2(156.667, 190)
 position = Vector2(156.667, 276.667)
 
 [node name="GuestNode1" type="Node2D" parent="SmallTable/Component"]
-position = Vector2(66.6667, 80)
+position = Vector2(66.6667, 90)
 
 [node name="GuestNode2" type="Node2D" parent="SmallTable/Component"]
 position = Vector2(66.6667, 273.333)

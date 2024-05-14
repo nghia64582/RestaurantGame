@@ -3,9 +3,11 @@ TODO
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
- - Thêm config để dễ kiểm soát
+ - Tạo logic thêm bàn
+ - Thêm các sprite khác cho guest
 
 DONE : 
+ - Thêm config để dễ kiểm soát
  - Dùng cyclic ref trong game và free object khi không dùng
  - Remove các hàm check trong process của game
  - Lỗi : một số bàn có 2 guest

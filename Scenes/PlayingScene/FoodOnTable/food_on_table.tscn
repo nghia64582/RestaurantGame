@@ -30,6 +30,7 @@ offset_bottom = 40.0
 scale = Vector2(0.3, 0.3)
 
 [node name="Cake" type="Sprite2D" parent="Components"]
+modulate = Color(1, 1, 1, 0.396078)
 position = Vector2(33.3333, 26.6667)
 texture = ExtResource("1_mgiaf")
 

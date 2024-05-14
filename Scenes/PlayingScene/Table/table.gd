@@ -34,13 +34,15 @@ var foods = []
 var type
 
 func _draw():
-	var rect = collide_area.get_rect()
-	var pos = rect.position
-	var width = rect.size.x
-	var height = rect.size.y
-	draw_rect(Rect2(pos * component.scale.x, Vector2(width * component.scale.x, \
-		height * component.scale.y)), Color.CYAN, false, 1.0)
-	draw_string(ThemeDB.fallback_font, Vector2(100, 100), str(id))
+	if DevConfig.SHOW_GRID:
+		var rect = collide_area.get_rect()
+		var pos = rect.position
+		var width = rect.size.x
+		var height = rect.size.y
+		draw_rect(Rect2(pos * component.scale.x, Vector2(width * component.scale.x, \
+			height * component.scale.y)), Color.CYAN, false, 1.0)
+	draw_string(ThemeDB.fallback_font, collide_area.get_rect().size / 2 * \
+		component.scale.x, str(id))
 
 func _ready():
 	guests = []
@@ -114,6 +116,8 @@ func update_foods(food_ids):
 
 func remove_food_with_idx(idx):
 	var last_idx = len(foods) - 1
+	if last_idx < 0:
+		return
 	remove_child(foods[last_idx])
 	foods.remove_at(last_idx)
 

@@ -36,18 +36,19 @@ var guest
 var id
 # for moving path
 var cur_direction
-var speed = 200 # pixel per second
+var speed = 150 # pixel per second
 var list_points = []
 var guest_paid
 var game: MainGame
 
 func _draw():
-	for idx in range(len(list_points)):
-		var point = list_points[idx]
-		var pre_point = position if idx == 0 else list_points[idx - 1]
-		var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
-		var p2 = Vector2(point.x - position.x, point.y - position.y)
-		draw_line(p1, p2, Color.RED, 1.0, true)
+	if DevConfig.SHOW_PATH:
+		for idx in range(len(list_points)):
+			var point = list_points[idx]
+			var pre_point = position if idx == 0 else list_points[idx - 1]
+			var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
+			var p2 = Vector2(point.x - position.x, point.y - position.y)
+			draw_line(p1, p2, Color.RED, 1.0, true)
 
 func _ready():
 	sprite_idx = -1

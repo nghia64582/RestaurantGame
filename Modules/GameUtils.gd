@@ -18,3 +18,10 @@ static func is_middle_straight(point: Vector2, p1: Vector2, p2: Vector2):
 		(point.x - p1.x) * (point.x - p2.x) < 0:
 		return true
 	return false
+
+static func convert_time_format(hours: int, minutes: int) -> String:
+	var marker = "AM" if hours <= 11 else "PM"
+	hours %= 12
+	var hours_st = "%02d" % hours
+	var minutes_st = "%02d" % minutes
+	return hours_st + ":" + minutes_st + " " + marker

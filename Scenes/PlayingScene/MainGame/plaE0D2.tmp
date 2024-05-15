@@ -256,13 +256,13 @@ position = Vector2(32.8333, 33.3333)
 texture = ExtResource("28_6httv")
 
 [node name="TimeBox" type="ColorRect" parent="InfoBoard"]
-offset_left = 543.333
+offset_left = 540.0
 offset_top = 123.333
-offset_right = 782.333
-offset_bottom = 186.333
+offset_right = 779.0
+offset_bottom = 185.333
 color = Color(0.164706, 0.164706, 0.164706, 1)
 
-[node name="TimeLb" type="Label" parent="InfoBoard/TimeBox" node_paths=PackedStringArray("time_lb")]
+[node name="TimeLb" type="Label" parent="InfoBoard/TimeBox"]
 layout_mode = 0
 offset_left = 6.66667
 offset_top = -3.33333
@@ -271,7 +271,6 @@ offset_bottom = 65.6667
 theme_override_font_sizes/font_size = 50
 text = "00:20 AM"
 script = ExtResource("31_do10p")
-time_lb = NodePath(".")
 
 [node name="NameLb" type="Label" parent="InfoBoard"]
 offset_left = 210.0

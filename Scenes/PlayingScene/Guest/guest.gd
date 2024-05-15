@@ -258,6 +258,8 @@ func find_path(target: Vector2):
 	# Use BFS to find path to all available points in game
 	var queue = [position]
 	var directs = [Vector2.RIGHT * 10, Vector2.DOWN * 10, Vector2.LEFT * 10, Vector2.UP * 10]
+	randomize()
+	directs.shuffle()
 	var distance = {GameUtils.get_hash(position): 0}
 	var stop = false
 	var last_point

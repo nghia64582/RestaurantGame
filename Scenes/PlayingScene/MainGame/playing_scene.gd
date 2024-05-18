@@ -38,6 +38,7 @@ func _ready():
 	init_kitchens()
 	init_tables()
 	init_waiter()
+	init_path_finder()
 
 func _process(delta):
 	check_generating_guests(delta)
@@ -74,6 +75,10 @@ func init_kitchens():
 		kitchen.position = Vector2(x, y)
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
+		var waiter_node = kitchen.waiter_node
+		var waiter_x = x + waiter_node.position.x * component_node.scale.x
+		var waiter_y = y + waiter_node.position.y * component_node.scale.x
+		kitchen.waiter_pos = Vector2(waiter_x, waiter_y)
 
 func init_tables():
 	for idx in range(len(big_table_nodes)):
@@ -98,6 +103,9 @@ func init_waiter():
 		waiter.update_position(idx * 50 + 50, 100)
 		waiters.append(waiter)
 		floor_node.add_child(waiter)
+
+func init_path_finder():
+	PathFinder.init(self)
 
 func add_random_guest():
 	var guest = guest_template.instantiate()

@@ -7,8 +7,11 @@ static func log(st):
 static func float_modulo(float_value, int_value):
 	return float_value - int(float_value / int_value) * int_value
 
-static func get_hash(point: Vector2):
-	return int(point.x * 321 + point.y * 123)
+static func convert_point_to_hash(point: Vector2):
+	return int(int(point.x) * 1000 + int(point.y) * 1)
+	
+static func convert_hash_to_point(hash: int) -> Vector2:
+	return Vector2(hash / 1000, hash % 1000)
 
 static func is_middle_straight(point: Vector2, p1: Vector2, p2: Vector2):
 	if point.x == p1.x and point.x == p2.x and \
@@ -25,3 +28,10 @@ static func convert_time_format(hours: int, minutes: int) -> String:
 	var hours_st = "%02d" % hours
 	var minutes_st = "%02d" % minutes
 	return hours_st + ":" + minutes_st + " " + marker
+
+static func get_random_directs(unit):
+	var directs = [Vector2.RIGHT * unit, Vector2.DOWN * unit, Vector2.LEFT * \
+		unit, Vector2.UP * unit]
+	randomize()
+	directs.shuffle()
+	return directs

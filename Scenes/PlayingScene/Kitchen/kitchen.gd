@@ -4,12 +4,13 @@ class_name Kitchen
 @export var chef_template: PackedScene
 @export var chef_node: Node2D
 @export var components: Control
-@export var waiter_pos: Node2D
+@export var waiter_node: Node2D
 @export var collide_area: ColorRect
 var main_chef
 var id
 var waiter
 var game: MainGame
+var waiter_pos
 
 func _draw():
 	if DevConfig.SHOW_GRID:

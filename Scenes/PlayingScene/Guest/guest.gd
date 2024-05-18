@@ -239,10 +239,8 @@ func pick_food():
 	order.state = OrderConst.STATE.NOT_ORDERED
 	kitchen.main_chef.update_state(ChefConst.STATE.ORDERED)
 	var kitchen_pos = order.kitchen.position
-	var waiter_pos = order.kitchen.waiter_pos.position
-	var x = kitchen_pos.x + waiter_pos.x * game.component_node.scale.x
-	var y = kitchen_pos.y + waiter_pos.y * game.component_node.scale.x
-	waiter.find_path(Vector2(x, y))
+	var waiter_pos = order.kitchen.waiter_pos
+	waiter.find_path(waiter_pos)
 	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN)
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
@@ -253,57 +251,88 @@ func pick_random_react_anim():
 	var idx = randi_range(0, len(list_anim) - 1)
 	react_anim = list_anim[idx]
 
+# FINDING PATH METHODS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 func find_path(target: Vector2):
-	var start_time = Time.get_ticks_msec()
+	var t0 = Time.get_ticks_msec()
+	var unit = PathFinder.UNIT
+	var result = PathFinder.find_path(position, target)
+	var last_point
+	var distance
+	if result != null:
+		print("Guest find path by cache")
+		distance = result["distance"]
+		last_point = result["last_point"]
+	else:
+		print("Guest find path by algo")
+		result = bfs(target, unit)
+		distance = result["distance"]
+		last_point = result["last_point"]
+	var t1 = Time.get_ticks_msec()
+	# traceback to find the shortest path
+	var path = trace_back(last_point, distance, unit)
+	add_path(path, target)
+	update_next_target_and_direction()
+	print("Guest cur pos %s, path %s" % [position, list_points])
+	print("Guest find path time : %.2f, points size : %d" % \
+		[t1 - t0, distance.size()])
+
+func bfs(target, unit):
 	# Use BFS to find path to all available points in game
 	var queue = [position]
-	var directs = [Vector2.RIGHT * 10, Vector2.DOWN * 10, Vector2.LEFT * 10, Vector2.UP * 10]
-	randomize()
-	directs.shuffle()
-	var distance = {GameUtils.get_hash(position): 0}
+	var distance = {GameUtils.convert_point_to_hash(position): 0}
 	var stop = false
-	var last_point
 	var count = 0
 	var min_dist = 100000
-	print("Guest start find path, start %s, target %s" % [position, target])
+	var last_point = Vector2(0, 0)
+	var directs = GameUtils.get_random_directs(unit)
+	print("Waiter start find path, start %s, target %s" % [position, target])
 	while not queue.is_empty():
 		var cur_point = queue.pop_front()
-		var head_hash = GameUtils.get_hash(cur_point)
+		var head_hash = GameUtils.convert_point_to_hash(cur_point)
 		for t_direct in directs:
 			var next_point = Vector2(cur_point.x + t_direct.x, \
 				cur_point.y + t_direct.y)
-			var hash = GameUtils.get_hash(next_point)
+			var hash = GameUtils.convert_point_to_hash(next_point)
 			var b1 = game.get_point_error(next_point) == GameConst.ERROR.IS_AVAILABLE
 			var b2 = distance.get(hash, -1) == -1
 			if b1 and b2:
-				distance[hash] = distance[head_hash] + 10
+				distance[hash] = distance[head_hash] + unit
 				var dist_to_target = next_point.distance_to(target)
 				if dist_to_target < min_dist:
 					min_dist = dist_to_target
-				if dist_to_target <= 15:
+				if dist_to_target <= unit * sqrt(2):
 					stop = true
 					last_point = next_point
 				queue.push_back(next_point)
 		if stop:
 			break
-	# traceback to find the shortest path
+	return {
+		"distance": distance,
+		"last_point": last_point
+	}
+
+func trace_back(last_point, distance, unit):
 	var path = [last_point]
 	var cur_point = last_point
-	stop = false
-	while cur_point.distance_to(position) > 15:
-		var cur_distance = distance[GameUtils.get_hash(cur_point)]
+	var stop = false
+	var directs = GameUtils.get_random_directs(unit)
+	while cur_point.distance_to(position) > unit * sqrt(2):
+		var cur_distance = distance[GameUtils.convert_point_to_hash(cur_point)]
 		for t_direct in directs:
 			var next_point = Vector2(cur_point.x + t_direct.x, cur_point.y + t_direct.y)
-			var hash = GameUtils.get_hash(next_point)
-			if distance.get(hash, -1) == cur_distance - 10:
+			var hash = GameUtils.convert_point_to_hash(next_point)
+			if distance.get(hash, -1) == cur_distance - unit:
 				cur_point = next_point
 				path.insert(0, cur_point)
-				if cur_point.distance_to(position) < 15:
+				if cur_point.distance_to(position) < unit * sqrt(2):
 					stop = true
 				break
 		if stop:
-			break
-	# remove redundant points in path
+			return path
+	return path
+
+func add_path(path, target):
+	# concatenate path to list points# remove redundant points in path
 	var new_path = []
 	if len(path) >= 1:
 		new_path.append(path[0])
@@ -319,11 +348,7 @@ func find_path(target: Vector2):
 		if not straight:
 			new_path.append(path[idx])
 	new_path.append(path[len(path) - 1])
-	# concatenate path to list points
 	for point in new_path:
 		add_point(point)
-	update_next_target_and_direction()
-	print("Final path %s" % [new_path])
-	print("Guest cur pos %s, path %s" % [position, list_points])
-	print("Guest find path time : %.2f, points size : %d" % [Time.get_ticks_msec() - \
-		start_time, distance.size()])
+	add_point(target)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

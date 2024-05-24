@@ -226,3 +226,16 @@ func get_point_error(point: Vector2):
 		if kitchen.has_point(point):
 			return GameConst.ERROR.IS_INSIDE_KITCHEN
 	return GameConst.ERROR.IS_AVAILABLE
+
+func add_table():
+	pass
+	
+func add_area():
+	FLOOR_WITDH += 1
+	init_floor()
+
+func _on_btn_add_table_pressed():
+	add_table()
+
+func _on_btn_add_area_pressed():
+	add_area()

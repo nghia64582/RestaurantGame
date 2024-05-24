@@ -1,11 +1,11 @@
 TODO
- - Khởi tạo info board cơ bản
+ - Khởi tạo info board cơ bản : level, exp, tiền, gold per minute, ...
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
  - Tạo logic thêm bàn
  - Thêm các sprite khác cho guest
-
+ - Thêm tính năng : thêm đất, thêm bàn, thêm waiter, thêm khách
 DONE : 
  - Thêm config để dễ kiểm soát
  - Dùng cyclic ref trong game và free object khi không dùng

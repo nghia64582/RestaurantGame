@@ -206,7 +206,6 @@ func update_state(new_state, count_down):
 	state = new_state
 	state_count_down = count_down
 	max_count_down = count_down
-	print("Guest change to state : " + GuestConst.STATE_NAME[state])
 
 func check_change_state(new_state):
 	if new_state == GuestConst.STATE.REACT:
@@ -259,11 +258,9 @@ func find_path(target: Vector2):
 	var last_point
 	var distance
 	if result != null:
-		print("Guest find path by cache")
 		distance = result["distance"]
 		last_point = result["last_point"]
 	else:
-		print("Guest find path by algo")
 		result = bfs(target, unit)
 		distance = result["distance"]
 		last_point = result["last_point"]
@@ -272,7 +269,6 @@ func find_path(target: Vector2):
 	var path = trace_back(last_point, distance, unit)
 	add_path(path, target)
 	update_next_target_and_direction()
-	print("Guest cur pos %s, path %s" % [position, list_points])
 	print("Guest find path time : %.2f, points size : %d" % \
 		[t1 - t0, distance.size()])
 

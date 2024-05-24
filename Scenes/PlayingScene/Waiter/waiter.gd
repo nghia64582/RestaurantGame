@@ -79,8 +79,6 @@ func check_and_move(delta):
 		list_points.remove_at(0)
 		update_next_target_and_direction()
 		if len(list_points) == 0:
-			print("Waiter %d moved to target, old state %s "\
-				% [id, WaiterConst.STATE_NAME[state]])
 			update_next_state()
 	else:
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
@@ -165,7 +163,6 @@ func update_next_state():
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
-		print("Waiter goes to idle pos")
 		find_path(Vector2(100, 100))
 	elif new_state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		guest.update_state(GuestConst.STATE.PICK_FOOD, 3)
@@ -189,7 +186,6 @@ func check_change_state(new_state):
 func update_state(new_state):
 	state = new_state
 	check_change_state(new_state)
-	print("Waiter new state : " + WaiterConst.STATE_NAME[state])
 
 func update_state_label():
 	state_lb.text = "Id %s\n%s" % [id, WaiterConst.STATE_NAME[state]]
@@ -202,11 +198,9 @@ func find_path(target: Vector2):
 	var last_point
 	var distance
 	if result != null:
-		print("Waiter find path by cache")
 		distance = result["distance"]
 		last_point = result["last_point"]
 	else:
-		print("Waiter find path by algo")
 		result = bfs(target, unit)
 		distance = result["distance"]
 		last_point = result["last_point"]
@@ -215,7 +209,6 @@ func find_path(target: Vector2):
 	var path = trace_back(last_point, distance, unit)
 	add_path(path, target)
 	update_next_target_and_direction()
-	print("Waiter cur pos %s, path %s" % [position, list_points])
 	print("Waiter find path time : %.2f, points size : %d" % \
 		[t1 - t0, distance.size()])
 

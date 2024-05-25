@@ -52,6 +52,7 @@ component_node = NodePath("Floor/Components")
 side_walk_node = NodePath("Floor/SideWalkNode")
 table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Components/TableNode2")]
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
+N_KITCHENS = null
 
 [node name="Floor" type="Node2D" parent="."]
 z_index = -1

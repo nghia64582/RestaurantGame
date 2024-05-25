@@ -209,8 +209,6 @@ func find_path(target: Vector2):
 	var path = trace_back(last_point, distance, unit)
 	add_path(path, target)
 	update_next_target_and_direction()
-	print("Waiter find path time : %.2f, points size : %d" % \
-		[t1 - t0, distance.size()])
 
 func bfs(target, unit):
 	# Use BFS to find path to all available points in game

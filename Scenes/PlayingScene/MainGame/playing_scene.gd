@@ -15,22 +15,21 @@ class_name MainGame
 @export var table_template: PackedScene
 @export var component_node: Node2D
 @export var side_walk_node: Node2D
+@export var table_row_nodes: Array[Node2D] = []
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
 @export var N_KITCHENS = 4
-@export_group("big table nodes")
-@export var big_table_nodes: Array[Node2D] = []
-@export_group("small table nodes")
-@export var small_table_nodes: Array[Node2D] = []
 
 var dragging = false
 var guest_generator_cool_down
-var kitchens = []
-var tables = []
-var guests = []
-var waiters = []
+var kitchens: Array[Kitchen] = []
+var tables: Array[Table] = []
+var guests: Array[Guest]  = []
+var waiters: Array[Waiter] = []
+var bricks: Array[Node2D] = []
 var walls = []
+var floor_sample: Node2D
 
 func _ready():
 	init_info()
@@ -49,6 +48,10 @@ func init_info():
 	floor_node.position = Vector2(147, 41)
 
 func init_floor():
+	for node in bricks:
+		floor_node.remove_child(node)
+	bricks = []
+	floor_sample = floor_part_template.instantiate()
 	for row in range(FLOOR_HEIGHT):
 		for col in range(FLOOR_WITDH):
 			var floor_brick = floor_part_template.instantiate()
@@ -56,6 +59,7 @@ func init_floor():
 			var y = row * floor_brick.get_size().y
 			floor_brick.position = Vector2(x, y)
 			floor_brick.z_index = -1
+			bricks.append(floor_brick)
 			floor_node.add_child(floor_brick)
 	floor_node.init(self)
 	for idx in range(N_SIDE_WALK_BRICKS):
@@ -80,16 +84,37 @@ func init_kitchens():
 		var waiter_y = y + waiter_node.position.y * component_node.scale.x
 		kitchen.waiter_pos = Vector2(waiter_x, waiter_y)
 
-func init_tables():
-	for idx in range(len(big_table_nodes)):
-		init_table(big_table_nodes[idx], TableConst.TYPE.BIG)
-	for idx in range(len(small_table_nodes)):
-		init_table(small_table_nodes[idx], TableConst.TYPE.SMALL)
+func find_first_x(row: int):
+	var row_y = table_row_nodes[row].position.y
+	var first_x: float = table_row_nodes[row].position.x
+	print("N tables %d, Row %d, row y : %.2f" % [len(tables), row, row_y])
+	var count = 0
+	for table in tables:
+		if abs(row_y - table.position.y / component_node.scale.x) < 1:
+			count += 1
+			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 20))
+			print("Table x : %.2f, width %.2f, scale %.2f" % [table.position.x, table.collide_area.size.x, component_node.scale.x])
+			print("New first x : %.2f" % [first_x])
+	print("Row %d, count %d, first x : %.2f" % [row, count, first_x])
+	return first_x
 
-func init_table(node, type):
+func add_table(row: int, type: int):
+	var first_x = find_first_x(row)
+	var row_y = table_row_nodes[row].position.y
+	print("Init table %.2f, %.2f" % [first_x, row_y])
+	init_table(Vector2(first_x, row_y), type)
+	init_floor()
+
+func init_tables():
+	for idx in range(3):
+		for row in range(2):
+			var type = randi_range(0, 1)
+			add_table(row, type)
+
+func init_table(pos: Vector2, type):
 	var table = table_template.instantiate()
-	var x = node.position.x * get_floor_scale()
-	var y = node.position.y * get_floor_scale()
+	var x = pos.x * get_floor_scale()
+	var y = pos.y * get_floor_scale()
 	table.position = Vector2(x, y)
 	tables.append(table)
 	table.game = self
@@ -214,7 +239,9 @@ func call_waiter_for_payment(guest: Guest):
 	return true
 
 func has_point(point: Vector2):
-	return point.x > 10 and point.y > 10 and point.x < 1000 and point.y < 700
+	return point.x > 10 and point.y > 10 and \
+		point.x < FLOOR_WITDH * floor_sample.get_size().x and \
+		point.y < FLOOR_HEIGHT * floor_sample.get_size().y
 
 func get_point_error(point: Vector2):
 	if not has_point(point):
@@ -227,15 +254,25 @@ func get_point_error(point: Vector2):
 			return GameConst.ERROR.IS_INSIDE_KITCHEN
 	return GameConst.ERROR.IS_AVAILABLE
 
-func add_table():
-	pass
+func add_table_by_type(type: int):
+	var min_first_x = 1e4
+	var key_row = 0
+	for row in range(2):
+		var first_x = find_first_x(row)
+		if first_x < min_first_x:
+			min_first_x = first_x
+			key_row = row
+	add_table(key_row, type)
 	
 func add_area():
 	FLOOR_WITDH += 1
 	init_floor()
 
-func _on_btn_add_table_pressed():
-	add_table()
+func _on_btn_add_table_1_pressed():
+	add_table_by_type(TableConst.TYPE.SMALL)
+
+func _on_btn_add_table_2_pressed():
+	add_table_by_type(TableConst.TYPE.BIG)
 
 func _on_btn_add_area_pressed():
 	add_area()

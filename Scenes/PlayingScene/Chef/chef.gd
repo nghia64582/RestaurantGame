@@ -52,7 +52,6 @@ func check_and_update_cooking(delta):
 		return
 	count_down -= delta
 	if count_down <= 0:
-		print("Cooking countdown : " + str(count_down))
 		update_state(ChefConst.STATE.FINISH_COOKING)
 
 func start_cooking():

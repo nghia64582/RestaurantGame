@@ -20,6 +20,10 @@ class_name MainGame
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
 @export var N_KITCHENS = 4
+@export_group("Game data")
+@export var cash_lb: Label
+@export var gem_lb: Label
+@export var level_lb: Label
 
 var dragging = false
 var guest_generator_cool_down
@@ -29,6 +33,7 @@ var guests: Array[Guest]  = []
 var waiters: Array[Waiter] = []
 var bricks: Array[Node2D] = []
 var walls = []
+var game_data: GameData
 var floor_sample: Node2D
 
 func _ready():
@@ -38,6 +43,16 @@ func _ready():
 	init_tables()
 	init_waiter()
 	init_path_finder()
+	load_game_data()
+
+func load_game_data():
+	game_data = GameData.new()
+	game_data.init(self)
+	update_ui_game_data()
+
+func update_ui_game_data():
+	cash_lb.text = str(game_data.cash)
+	level_lb.text = str(game_data.exp) + "/" + str(game_data.level)
 
 func _process(delta):
 	check_generating_guests(delta)
@@ -87,21 +102,16 @@ func init_kitchens():
 func find_first_x(row: int):
 	var row_y = table_row_nodes[row].position.y
 	var first_x: float = table_row_nodes[row].position.x
-	print("N tables %d, Row %d, row y : %.2f" % [len(tables), row, row_y])
 	var count = 0
 	for table in tables:
 		if abs(row_y - table.position.y / component_node.scale.x) < 1:
 			count += 1
-			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 20))
-			print("Table x : %.2f, width %.2f, scale %.2f" % [table.position.x, table.collide_area.size.x, component_node.scale.x])
-			print("New first x : %.2f" % [first_x])
-	print("Row %d, count %d, first x : %.2f" % [row, count, first_x])
+			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 50))
 	return first_x
 
 func add_table(row: int, type: int):
 	var first_x = find_first_x(row)
 	var row_y = table_row_nodes[row].position.y
-	print("Init table %.2f, %.2f" % [first_x, row_y])
 	init_table(Vector2(first_x, row_y), type)
 	init_floor()
 
@@ -158,6 +168,10 @@ func do_guest_leave_table(guest: Guest):
 	guest.position = guest.pre_pos
 	guest.z_index = guest.pre_z_index
 	guest.find_path(Vector2(10, 250))
+	finished_guest_order(guest.order)
+
+func finished_guest_order(order: Order):
+	game_data.finished_guest_order(order)
 
 func get_floor_scale():
 	return component_node.scale.x

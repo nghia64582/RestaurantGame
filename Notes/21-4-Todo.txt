@@ -4,12 +4,12 @@ TODO
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
  - Thêm các sprite khác cho guest
- - Thêm tính năng : thêm bàn, thêm waiter, thêm khách
+ - Thêm tính năng : thêm waiter, thêm khách
  - Lưu và tải data của game : Cứ mỗi khi game chạy được một khoảng thời gian
 (5 - 10 s) thì lưu dữ liệu lại, lần sau khi vào game sẽ load dữ liệu từ máy lên
 => tạo tính liên tục của game
 DONE : 
- - Thêm tính năng : thêm đất
+ - Thêm tính năng : thêm đất, thêm bàn
  - Thêm config để dễ kiểm soát
  - Dùng cyclic ref trong game và free object khi không dùng
  - Remove các hàm check trong process của game

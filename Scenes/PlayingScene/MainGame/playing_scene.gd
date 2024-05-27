@@ -16,6 +16,7 @@ class_name MainGame
 @export var component_node: Node2D
 @export var side_walk_node: Node2D
 @export var table_row_nodes: Array[Node2D] = []
+@export var cheat_btns: Node2D
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -290,3 +291,6 @@ func _on_btn_add_table_2_pressed():
 
 func _on_btn_add_area_pressed():
 	add_area()
+
+func _on_btn_cheat_pressed():
+	cheat_btns.visible = not cheat_btns.visible

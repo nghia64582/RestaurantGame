@@ -1,0 +1,9 @@
+ - Các tính năng, chỉ số tạo progress cho người chơi
+  + Số dòng bàn
+  + Diện tích
+  + Số bàn
+  + Danh sách menu
+  + Level
+  + Số waiter
+  + Số kitchen
+  + Workflow của waiter

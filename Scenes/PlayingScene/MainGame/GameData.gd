@@ -8,9 +8,6 @@ var gem: int
 
 var game: MainGame
 
-func _ready():
-	print(1)
-
 func init(t_game: MainGame):
 	game = t_game
 	cash = 30

@@ -81,8 +81,10 @@ func check_and_move(delta):
 		if len(list_points) == 0:
 			update_next_state()
 	else:
+		# need to update for steering behavior
 		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
 		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		if GameUtils.is_middle_straight(next_target, position, Vector2(x, y)):
 			x = next_target.x
 			y = next_target.y

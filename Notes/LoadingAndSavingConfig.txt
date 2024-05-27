@@ -1,0 +1,5 @@
+ - Cần lưu:
+	 + Game data: Cash, level, exp, ...
+	 + Tọa độ bàn
+	 + Tọa độ bếp
+	 + Tọa độ máy bán hàng, ... (Để sau)

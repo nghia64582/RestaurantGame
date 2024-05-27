@@ -7,3 +7,5 @@
   + Số waiter
   + Số kitchen
   + Workflow của waiter
+  + Số điểm đợi của waiter
+  

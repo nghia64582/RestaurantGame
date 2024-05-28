@@ -1,11 +1,26 @@
  - Các tính năng, chỉ số tạo progress cho người chơi
   + Số dòng bàn
   + Diện tích
-  + Số bàn
+  + Tăng bàn, bàn to, nhỏ
   + Danh sách menu
   + Level
   + Số waiter
   + Số kitchen
   + Workflow của waiter
   + Số điểm đợi của waiter
-  
+  + Waiter work flow
+   - Lv 1 : Guest xuất hiện và tìm đường tới bàn free -> guest ngồi vào bàn
+ -> waiter đến cạnh guest để gửi menu -> Guest pick món tầm 3s -> waiter cầm 
+menu tới kitchen -> chef nấu món tương ứng vs guest đứng đợi bên cạnh kitchen
+ -> chef nấu xong -> waiter đưa món đến bàn -> đến bàn xong, guest ăn và waiter 
+về idle pos -> guest ăn xong waiter đến và tạo payment
+   speed : 150-180
+   - Lv 2 : Waiter sau khi gửi menu cho chef sẽ check xem có guest nào cần pay 
+hoặc gọi món ko, nếu có sẽ đến thẳng luôn thay vì về idle pos
+   speed : 180 - 210
+   - Lv 3 : Waiter sau khi đưa món cho khách sẽ check xem có guest nào cần pay
+hoặc gọi món ko, nếu có sẽ đến thẳng luồn thày vì về idle pos
+   speed 210 - 250
+  - Lv 4  : Waiter trong trạng thái idle, check xem có guest nào sắp cần help 
+không thì đi đến luôn
+   speed 250 - 260

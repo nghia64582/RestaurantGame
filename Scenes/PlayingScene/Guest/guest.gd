@@ -4,6 +4,7 @@ class_name Guest
 var sprite_idx
 var state
 var id
+var sprite_type
 var table
 var waiter
 # for moving path
@@ -21,45 +22,27 @@ var called_waiter
 @export var state_lb: Label
 @export var image: Sprite2D
 @export var progress_bar: ProgressBar
-@export_group("Angry 1 images")
-@export var angry_1_images: Array[Texture2D] = []
-@export_group("Angry 2 images")
-@export var angry_2_images: Array[Texture2D] = []
-@export_group("Back view anim 1")
-@export var back_view_1_images: Array[Texture2D] = []
-@export_group("Back view anim 2")
-@export var back_view_2_images: Array[Texture2D] = []
-@export_group("Bored 1")
-@export var bored_1_images: Array[Texture2D] = []
-@export_group("Bored 2")
-@export var bored_2_images: Array[Texture2D] = []
-@export_group("Call waiter")
-@export var call_waiter_images: Array[Texture2D] = []
-@export_group("Drink")
-@export var drink_images: Array[Texture2D] = []
-@export_group("Eat")
-@export var eat_images: Array[Texture2D] = []
-@export_group("Read menu")
-@export var read_menu_images: Array[Texture2D] = []
-@export_group("Satisfied 1")
-@export var satisfied_1_images: Array[Texture2D] = []
-@export_group("Satisfied 2")
-@export var satisfied_2_images: Array[Texture2D] = []
-@export_group("Satisfied 3")
-@export var satisfied_3_images: Array[Texture2D] = []
-@export_group("Stand and angry")
-@export var stand_and_angry_images: Array[Texture2D] = []
-@export_group("Stand and bored")
-@export var stand_and_bored_images: Array[Texture2D] = []
-@export_group("Stand and wait")
-@export var stand_and_wait_images: Array[Texture2D] = []
-@export_group("Waiting for the food 1")
-@export var waiting_for_food_1_images: Array[Texture2D] = []
-@export_group("Waiting for the food 2")
-@export var waiting_for_food_2_images: Array[Texture2D] = []
-@export_group("Waiting for the food 3")
-@export var waiting_for_food_3_images: Array[Texture2D] = []
+@export var guest_sprite_factory_template: PackedScene
 
+var angry_1_images: Array[Texture2D] = []
+var angry_2_images: Array[Texture2D] = []
+var back_view_1_images: Array[Texture2D] = []
+var back_view_2_images: Array[Texture2D] = []
+var bored_1_images: Array[Texture2D] = []
+var bored_2_images: Array[Texture2D] = []
+var call_waiter_images: Array[Texture2D] = []
+var drink_images: Array[Texture2D] = []
+var eat_images: Array[Texture2D] = []
+var read_menu_images: Array[Texture2D] = []
+var satisfied_1_images: Array[Texture2D] = []
+var satisfied_2_images: Array[Texture2D] = []
+var satisfied_3_images: Array[Texture2D] = []
+var stand_and_angry_images: Array[Texture2D] = []
+var stand_and_bored_images: Array[Texture2D] = []
+var stand_and_wait_images: Array[Texture2D] = []
+var waiting_for_food_1_images: Array[Texture2D] = []
+var waiting_for_food_2_images: Array[Texture2D] = []
+var waiting_for_food_3_images: Array[Texture2D] = []
 func _draw():
 	if DevConfig.SHOW_PATH:
 		for idx in range(len(list_points)):
@@ -72,9 +55,33 @@ func _draw():
 func _ready():
 	update_state(GuestConst.STATE.GO_TO_TABLE, 0)
 	sprite_idx = -1
+	init_sprite_type()
 	called_waiter = false
 	id = IdGenerator.get_guest_id()
 	update_z_order()
+
+func init_sprite_type():
+	sprite_type = 1
+	var guest_sprite_factory = guest_sprite_factory_template.instantiate()
+	angry_1_images = guest_sprite_factory.angry_1_images(sprite_type)
+	angry_2_images = guest_sprite_factory.angry_2_images(sprite_type)
+	back_view_1_images = guest_sprite_factory.back_view_1_images(sprite_type)
+	back_view_2_images = guest_sprite_factory.back_view_2_images(sprite_type)
+	bored_1_images = guest_sprite_factory.bored_1_images(sprite_type)
+	bored_2_images = guest_sprite_factory.bored_2_images(sprite_type)
+	call_waiter_images = guest_sprite_factory.call_waiter_images(sprite_type)
+	drink_images = guest_sprite_factory.drink_images(sprite_type)
+	eat_images = guest_sprite_factory.eat_images(sprite_type)
+	read_menu_images = guest_sprite_factory.read_menu_images(sprite_type)
+	satisfied_1_images = guest_sprite_factory.satisfied_1_images(sprite_type)
+	satisfied_2_images = guest_sprite_factory.satisfied_2_images(sprite_type)
+	satisfied_3_images = guest_sprite_factory.satisfied_3_images(sprite_type)
+	stand_and_angry_images = guest_sprite_factory.stand_and_angry_images(sprite_type)
+	stand_and_bored_images = guest_sprite_factory.stand_and_bored_images(sprite_type)
+	stand_and_wait_images = guest_sprite_factory.stand_and_wait_images(sprite_type)
+	waiting_for_food_1_images = guest_sprite_factory.waiting_for_food_1_images(sprite_type)
+	waiting_for_food_2_images = guest_sprite_factory.waiting_for_food_2_images(sprite_type)
+	waiting_for_food_3_images = guest_sprite_factory.waiting_for_food_3_images(sprite_type)
 
 func _process(delta):
 	queue_redraw()

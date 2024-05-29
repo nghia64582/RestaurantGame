@@ -8,6 +8,7 @@ TODO
 (5 - 10 s) thì lưu dữ liệu lại, lần sau khi vào game sẽ load dữ liệu từ máy lên
 => tạo tính liên tục của game
  - Tạo Factory để sử dụng hết sprite của guest
+ - Khối tính năng : Nhập nguyên liệu về làm (long term)
 DONE : 
  - Khởi tạo info board cơ bản : level, exp, tiền, gold per minute, ...
  - Thêm tính năng : thêm đất, thêm bàn

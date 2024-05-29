@@ -43,6 +43,8 @@ var stand_and_wait_images: Array[Texture2D] = []
 var waiting_for_food_1_images: Array[Texture2D] = []
 var waiting_for_food_2_images: Array[Texture2D] = []
 var waiting_for_food_3_images: Array[Texture2D] = []
+static var guest_sprite_factory
+
 func _draw():
 	if DevConfig.SHOW_PATH:
 		for idx in range(len(list_points)):
@@ -65,7 +67,8 @@ func init_sprite_type():
 	# todo 2, 3, 4, 5, 6
 	var idx = randi_range(0, len(types) - 1)
 	sprite_type = types[idx]
-	var guest_sprite_factory = guest_sprite_factory_template.instantiate()
+	if guest_sprite_factory == null:
+		guest_sprite_factory = guest_sprite_factory_template.instantiate()
 	angry_1_images = guest_sprite_factory.angry_1_images(sprite_type)
 	angry_2_images = guest_sprite_factory.angry_2_images(sprite_type)
 	back_view_1_images = guest_sprite_factory.back_view_1_images(sprite_type)

@@ -251,14 +251,13 @@ theme_override_font_sizes/font_size = 40
 text = "Cheat"
 
 [node name="CheatBtns" type="Node2D" parent="InfoBoard/BtnCheat"]
-visible = false
 modulate = Color(1, 1, 1, 0.784314)
 
 [node name="ColorRect" type="ColorRect" parent="InfoBoard/BtnCheat/CheatBtns"]
 offset_left = 6.66667
 offset_top = 103.333
-offset_right = 1206.67
-offset_bottom = 1103.33
+offset_right = 256.667
+offset_bottom = 903.333
 
 [node name="BtnAddArea" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
 offset_left = 6.66664
@@ -276,7 +275,7 @@ offset_top = 23.3333
 offset_right = 217.333
 offset_bottom = 78.3333
 theme_override_font_sizes/font_size = 40
-text = "Add area
+text = "+ Area
 "
 
 [node name="BtnAddTable1" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
@@ -290,12 +289,12 @@ script = ExtResource("32_jkuin")
 
 [node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1"]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = 221.0
-offset_bottom = 85.0
-theme_override_font_sizes/font_size = 35
-text = "Add table 1"
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 1"
 
 [node name="BtnAddTable2" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
 offset_left = 3.33334
@@ -308,12 +307,63 @@ script = ExtResource("32_jkuin")
 
 [node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2"]
 layout_mode = 0
-offset_left = 30.0
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 2"
+
+[node name="BtnAddWaiter" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 433.333
+offset_right = 244.667
+offset_bottom = 544.333
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddWaiter" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter"]
+layout_mode = 0
+offset_left = 36.6667
 offset_top = 26.6667
-offset_right = 221.0
+offset_right = 250.667
 offset_bottom = 81.6667
-theme_override_font_sizes/font_size = 35
-text = "Add table 2"
+theme_override_font_sizes/font_size = 40
+text = "+ Waiter"
+
+[node name="BtnAddKitchen" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 540.0
+offset_right = 244.667
+offset_bottom = 651.0
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddKitchen" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddKitchen"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 23.3333
+offset_right = 209.0
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Kitchen"
+
+[node name="BtnAddVending" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 646.667
+offset_right = 244.667
+offset_bottom = 757.667
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddVending" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddVending"]
+layout_mode = 0
+offset_left = 23.3333
+offset_top = 20.0
+offset_right = 212.333
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "+ Vending"
 
 [node name="MoneyBox" type="ColorRect" parent="InfoBoard"]
 offset_left = 220.0
@@ -385,3 +435,4 @@ text = "Nghia64582
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddArea" to="." method="_on_btn_add_area_pressed"]
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]

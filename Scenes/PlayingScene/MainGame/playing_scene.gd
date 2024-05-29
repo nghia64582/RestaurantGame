@@ -294,3 +294,10 @@ func _on_btn_add_area_pressed():
 
 func _on_btn_cheat_pressed():
 	cheat_btns.visible = not cheat_btns.visible
+
+func _on_btn_add_waiter_pressed():
+	var waiter = waiter_template.instantiate()
+	waiter.game = self
+	waiter.update_position(100, 100)
+	waiters.append(waiter)
+	floor_node.add_child(waiter)

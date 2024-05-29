@@ -826,4 +826,3 @@ func waiting_for_food_3_images(id):
 		return waiting_for_food_3_images_9
 	if id == 10:
 		return waiting_for_food_3_images_10
-

@@ -61,7 +61,10 @@ func _ready():
 	update_z_order()
 
 func init_sprite_type():
-	sprite_type = 1
+	var types = [1, 7, 8, 9, 10]
+	# todo 2, 3, 4, 5, 6
+	var idx = randi_range(0, len(types) - 1)
+	sprite_type = types[idx]
 	var guest_sprite_factory = guest_sprite_factory_template.instantiate()
 	angry_1_images = guest_sprite_factory.angry_1_images(sprite_type)
 	angry_2_images = guest_sprite_factory.angry_2_images(sprite_type)

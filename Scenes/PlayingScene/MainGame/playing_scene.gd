@@ -38,6 +38,7 @@ var game_data: GameData
 var floor_sample: Node2D
 
 func _ready():
+	GameConfig.load_config()
 	init_info()
 	init_floor()
 	init_kitchens()
@@ -53,7 +54,7 @@ func load_game_data():
 
 func update_ui_game_data():
 	cash_lb.text = str(game_data.cash)
-	level_lb.text = str(game_data.exp) + "/" + str(game_data.level)
+	level_lb.text = GameUtils.get_level_text(game_data.exp)
 
 func _process(delta):
 	check_generating_guests(delta)
@@ -301,3 +302,11 @@ func _on_btn_add_waiter_pressed():
 	waiter.update_position(100, 100)
 	waiters.append(waiter)
 	floor_node.add_child(waiter)
+
+func _on_btn_grid_pressed():
+	init_floor()
+	DevConfig.SHOW_GRID = not DevConfig.SHOW_GRID
+
+func _on_btn_path_pressed():
+	init_floor()
+	DevConfig.SHOW_PATH = not DevConfig.SHOW_PATH

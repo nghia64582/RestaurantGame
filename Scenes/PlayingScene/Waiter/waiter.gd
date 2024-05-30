@@ -221,7 +221,6 @@ func bfs(target, unit):
 	var min_dist = 100000
 	var last_point = Vector2(0, 0)
 	var directs = GameUtils.get_random_directs(unit)
-	print("Waiter start find path, start %s, target %s" % [position, target])
 	while not queue.is_empty():
 		var cur_point = queue.pop_front()
 		var head_hash = GameUtils.convert_point_to_hash(cur_point)

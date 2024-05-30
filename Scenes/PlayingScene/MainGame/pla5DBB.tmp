@@ -33,15 +33,8 @@
 [ext_resource type="Texture2D" uid="uid://ccrheguqp3ny8" path="res://Assets/Png/Ui/Btn_Green.png" id="30_cw7gg"]
 [ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/BtnCheat.gd" id="31_b0tnb"]
 [ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/TimeLb.gd" id="31_do10p"]
-
-[sub_resource type="GDScript" id="GDScript_uqs8t"]
-script/source = "extends Button
-
-"
-
-[sub_resource type="GDScript" id="GDScript_yw8xa"]
-script/source = "extends Button
-"
+[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/BtnAddArea.gd" id="31_ycp32"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/BtnAddTable.gd" id="32_jkuin"]
 
 [node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "kitchen_nodes", "cash_lb", "level_lb")]
 script = ExtResource("1_hm10v")
@@ -258,14 +251,13 @@ theme_override_font_sizes/font_size = 40
 text = "Cheat"
 
 [node name="CheatBtns" type="Node2D" parent="InfoBoard/BtnCheat"]
-visible = false
 modulate = Color(1, 1, 1, 0.784314)
 
 [node name="ColorRect" type="ColorRect" parent="InfoBoard/BtnCheat/CheatBtns"]
 offset_left = 6.66667
 offset_top = 103.333
-offset_right = 506.667
-offset_bottom = 603.333
+offset_right = 256.667
+offset_bottom = 903.333
 
 [node name="BtnAddArea" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
 offset_left = 6.66664
@@ -274,7 +266,7 @@ offset_right = 252.666
 offset_bottom = 437.667
 icon = ExtResource("30_cw7gg")
 flat = true
-script = SubResource("GDScript_uqs8t")
+script = ExtResource("31_ycp32")
 
 [node name="LbAddArea" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddArea"]
 layout_mode = 0
@@ -293,7 +285,7 @@ offset_right = 249.333
 offset_bottom = 217.667
 icon = ExtResource("30_cw7gg")
 flat = true
-script = SubResource("GDScript_yw8xa")
+script = ExtResource("32_jkuin")
 
 [node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1"]
 layout_mode = 0
@@ -311,7 +303,7 @@ offset_right = 249.333
 offset_bottom = 327.667
 icon = ExtResource("30_cw7gg")
 flat = true
-script = SubResource("GDScript_yw8xa")
+script = ExtResource("32_jkuin")
 
 [node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2"]
 layout_mode = 0
@@ -340,10 +332,10 @@ theme_override_font_sizes/font_size = 40
 text = "+ Waiter"
 
 [node name="BtnAddKitchen" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 323.333
-offset_right = 478.0
-offset_bottom = 434.333
+offset_left = 6.66667
+offset_top = 540.0
+offset_right = 244.667
+offset_bottom = 651.0
 icon = ExtResource("30_cw7gg")
 flat = true
 
@@ -357,10 +349,10 @@ theme_override_font_sizes/font_size = 40
 text = "+ Kitchen"
 
 [node name="BtnAddVending" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 243.333
-offset_top = 430.0
-offset_right = 481.333
-offset_bottom = 541.0
+offset_left = 6.66667
+offset_top = 646.667
+offset_right = 244.667
+offset_bottom = 757.667
 icon = ExtResource("30_cw7gg")
 flat = true
 
@@ -372,42 +364,6 @@ offset_right = 212.333
 offset_bottom = 75.0
 theme_override_font_sizes/font_size = 40
 text = "+ Vending"
-
-[node name="BtnGrid" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 110.0
-offset_right = 486.0
-offset_bottom = 221.0
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_uqs8t")
-
-[node name="LbGrid" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnGrid"]
-layout_mode = 0
-offset_left = 76.6667
-offset_top = 23.3333
-offset_right = 260.666
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "Grid"
-
-[node name="BtnPath" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 216.667
-offset_right = 486.0
-offset_bottom = 327.667
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_uqs8t")
-
-[node name="LbPath" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnPath"]
-layout_mode = 0
-offset_left = 73.3334
-offset_top = 26.6666
-offset_right = 257.333
-offset_bottom = 81.6666
-theme_override_font_sizes/font_size = 40
-text = "Path"
 
 [node name="MoneyBox" type="ColorRect" parent="InfoBoard"]
 offset_left = 220.0
@@ -433,7 +389,7 @@ texture = ExtResource("28_6httv")
 [node name="TimeBox" type="ColorRect" parent="InfoBoard"]
 offset_left = 543.333
 offset_top = 123.333
-offset_right = 815.333
+offset_right = 782.333
 offset_bottom = 186.333
 color = Color(0.164706, 0.164706, 0.164706, 1)
 
@@ -451,15 +407,16 @@ time_lb = NodePath(".")
 [node name="LevelBox" type="ColorRect" parent="InfoBoard"]
 offset_left = 543.333
 offset_top = 46.6667
-offset_right = 815.333
+offset_right = 782.333
 offset_bottom = 109.667
 color = Color(0.164706, 0.164706, 0.164706, 1)
 
 [node name="LevelLb" type="Label" parent="InfoBoard/LevelBox"]
 layout_mode = 0
 offset_left = 6.66667
-offset_right = 128.667
-offset_bottom = 63.0
+offset_top = -10.0
+offset_right = 58.6667
+offset_bottom = 53.0
 theme_override_font_sizes/font_size = 45
 text = "30/40
 "
@@ -479,5 +436,3 @@ text = "Nghia64582
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
 [connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnGrid" to="." method="_on_btn_grid_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnPath" to="." method="_on_btn_path_pressed"]

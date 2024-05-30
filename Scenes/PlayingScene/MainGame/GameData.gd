@@ -11,7 +11,7 @@ var game: MainGame
 func init(t_game: MainGame):
 	game = t_game
 	cash = 30
-	exp = 0
+	exp = 1
 	level = 1
 	gem = 100
 	

@@ -35,3 +35,34 @@ static func get_random_directs(unit):
 	randomize()
 	directs.shuffle()
 	return directs
+
+static func get_level(exp):
+	for level_conf in GameConfig.level_config:
+		if level_conf["min_exp"] <= exp and exp <= level_conf["max_exp"]:
+			return level_conf["level"]
+	return 1
+	
+static func get_cur_exp(exp):
+	for level_conf in GameConfig.level_config:
+		if level_conf["min_exp"] <= exp and exp <= level_conf["max_exp"]:
+			return exp - level_conf["min_exp"]
+	return 1
+
+static func get_max_exp_by_level(level):
+	for level_conf in GameConfig.level_config:
+		if level == level_conf["level"]:
+			return level_conf["max_exp"] - level_conf["min_exp"] + 1
+	return 1000
+
+static func get_level_text(exp):
+	var level = get_level(exp)
+	var cur_exp = get_cur_exp(exp)
+	var max_exp = get_max_exp_by_level(level)
+	return "Lv %d : %d/%d" % [level, cur_exp, max_exp]
+	
+static func get_json(file_path):
+	var json_as_text = FileAccess.get_file_as_string(file_path)
+	var json_as_dict = JSON.parse_string(json_as_text)
+	if json_as_dict:
+		return json_as_dict
+	return null

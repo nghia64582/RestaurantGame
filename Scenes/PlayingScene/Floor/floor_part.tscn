@@ -8,6 +8,5 @@ script = ExtResource("1_i4grq")
 brick_image = NodePath("07")
 
 [node name="07" type="Sprite2D" parent="."]
-position = Vector2(65, 65)
-scale = Vector2(0.299884, 0.299884)
+position = Vector2(216, 216)
 texture = ExtResource("2_sl4e5")

@@ -3,7 +3,7 @@ class_name PathFinder
 
 static var distances = {}
 static var game: MainGame
-static var UNIT = 20
+static var UNIT = 50
 
 static func init(t_game: MainGame):
 	print("Start initing path finder")
@@ -13,8 +13,10 @@ static func init(t_game: MainGame):
 		init_point(table.position)
 	for kitchen in game.kitchens:
 		init_point(kitchen.waiter_pos)
-	init_point(Vector2(100, 100))
-	init_point(Vector2(10, 300))
+	init_point(Vector2(300, 400))
+	init_point(Vector2(500, 400))
+	init_point(Vector2(700, 400))
+	init_point(Vector2(100, 900))
 	print("Time for path finder %d" % [Time.get_ticks_msec() - start])
 
 static func init_point(start: Vector2):

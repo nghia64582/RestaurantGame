@@ -265,7 +265,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.3, 0.3)
 
 [node name="Image" type="Sprite2D" parent="Components"]
 position = Vector2(0, -96.6667)

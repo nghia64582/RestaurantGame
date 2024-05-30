@@ -40,7 +40,7 @@ func _draw():
 		var width = rect.size.x
 		var height = rect.size.y
 		draw_rect(Rect2(pos * component.scale.x, Vector2(width * component.scale.x, \
-			height * component.scale.y)), Color.CYAN, false, 1.0)
+			height * component.scale.y)), Color.CYAN, false, 5.0)
 	draw_string(ThemeDB.fallback_font, collide_area.get_rect().size / 2 * \
 		component.scale.x, str(id))
 

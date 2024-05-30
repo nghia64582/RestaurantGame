@@ -8,6 +8,5 @@ script = ExtResource("1_hcs1b")
 image = NodePath("01")
 
 [node name="01" type="Sprite2D" parent="."]
-position = Vector2(66, 65)
-scale = Vector2(0.3, 0.3)
+position = Vector2(216, 216)
 texture = ExtResource("1_6kfby")

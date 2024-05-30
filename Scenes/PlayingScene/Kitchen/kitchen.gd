@@ -16,7 +16,7 @@ func _draw():
 	if DevConfig.SHOW_GRID:
 		var rect = collide_area.get_rect()
 		draw_rect(Rect2(rect.position, Vector2(rect.size.x * components.scale.x, \
-			rect.size.y * components.scale.y)), Color.PURPLE, false, 1.0)
+			rect.size.y * components.scale.y)), Color.PURPLE, false, 5.0)
 
 func _ready():
 	queue_redraw()

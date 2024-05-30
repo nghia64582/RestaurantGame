@@ -62,7 +62,6 @@ func _process(delta):
 func init_info():
 	guest_generator_cool_down = 1
 	floor_node.scale = Vector2(1.27, 1.27)
-	floor_node.position = Vector2(147, 41)
 
 func init_floor():
 	for node in bricks:
@@ -108,7 +107,7 @@ func find_first_x(row: int):
 	for table in tables:
 		if abs(row_y - table.position.y / component_node.scale.x) < 1:
 			count += 1
-			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 50))
+			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 150))
 	return first_x
 
 func add_table(row: int, type: int):
@@ -137,7 +136,7 @@ func init_waiter():
 	for idx in range(2):
 		var waiter = waiter_template.instantiate()
 		waiter.game = self
-		waiter.update_position(idx * 50 + 50, 100)
+		waiter.update_position(idx * 200 + 300, 400)
 		waiters.append(waiter)
 		floor_node.add_child(waiter)
 
@@ -151,7 +150,7 @@ func add_random_guest():
 	if free_table == null:
 		return
 	guests.append(guest)
-	guest.position = Vector2(10, 300)
+	guest.position = Vector2(100, 900)
 	guest.table = free_table
 	guest.find_path(free_table.position)
 	free_table.state = TableConst.STATE.USED
@@ -169,7 +168,7 @@ func do_guest_leave_table(guest: Guest):
 	floor_node.add_child(guest)
 	guest.position = guest.pre_pos
 	guest.z_index = guest.pre_z_index
-	guest.find_path(Vector2(10, 250))
+	guest.find_path(Vector2(100, 900))
 	finished_guest_order(guest.order)
 
 func finished_guest_order(order: Order):

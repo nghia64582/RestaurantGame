@@ -36,7 +36,7 @@ var guest
 var id
 # for moving path
 var cur_direction
-var speed = 150 # pixel per second
+var speed = 500 # pixel per second
 var list_points = []
 var guest_paid
 var game: MainGame
@@ -48,7 +48,7 @@ func _draw():
 			var pre_point = position if idx == 0 else list_points[idx - 1]
 			var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
 			var p2 = Vector2(point.x - position.x, point.y - position.y)
-			draw_line(p1, p2, Color.RED, 1.0, true)
+			draw_line(p1, p2, Color.RED, 5.0, true)
 
 func _ready():
 	sprite_idx = -1
@@ -165,7 +165,7 @@ func update_next_state():
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
-		find_path(Vector2(100, 100))
+		find_path(Vector2(300, 400))
 	elif new_state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		guest.update_state(GuestConst.STATE.PICK_FOOD, 3)
 	elif new_state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:

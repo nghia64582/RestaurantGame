@@ -31,7 +31,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.3, 0.3)
 
 [node name="TableSet1" type="Sprite2D" parent="BigTable/Components"]
 position = Vector2(130.667, 174.776)
@@ -44,10 +43,10 @@ position = Vector2(304.301, 179.667)
 texture = ExtResource("3_c1edj")
 
 [node name="GuestNode1" type="Node2D" parent="BigTable/Components"]
-position = Vector2(70, 86.6667)
+position = Vector2(70, 84)
 
 [node name="GuestNode2" type="Node2D" parent="BigTable/Components"]
-position = Vector2(183.333, 86.6667)
+position = Vector2(183.333, 84)
 
 [node name="GuestNode3" type="Node2D" parent="BigTable/Components"]
 position = Vector2(70, 230)
@@ -82,7 +81,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.3, 0.3)
 
 [node name="TableSet2" type="Sprite2D" parent="SmallTable/Component"]
 position = Vector2(65.9738, 175.93)
@@ -107,7 +105,7 @@ position = Vector2(156.667, 190)
 position = Vector2(156.667, 276.667)
 
 [node name="GuestNode1" type="Node2D" parent="SmallTable/Component"]
-position = Vector2(66.6667, 90)
+position = Vector2(66.6667, 85)
 
 [node name="GuestNode2" type="Node2D" parent="SmallTable/Component"]
 position = Vector2(66.6667, 273.333)

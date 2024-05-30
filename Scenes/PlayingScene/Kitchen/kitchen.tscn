@@ -19,7 +19,6 @@ collide_area = NodePath("components/ColorRect")
 
 [node name="components" type="Control" parent="."]
 anchors_preset = 0
-scale = Vector2(0.3, 0.3)
 
 [node name="KitchenSet" type="Sprite2D" parent="components"]
 position = Vector2(114.5, 34.7267)

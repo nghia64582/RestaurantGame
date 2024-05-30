@@ -8,10 +8,10 @@ static func float_modulo(float_value, int_value):
 	return float_value - int(float_value / int_value) * int_value
 
 static func convert_point_to_hash(point: Vector2):
-	return int(int(point.x) * 1000 + int(point.y) * 1)
+	return int(int(point.x) * 10000 + int(point.y) * 1)
 	
 static func convert_hash_to_point(hash: int) -> Vector2:
-	return Vector2(hash / 1000, hash % 1000)
+	return Vector2(hash / 10000, hash % 10000)
 
 static func is_middle_straight(point: Vector2, p1: Vector2, p2: Vector2):
 	if point.x == p1.x and point.x == p2.x and \

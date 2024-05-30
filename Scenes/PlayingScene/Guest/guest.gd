@@ -9,7 +9,7 @@ var table
 var waiter
 # for moving path
 var cur_direction
-var speed = 150 # pixel per second
+var speed = 400 # pixel per second
 var list_points = []
 var state_count_down
 var max_count_down
@@ -52,7 +52,7 @@ func _draw():
 			var pre_point = position if idx == 0 else list_points[idx - 1]
 			var p1 = Vector2(pre_point.x - position.x, pre_point.y - position.y)
 			var p2 = Vector2(point.x - position.x, point.y - position.y)
-			draw_line(p1, p2, Color.RED, 1.0, true)
+			draw_line(p1, p2, Color.RED, 5.0, true)
 
 func _ready():
 	update_state(GuestConst.STATE.GO_TO_TABLE, 0)

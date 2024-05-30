@@ -18,13 +18,12 @@ guest_sprite_factory_template = ExtResource("2_fh0vi")
 layout_mode = 3
 anchors_preset = 0
 offset_left = -14.0
-offset_top = -41.0
+offset_top = -99.0
 offset_right = 26.0
-offset_bottom = -1.0
-scale = Vector2(0.3, 0.3)
+offset_bottom = -59.0
 
 [node name="Image" type="Sprite2D" parent="Components"]
-position = Vector2(61.1571, 66.0496)
+position = Vector2(28, 27)
 texture = ExtResource("2_n3e7t")
 
 [node name="StateLb" type="Label" parent="Components"]

@@ -268,7 +268,7 @@ offset_bottom = 40.0
 
 [node name="Image" type="Sprite2D" parent="Components"]
 position = Vector2(0, -96.6667)
-texture = ExtResource("1_q64ld")
+texture = ExtResource("162_gbos3")
 
 [node name="StateLb" type="Label" parent="Components"]
 layout_mode = 0

@@ -73,8 +73,10 @@ func update_sprite():
 func check_and_move(delta):
 	if len(list_points) == 0:
 		return
-	var next_target = list_points[0]
-	if position.distance_to(next_target) < GameConst.MIN_DIRECT:
+	var next_target: Vector2 = list_points[0]
+	var space = speed * delta
+	var path = Vector2(next_target.x - position.x, next_target.y - position.y)
+	if path.length() < space:
 		update_position(next_target.x, next_target.y)
 		list_points.remove_at(0)
 		update_next_target_and_direction()
@@ -82,13 +84,11 @@ func check_and_move(delta):
 			update_next_state()
 	else:
 		# need to update for steering behavior
-		var x = position.x + GameConst.DIRECT_COOR[cur_direction].x * speed * delta
-		var y = position.y + GameConst.DIRECT_COOR[cur_direction].y * speed * delta
-		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		if GameUtils.is_middle_straight(next_target, position, Vector2(x, y)):
-			x = next_target.x
-			y = next_target.y
+		var moving_vector: Vector2 = path / path.length() * space
+		var x = position.x + moving_vector.x
+		var y = position.y + moving_vector.y
 		update_position(x, y)
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 func get_textures_of_state():
 	component.scale.x = -abs(component.scale.x) \

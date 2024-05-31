@@ -23,5 +23,3 @@ const ERROR = {
 	IS_INSIDE_WALL = 3,
 	IS_OUTSIDE_MAP = 4
 }
-
-const MIN_DIRECT = 3

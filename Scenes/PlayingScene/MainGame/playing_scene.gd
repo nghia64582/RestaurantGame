@@ -89,15 +89,14 @@ func init_floor():
 func init_kitchens():
 	for idx in range(N_KITCHENS):
 		var kitchen = kitchen_template.instantiate()
-		var x = kitchen_nodes[idx].position.x * get_floor_scale()
-		var y = kitchen_nodes[idx].position.y * get_floor_scale()
+		var kit_pos: Vector2 = kitchen_nodes[idx].position
 		kitchen.game = self
-		kitchen.position = Vector2(x, y)
+		kitchen.position = kitchen_nodes[idx].position
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
 		var waiter_node = kitchen.waiter_node
-		var waiter_x = x + waiter_node.position.x * component_node.scale.x
-		var waiter_y = y + waiter_node.position.y * component_node.scale.x
+		var waiter_x = kit_pos.x + waiter_node.position.x
+		var waiter_y = kit_pos.y + waiter_node.position.y
 		kitchen.waiter_pos = Vector2(waiter_x, waiter_y)
 
 func find_first_x(row: int):
@@ -105,9 +104,9 @@ func find_first_x(row: int):
 	var first_x: float = table_row_nodes[row].position.x
 	var count = 0
 	for table in tables:
-		if abs(row_y - table.position.y / component_node.scale.x) < 1:
+		if abs(row_y - table.position.y) < 1:
 			count += 1
-			first_x = max(first_x, (table.position.x / component_node.scale.x + table.collide_area.size.x + 150))
+			first_x = max(first_x, (table.position.x + table.collide_area.size.x + 150))
 	return first_x
 
 func add_table(row: int, type: int):
@@ -124,9 +123,7 @@ func init_tables():
 
 func init_table(pos: Vector2, type):
 	var table = table_template.instantiate()
-	var x = pos.x * get_floor_scale()
-	var y = pos.y * get_floor_scale()
-	table.position = Vector2(x, y)
+	table.position = pos
 	tables.append(table)
 	table.game = self
 	table.init_type(type)
@@ -173,9 +170,6 @@ func do_guest_leave_table(guest: Guest):
 
 func finished_guest_order(order: Order):
 	game_data.finished_guest_order(order)
-
-func get_floor_scale():
-	return component_node.scale.x
 
 func _on_color_rect_gui_input(event):
 	if event is InputEventMouseButton:

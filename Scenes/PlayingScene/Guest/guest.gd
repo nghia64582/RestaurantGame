@@ -156,8 +156,8 @@ func check_and_move(delta):
 			moving_vector = side_targets[0] - position
 			moving_vector = moving_vector.normalized() * space
 		st += "\n%s" % [moving_vector]
-		if randi_range(1, 100) == 1:
-			print(st)
+		#if randi_range(1, 100) == 1:
+			#print(st)
 		var x = position.x + moving_vector.x
 		var y = position.y + moving_vector.y
 		update_position(x, y)

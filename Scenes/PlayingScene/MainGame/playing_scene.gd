@@ -51,8 +51,8 @@ func _ready():
 	init_kitchens()
 	init_tables()
 	init_waiter()
-	init_path_finder()
 	load_game_data()
+	init_path_finder()
 
 func load_game_data():
 	game_data = GameData.new()
@@ -135,6 +135,9 @@ func init_table(pos: Vector2, type):
 	table.game = self
 	table.init_type(type)
 	floor_node.add_child(table)
+	
+	if PathFinder.game != null:
+		PathFinder.init_point(table.position)
 
 func init_waiter():
 	for idx in range(2):

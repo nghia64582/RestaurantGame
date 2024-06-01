@@ -66,3 +66,35 @@ static func get_json(file_path):
 	if json_as_dict:
 		return json_as_dict
 	return null
+
+static func distance_point_to_line(point: Vector2, line_start: Vector2, line_end: Vector2) -> float:
+	var line_vec = line_end - line_start
+	var point_vec = point - line_start
+	var line_len = line_vec.length()
+	if line_len == 0:
+		return point_vec.length()
+	var line_unit_vec = line_vec / line_len
+	var projection_length = point_vec.dot(line_unit_vec)
+	if projection_length < 0:
+		return point_vec.length()
+	elif projection_length > line_len:
+		return (point - line_end).length()
+	var projection_vec = line_unit_vec * projection_length
+	var closest_point = line_start + projection_vec
+	return (point - closest_point).length()
+	
+static func is_obtascle(start: Vector2, target: Vector2, object: Vector2, radius: float) -> bool:
+	var b1 = abs((object - start).angle_to(target - start)) < PI / 4
+	var b2 = abs((object - target).angle_to(start - target)) < PI / 4
+	var close_to_line = distance_point_to_line(object, start, target) <= 2 * radius
+	return b1 and b2 and close_to_line
+	
+static func get_side_targets(start: Vector2, obstacle: Vector2, radius: float):
+	var dist = start.distance_to(obstacle)
+	var d_angle = acos(2 * radius / dist)
+	var base_reverse = start - obstacle
+	var a1 = base_reverse.rotated(d_angle)
+	var a2 = base_reverse.rotated(-d_angle)
+	var d1 = obstacle + a1.normalized() * 2 * radius
+	var d2 = obstacle + a2.normalized() * 2 * radius
+	return [d1, d2]

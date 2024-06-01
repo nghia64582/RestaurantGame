@@ -1,0 +1,481 @@
+[gd_scene load_steps=36 format=3 uid="uid://u8luybwnl5i"]
+
+[ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
+[ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/playing_scene.gd" id="1_hm10v"]
+[ext_resource type="PackedScene" uid="uid://ds7y4q1mglbck" path="res://Scenes/PlayingScene/Floor/floor_part.tscn" id="2_kithj"]
+[ext_resource type="PackedScene" uid="uid://bdmkhd1a8ojlr" path="res://Scenes/PlayingScene/Floor/side_walk_brick.tscn" id="2_m0r4i"]
+[ext_resource type="Texture2D" uid="uid://bv1pvurpv64sl" path="res://Assets/Png/Other Assets/DrinkBox2.png" id="2_pajla"]
+[ext_resource type="Texture2D" uid="uid://c7mtalbfwbfsn" path="res://Assets/Png/Other Assets/ShoesCarpet1.png" id="3_e6lvg"]
+[ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yar4l"]
+[ext_resource type="PackedScene" uid="uid://cutvg48ivcioy" path="res://Scenes/PlayingScene/Chef/chef.tscn" id="4_ebpam"]
+[ext_resource type="Texture2D" uid="uid://blp6k383l15ag" path="res://Assets/Png/Other Assets/Stair1.png" id="4_qbml8"]
+[ext_resource type="PackedScene" uid="uid://dbf24trwvq7ak" path="res://Scenes/PlayingScene/Kitchen/kitchen.tscn" id="5_puifo"]
+[ext_resource type="Texture2D" uid="uid://boyd50duiklx2" path="res://Assets/Png/Other Assets/BushPot2.png" id="6_77yh2"]
+[ext_resource type="PackedScene" uid="uid://5ljqlwhlwdqe" path="res://Scenes/PlayingScene/Waiter/waiter.tscn" id="6_kqpna"]
+[ext_resource type="Texture2D" uid="uid://bp8ca3rfrn1b4" path="res://Assets/Png/Other Assets/WoodWall.png" id="7_bwd3h"]
+[ext_resource type="Texture2D" uid="uid://b8mg4tis6pxrx" path="res://Assets/Png/Other Assets/WoodWall2.png" id="8_wid07"]
+[ext_resource type="Texture2D" uid="uid://bgs1eb2vqlk1t" path="res://Assets/Png/Other Assets/OpenBox2.png" id="9_3y2pe"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Floor/Floor.gd" id="9_biof0"]
+[ext_resource type="PackedScene" uid="uid://dvtjp0tmfp2db" path="res://Scenes/PlayingScene/Table/table.tscn" id="10_w3448"]
+[ext_resource type="Texture2D" uid="uid://b7tocf55h33ai" path="res://Assets/Png/Other Assets/Lamp3.png" id="10_yqikm"]
+[ext_resource type="Texture2D" uid="uid://lvcrhmslyr5n" path="res://Assets/Png/Other Assets/Canov3.png" id="11_qw5ff"]
+[ext_resource type="Texture2D" uid="uid://cbxm1v7rf2kfn" path="res://Assets/Png/Other Assets/BrownBox2.png" id="12_eghdw"]
+[ext_resource type="Texture2D" uid="uid://lhdg6yy7qyd1" path="res://Assets/Png/Other Assets/DrinkBox3.png" id="13_3qio8"]
+[ext_resource type="Texture2D" uid="uid://bat4xrybrm0t2" path="res://Assets/Png/Other Assets/DonutsDisplay.png" id="14_x6jox"]
+[ext_resource type="Texture2D" uid="uid://da1ybutt1342w" path="res://Assets/Png/Other Assets/CakeTable.png" id="15_k7k2u"]
+[ext_resource type="Texture2D" uid="uid://0ol8hvjhnc76" path="res://Assets/Png/Ui/Btn_Menu.png" id="25_6mhvt"]
+[ext_resource type="Texture2D" uid="uid://dijfguj23d0au" path="res://Assets/Png/Ui/Btn_Share.png" id="26_l4ulc"]
+[ext_resource type="Texture2D" uid="uid://sb5n2dacrmsh" path="res://Assets/Png/Ui/Btn_Fb.png" id="27_4vaa0"]
+[ext_resource type="Texture2D" uid="uid://cdteqi4d8ixrj" path="res://Assets/Png/Ui/Btn_Google.png" id="28_2t1w4"]
+[ext_resource type="Texture2D" uid="uid://c8x3u4xxi6wmi" path="res://Assets/Png/Ui/MoneyIcon.png" id="28_6httv"]
+[ext_resource type="Texture2D" uid="uid://bctq4mprl1u7" path="res://Assets/Png/Ui/Btn_AudioOn.png" id="29_mu7wu"]
+[ext_resource type="Texture2D" uid="uid://ccrheguqp3ny8" path="res://Assets/Png/Ui/Btn_Green.png" id="30_cw7gg"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/BtnCheat.gd" id="31_b0tnb"]
+[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/TimeLb.gd" id="31_do10p"]
+
+[sub_resource type="GDScript" id="GDScript_uqs8t"]
+script/source = "extends Button
+
+"
+
+[sub_resource type="GDScript" id="GDScript_yw8xa"]
+script/source = "extends Button
+"
+
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "kitchen_nodes", "cash_lb", "level_lb")]
+script = ExtResource("1_hm10v")
+FLOOR_WITDH = 5
+FLOOR_HEIGHT = 5
+N_SIDE_WALK_BRICKS = 5
+floor_node = NodePath("Floor")
+side_walk_brick_template = ExtResource("2_m0r4i")
+floor_part_template = ExtResource("2_kithj")
+guest_template = ExtResource("3_yar4l")
+chef_template = ExtResource("4_ebpam")
+kitchen_template = ExtResource("5_puifo")
+waiter_template = ExtResource("6_kqpna")
+table_template = ExtResource("10_w3448")
+component_node = NodePath("Floor/Components")
+side_walk_node = NodePath("Floor/SideWalkNode")
+table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Components/TableNode2")]
+cheat_btns = NodePath("InfoBoard/BtnCheat/CheatBtns")
+kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
+cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
+level_lb = NodePath("InfoBoard/LevelBox/LevelLb")
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(119, 7)
+script = ExtResource("9_biof0")
+
+[node name="Components" type="Node2D" parent="Floor"]
+
+[node name="BrownBox3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(1099.44, 32.8177)
+scale = Vector2(4.59919, 1.58828)
+texture = ExtResource("12_eghdw")
+
+[node name="Dishes" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(389.31, 203.749)
+texture = ExtResource("1_f7wxr")
+
+[node name="DrinkBox2" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(191.361, 197.15)
+texture = ExtResource("2_pajla")
+
+[node name="ShoesCarpet1" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(280.438, 919.663)
+texture = ExtResource("3_e6lvg")
+
+[node name="BushPot3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(65.994, 622.74)
+texture = ExtResource("6_77yh2")
+
+[node name="Lamp4" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(29.7034, 467.68)
+texture = ExtResource("10_yqikm")
+
+[node name="BushPot4" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(69.2931, 216.945)
+texture = ExtResource("6_77yh2")
+
+[node name="Lamp3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(29.5359, 1368.35)
+texture = ExtResource("10_yqikm")
+
+[node name="WoodWall2" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.382, 296.125)
+texture = ExtResource("8_wid07")
+
+[node name="Stair1" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(63.2761, 919.133)
+texture = ExtResource("4_qbml8")
+
+[node name="BushPot2" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(76.6094, 1165.8)
+texture = ExtResource("6_77yh2")
+
+[node name="WoodWall" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 1329.13)
+texture = ExtResource("7_bwd3h")
+
+[node name="WoodWall3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 1772.15)
+texture = ExtResource("7_bwd3h")
+
+[node name="WoodWall4" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 2208.63)
+texture = ExtResource("7_bwd3h")
+
+[node name="WoodWall5" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-26.7239, 2645.1)
+texture = ExtResource("7_bwd3h")
+
+[node name="Canov3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-76.7239, 882.467)
+texture = ExtResource("11_qw5ff")
+
+[node name="BrownBox2" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(1253.68, 164.159)
+texture = ExtResource("12_eghdw")
+
+[node name="OpenBox2" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(-146.724, 1255.8)
+texture = ExtResource("9_3y2pe")
+
+[node name="DrinkBox3" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(1086.31, 243.338)
+texture = ExtResource("13_3qio8")
+
+[node name="DonutsDisplay" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(1404.64, 243.338)
+texture = ExtResource("14_x6jox")
+
+[node name="CakeTable" type="Sprite2D" parent="Floor/Components"]
+position = Vector2(1230.71, 243.338)
+texture = ExtResource("15_k7k2u")
+
+[node name="KitchenNode1" type="Node2D" parent="Floor/Components"]
+position = Vector2(521.275, 68.4841)
+
+[node name="KitchenNode2" type="Node2D" parent="Floor/Components"]
+position = Vector2(772.01, 68.4841)
+
+[node name="KitchenNode3" type="Node2D" parent="Floor/Components"]
+position = Vector2(1504.42, 68.4841)
+
+[node name="KitchenNode4" type="Node2D" parent="Floor/Components"]
+position = Vector2(1758.46, 68.4841)
+
+[node name="TableNode1" type="Node2D" parent="Floor/Components"]
+position = Vector2(465.19, 533.663)
+
+[node name="TableNode2" type="Node2D" parent="Floor/Components"]
+position = Vector2(465.19, 1081.32)
+
+[node name="GuestNode" type="Node2D" parent="Floor/Components"]
+
+[node name="SideWalkNode" type="Node2D" parent="Floor"]
+position = Vector2(-392, 52)
+
+[node name="PlayingScene" type="Sprite2D" parent="Floor"]
+visible = false
+modulate = Color(1, 1, 1, 0.372549)
+position = Vector2(771, 768)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_2175a")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(500, 1000)
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 1109.0
+offset_bottom = 2408.0
+
+[node name="InfoBoard" type="Node2D" parent="."]
+z_index = 4096
+
+[node name="BtnMenu" type="Button" parent="InfoBoard"]
+offset_left = 975.0
+offset_top = 7.0
+offset_right = 1083.0
+offset_bottom = 118.0
+icon = ExtResource("25_6mhvt")
+flat = true
+
+[node name="BtnShare" type="Button" parent="InfoBoard"]
+offset_left = 975.0
+offset_top = 113.667
+offset_right = 1083.0
+offset_bottom = 224.667
+icon = ExtResource("26_l4ulc")
+flat = true
+
+[node name="BtnFb" type="Button" parent="InfoBoard"]
+offset_left = 975.0
+offset_top = 223.667
+offset_right = 1083.0
+offset_bottom = 334.667
+icon = ExtResource("27_4vaa0")
+flat = true
+
+[node name="BtnGoogle" type="Button" parent="InfoBoard"]
+offset_left = 975.0
+offset_top = 330.334
+offset_right = 1083.0
+offset_bottom = 441.334
+icon = ExtResource("28_2t1w4")
+flat = true
+
+[node name="BtnAudio" type="Button" parent="InfoBoard"]
+offset_left = 975.0
+offset_top = 440.334
+offset_right = 1083.0
+offset_bottom = 551.334
+icon = ExtResource("29_mu7wu")
+flat = true
+
+[node name="BtnCheat" type="Button" parent="InfoBoard"]
+offset_left = 33.3333
+offset_top = 200.0
+offset_right = 271.333
+offset_bottom = 311.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = ExtResource("31_b0tnb")
+
+[node name="CheatLb" type="Label" parent="InfoBoard/BtnCheat"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 23.3333
+offset_right = 172.0
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "Cheat"
+
+[node name="CheatBtns" type="Node2D" parent="InfoBoard/BtnCheat"]
+visible = false
+modulate = Color(1, 1, 1, 0.784314)
+
+[node name="ColorRect" type="ColorRect" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 103.333
+offset_right = 506.667
+offset_bottom = 603.333
+
+[node name="BtnAddArea" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66664
+offset_top = 326.667
+offset_right = 252.666
+offset_bottom = 437.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbAddArea" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddArea"]
+layout_mode = 0
+offset_left = 33.3333
+offset_top = 23.3333
+offset_right = 217.333
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Area
+"
+
+[node name="BtnAddTable1" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 3.33334
+offset_top = 106.667
+offset_right = 249.333
+offset_bottom = 217.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_yw8xa")
+
+[node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1"]
+layout_mode = 0
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 1"
+
+[node name="BtnAddTable2" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 3.33334
+offset_top = 216.667
+offset_right = 249.333
+offset_bottom = 327.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_yw8xa")
+
+[node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2"]
+layout_mode = 0
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 2"
+
+[node name="BtnAddWaiter" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 433.333
+offset_right = 244.667
+offset_bottom = 544.333
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddWaiter" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter"]
+layout_mode = 0
+offset_left = 36.6667
+offset_top = 26.6667
+offset_right = 250.667
+offset_bottom = 81.6667
+theme_override_font_sizes/font_size = 40
+text = "+ Waiter"
+
+[node name="BtnAddKitchen" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 323.333
+offset_right = 478.0
+offset_bottom = 434.333
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddKitchen" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddKitchen"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 23.3333
+offset_right = 209.0
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Kitchen"
+
+[node name="BtnAddVending" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 243.333
+offset_top = 430.0
+offset_right = 481.333
+offset_bottom = 541.0
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddVending" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddVending"]
+layout_mode = 0
+offset_left = 23.3333
+offset_top = 20.0
+offset_right = 212.333
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "+ Vending"
+
+[node name="BtnGrid" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 110.0
+offset_right = 486.0
+offset_bottom = 221.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbGrid" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnGrid"]
+layout_mode = 0
+offset_left = 76.6667
+offset_top = 23.3333
+offset_right = 260.666
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "Grid"
+
+[node name="BtnPath" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 216.667
+offset_right = 486.0
+offset_bottom = 327.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbPath" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnPath"]
+layout_mode = 0
+offset_left = 73.3334
+offset_top = 26.6666
+offset_right = 257.333
+offset_bottom = 81.6666
+theme_override_font_sizes/font_size = 40
+text = "Path"
+
+[node name="MoneyBox" type="ColorRect" parent="InfoBoard"]
+offset_left = 220.0
+offset_top = 123.333
+offset_right = 520.0
+offset_bottom = 186.333
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="MoneyLb" type="Label" parent="InfoBoard/MoneyBox"]
+layout_mode = 0
+offset_left = 69.5
+offset_top = -3.333
+offset_right = 127.5
+offset_bottom = 65.667
+theme_override_colors/font_color = Color(0.792157, 0.792157, 0.792157, 1)
+theme_override_font_sizes/font_size = 50
+text = "30"
+
+[node name="MoneyIcon" type="Sprite2D" parent="InfoBoard/MoneyBox"]
+position = Vector2(32.8333, 30.0003)
+texture = ExtResource("28_6httv")
+
+[node name="TimeBox" type="ColorRect" parent="InfoBoard"]
+offset_left = 543.333
+offset_top = 123.333
+offset_right = 815.333
+offset_bottom = 186.333
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="TimeLb" type="Label" parent="InfoBoard/TimeBox" node_paths=PackedStringArray("time_lb")]
+layout_mode = 0
+offset_left = 6.66667
+offset_top = -3.33333
+offset_right = 228.667
+offset_bottom = 65.6667
+theme_override_font_sizes/font_size = 50
+text = "00:20 AM"
+script = ExtResource("31_do10p")
+time_lb = NodePath(".")
+
+[node name="LevelBox" type="ColorRect" parent="InfoBoard"]
+offset_left = 543.333
+offset_top = 46.6667
+offset_right = 815.333
+offset_bottom = 109.667
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="LevelLb" type="Label" parent="InfoBoard/LevelBox"]
+layout_mode = 0
+offset_left = 6.66667
+offset_right = 128.667
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 45
+text = "30/40
+"
+
+[node name="NameLb" type="Label" parent="InfoBoard"]
+offset_left = 210.0
+offset_top = 36.6667
+offset_right = 497.0
+offset_bottom = 105.667
+theme_override_font_sizes/font_size = 50
+text = "Nghia64582
+"
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="pressed" from="InfoBoard/BtnCheat" to="." method="_on_btn_cheat_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddArea" to="." method="_on_btn_add_area_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnGrid" to="." method="_on_btn_grid_pressed"]
+[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnPath" to="." method="_on_btn_path_pressed"]

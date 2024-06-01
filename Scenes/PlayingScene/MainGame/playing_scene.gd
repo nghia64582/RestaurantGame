@@ -30,14 +30,21 @@ var dragging = false
 var guest_generator_cool_down
 var kitchens: Array[Kitchen] = []
 var tables: Array[Table] = []
-var guests: Array[Guest]  = []
+var guests: Array[Guest] = []
 var waiters: Array[Waiter] = []
 var bricks: Array[Node2D] = []
 var walls = []
 var game_data: GameData
 var floor_sample: Node2D
 
+func test():
+	print(GameUtils.is_obtascle(Vector2(0, 0), Vector2(10, 0), Vector2(5, 1), 1))
+	print(GameUtils.distance_point_to_line(Vector2(0, 0), Vector2(1, -1), Vector2(1, 1)))
+	print(GameUtils.get_side_targets(Vector2(0, 0), Vector2(10, 0), 1))
+
 func _ready():
+	#test()
+	#return
 	GameConfig.load_config()
 	init_info()
 	init_floor()
@@ -163,7 +170,7 @@ func do_guest_sit_on_table(guest: Guest):
 func do_guest_leave_table(guest: Guest):
 	guest.table.remove_child(guest)
 	floor_node.add_child(guest)
-	guest.position = guest.pre_pos
+	guest.position = guest.pre_pos + Vector2(50, 0)
 	guest.z_index = guest.pre_z_index
 	guest.find_path(Vector2(100, 900))
 	finished_guest_order(guest.order)

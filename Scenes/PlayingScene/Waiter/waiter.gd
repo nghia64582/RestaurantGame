@@ -39,7 +39,9 @@ var cur_direction
 var speed = 500 # pixel per second
 var list_points = []
 var guest_paid
+var radius = 50
 var game: MainGame
+var next_target: Vector2
 
 func _draw():
 	if DevConfig.SHOW_PATH:
@@ -73,8 +75,8 @@ func update_sprite():
 func check_and_move(delta):
 	if len(list_points) == 0:
 		return
-	var next_target: Vector2 = list_points[0]
-	var space = speed * delta
+	next_target = list_points[0]
+	var space: float = speed * delta
 	var path = Vector2(next_target.x - position.x, next_target.y - position.y)
 	if path.length() < space:
 		update_position(next_target.x, next_target.y)
@@ -85,10 +87,48 @@ func check_and_move(delta):
 	else:
 		# need to update for steering behavior
 		var moving_vector: Vector2 = path / path.length() * space
+		var nearest_obstacle = get_nearest_obstacles()
+		var st = "~~~~~~~~~~~~~~~~~~~~~\n%s\n%s" % [moving_vector, nearest_obstacle]
+		if nearest_obstacle.length() > 1e-2:
+			var side_targets = GameUtils.get_side_targets(position, nearest_obstacle, radius)
+			moving_vector = side_targets[0] - position
+			moving_vector = moving_vector.normalized() * space
+		st += "\n%s" % [moving_vector]
+		#if randi_range(1, 100) == 1:
+			#print(st)
 		var x = position.x + moving_vector.x
 		var y = position.y + moving_vector.y
 		update_position(x, y)
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+func get_nearest_obstacles() -> Vector2:
+	var result = Vector2(0, 0)
+	var min_dist = 1e9
+	for waiter in game.waiters:
+		if waiter.is_moving() and waiter.id != id and \
+			GameUtils.is_obtascle(position, next_target, waiter.position, radius):
+			var dist = waiter.position.distance_to(position)
+			if dist < min_dist:
+				min_dist = dist
+				result = waiter.position
+	for guest in game.guests:
+		if guest.is_moving() and \
+			GameUtils.is_obtascle(position, next_target, guest.position, radius):
+			var dist = guest.position.distance_to(position)
+			if dist < min_dist:
+				min_dist = dist
+				result = guest.position
+	return result
+
+func is_moving():
+	return state in [WaiterConst.STATE.BRING_FOOD_TO_GUEST, \
+					WaiterConst.STATE.GO_TO_GUEST,\
+					WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT,\
+					WaiterConst.STATE.GO_TO_IDLE_POS,\
+					WaiterConst.STATE.GO_TO_KITCHEN,\
+					WaiterConst.STATE.IDLE,\
+					WaiterConst.STATE.SEND_ORDER_TO_CHEF,\
+					WaiterConst.STATE.SEND_FOOD_TO_GUEST]
 
 func get_textures_of_state():
 	component.scale.x = -abs(component.scale.x) \

@@ -6,6 +6,9 @@ class_name Waiter
 @export var image: Sprite2D
 @export var state_lb: Label
 @export var component: Control
+@export var left_food_node: Node2D
+@export var right_food_node: Node2D
+@export var mid_food_node: Node2D
 
 @export_group("get order image")
 @export var get_order_images: Array[Texture2D] = []
@@ -87,13 +90,13 @@ func check_and_move(delta):
 	else:
 		# need to update for steering behavior
 		var moving_vector: Vector2 = path / path.length() * space
-		var nearest_obstacle = get_nearest_obstacles()
-		var st = "~~~~~~~~~~~~~~~~~~~~~\n%s\n%s" % [moving_vector, nearest_obstacle]
-		if nearest_obstacle.length() > 1e-2:
-			var side_targets = GameUtils.get_side_targets(position, nearest_obstacle, radius)
-			moving_vector = side_targets[0] - position
-			moving_vector = moving_vector.normalized() * space
-		st += "\n%s" % [moving_vector]
+		#var nearest_obstacle = get_nearest_obstacles()
+		#var st = "~~~~~~~~~~~~~~~~~~~~~\n%s\n%s" % [moving_vector, nearest_obstacle]
+		#if nearest_obstacle.length() > 1e-2:
+			#var side_targets = GameUtils.get_side_targets(position, nearest_obstacle, radius)
+			#moving_vector = side_targets[0] - position
+			#moving_vector = moving_vector.normalized() * space
+		#st += "\n%s" % [moving_vector]
 		#if randi_range(1, 100) == 1:
 			#print(st)
 		var x = position.x + moving_vector.x
@@ -131,6 +134,24 @@ func is_moving():
 					WaiterConst.STATE.SEND_FOOD_TO_GUEST]
 
 func get_textures_of_state():
+	# display food
+	if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+		if cur_direction == GameConst.DIRECT.DOWN:
+			left_food_node.visible = true
+			right_food_node.visible = true
+			mid_food_node.visible = false
+		elif cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
+			mid_food_node.visible = true
+			left_food_node.visible = false
+			right_food_node.visible = false
+		else:
+			left_food_node.visible = false
+			right_food_node.visible = false
+			mid_food_node.visible = false
+	else:
+		left_food_node.visible = false
+		right_food_node.visible = false
+		mid_food_node.visible = false
 	component.scale.x = -abs(component.scale.x) \
 		if cur_direction == GameConst.DIRECT.LEFT else \
 		abs(component.scale.x)

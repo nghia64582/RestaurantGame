@@ -149,13 +149,13 @@ func check_and_move(delta):
 	else:
 		# need to update for steering behavior
 		var moving_vector: Vector2 = path / path.length() * space
-		var nearest_obstacle = get_nearest_obstacles()
-		var st = "~~~~~~~~~~~~~~~~~~~~~\n%s\n%s" % [moving_vector, nearest_obstacle]
-		if nearest_obstacle.length() > 1e-2:
-			var side_targets = GameUtils.get_side_targets(position, nearest_obstacle, radius)
-			moving_vector = side_targets[0] - position
-			moving_vector = moving_vector.normalized() * space
-		st += "\n%s" % [moving_vector]
+		#var nearest_obstacle = get_nearest_obstacles()
+		#var st = "~~~~~~~~~~~~~~~~~~~~~\n%s\n%s" % [moving_vector, nearest_obstacle]
+		#if nearest_obstacle.length() > 1e-2:
+			#var side_targets = GameUtils.get_side_targets(position, nearest_obstacle, radius)
+			#moving_vector = side_targets[0] - position
+			#moving_vector = moving_vector.normalized() * space
+		#st += "\n%s" % [moving_vector]
 		#if randi_range(1, 100) == 1:
 			#print(st)
 		var x = position.x + moving_vector.x

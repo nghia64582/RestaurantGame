@@ -1,5 +1,4 @@
 TODO
- - Thêm plate vào waiter khi mang từ kitchen ra table
  - Kiếm thêm sprite backward cho guest
  - Cải thiện flow cho game thật hơn
  - Thêm tính năng : thêm kitchen
@@ -8,6 +7,7 @@ TODO
 => tạo tính liên tục của game
  - Khối tính năng : Nhập nguyên liệu về làm (để sau)
 DONE : 
+ - Thêm plate vào waiter khi mang từ kitchen ra table
  - Tạo Factory để sử dụng hết sprite của guest
  - Khởi tạo info board cơ bản : level, exp, tiền, gold per minute, ...
  - Thêm tính năng : thêm đất, thêm bàn, thêm waiter

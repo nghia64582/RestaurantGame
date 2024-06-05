@@ -43,7 +43,7 @@ script/source = "extends Button
 script/source = "extends Button
 "
 
-[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "kitchen_nodes", "cash_lb", "level_lb")]
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "kitchen_nodes", "cash_lb", "level_lb")]
 script = ExtResource("1_hm10v")
 FLOOR_WITDH = 5
 FLOOR_HEIGHT = 5
@@ -60,6 +60,7 @@ component_node = NodePath("Floor/Components")
 side_walk_node = NodePath("Floor/SideWalkNode")
 table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Components/TableNode2")]
 cheat_btns = NodePath("InfoBoard/BtnCheat/CheatBtns")
+walls = [NodePath("Floor/Components/Wall1"), NodePath("Floor/Components/Wall2")]
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
 level_lb = NodePath("InfoBoard/LevelBox/LevelLb")
@@ -176,13 +177,26 @@ position = Vector2(465.19, 1081.32)
 
 [node name="GuestNode" type="Node2D" parent="Floor/Components"]
 
+[node name="Wall1" type="ColorRect" parent="Floor/Components"]
+offset_top = 725.0
+offset_right = 140.0
+offset_bottom = 765.0
+color = Color(1, 1, 1, 0)
+
+[node name="Wall2" type="ColorRect" parent="Floor/Components"]
+offset_left = 2.0
+offset_top = 1109.0
+offset_right = 142.0
+offset_bottom = 1149.0
+color = Color(0.545098, 0.545098, 0.545098, 0)
+
 [node name="SideWalkNode" type="Node2D" parent="Floor"]
 position = Vector2(-392, 52)
 
 [node name="PlayingScene" type="Sprite2D" parent="Floor"]
 visible = false
 modulate = Color(1, 1, 1, 0.372549)
-position = Vector2(771, 768)
+position = Vector2(775, 772)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_2175a")
 

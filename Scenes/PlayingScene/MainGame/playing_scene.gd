@@ -17,6 +17,7 @@ class_name MainGame
 @export var side_walk_node: Node2D
 @export var table_row_nodes: Array[Node2D] = []
 @export var cheat_btns: Node2D
+@export var walls: Array[ColorRect] = []
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -33,7 +34,6 @@ var tables: Array[Table] = []
 var guests: Array[Guest] = []
 var waiters: Array[Waiter] = []
 var bricks: Array[Node2D] = []
-var walls = []
 var game_data: GameData
 var floor_sample: Node2D
 
@@ -271,6 +271,9 @@ func get_point_error(point: Vector2):
 	for kitchen in kitchens:
 		if kitchen.has_point(point):
 			return GameConst.ERROR.IS_INSIDE_KITCHEN
+	for wall in walls:
+		if wall.get_rect().has_point(point):
+			return GameConst.ERROR.IS_INSIDE_WALL
 	return GameConst.ERROR.IS_AVAILABLE
 
 func add_table_by_type(type: int):

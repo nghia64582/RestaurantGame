@@ -1,5 +1,13 @@
 extends Object
 class_name GameUtils
+ 
+static var game_data_path = "user://game_data.json"
+
+static func save(game_data):
+	var json_string = JSON.stringify(game_data)
+	var file = FileAccess.open(game_data_path, FileAccess.WRITE)
+	file.store_string(json_string)
+	file.close()
 
 static func log(st):
 	print(st)

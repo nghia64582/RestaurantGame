@@ -48,5 +48,30 @@
 		"level": 10,
 		"min_exp": 2501,
 		"max_exp": 5000
+	},
+	{
+		"level": 11,
+		"min_exp": 5001,
+		"max_exp": 10000
+	},
+	{
+		"level": 12,
+		"min_exp": 10001,
+		"max_exp": 20000
+	},
+	{
+		"level": 13,
+		"min_exp": 20001,
+		"max_exp": 50000
+	},
+	{
+		"level": 14,
+		"min_exp": 50001,
+		"max_exp": 100000
+	},
+	{
+		"level": 15,
+		"min_exp": 2501,
+		"max_exp": 5000
 	}
 ]

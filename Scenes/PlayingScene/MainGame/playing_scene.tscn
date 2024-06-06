@@ -59,7 +59,7 @@ table_template = ExtResource("10_w3448")
 component_node = NodePath("Floor/Components")
 side_walk_node = NodePath("Floor/SideWalkNode")
 table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Components/TableNode2")]
-cheat_btns = NodePath("InfoBoard/BtnCheat/CheatBtns")
+cheat_btns = NodePath("BtnCheat/CheatBtns")
 walls = [NodePath("Floor/Components/Wall1"), NodePath("Floor/Components/Wall2")]
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
@@ -208,6 +208,176 @@ offset_top = 8.0
 offset_right = 1109.0
 offset_bottom = 2408.0
 
+[node name="BtnCheat" type="Button" parent="."]
+offset_left = 33.3333
+offset_top = 200.0
+offset_right = 271.333
+offset_bottom = 311.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = ExtResource("31_b0tnb")
+
+[node name="CheatLb" type="Label" parent="BtnCheat"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 23.3333
+offset_right = 172.0
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "Cheat"
+
+[node name="CheatBtns" type="Node2D" parent="BtnCheat"]
+visible = false
+modulate = Color(1, 1, 1, 0.784314)
+
+[node name="ColorRect" type="ColorRect" parent="BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 103.333
+offset_right = 506.667
+offset_bottom = 603.333
+
+[node name="BtnAddArea" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 6.66664
+offset_top = 326.667
+offset_right = 252.666
+offset_bottom = 437.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbAddArea" type="Label" parent="BtnCheat/CheatBtns/BtnAddArea"]
+layout_mode = 0
+offset_left = 33.3333
+offset_top = 23.3333
+offset_right = 217.333
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Area
+"
+
+[node name="BtnAddTable1" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 3.33334
+offset_top = 106.667
+offset_right = 249.333
+offset_bottom = 217.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_yw8xa")
+
+[node name="LbAddTable" type="Label" parent="BtnCheat/CheatBtns/BtnAddTable1"]
+layout_mode = 0
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 1"
+
+[node name="BtnAddTable2" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 3.33334
+offset_top = 216.667
+offset_right = 249.333
+offset_bottom = 327.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_yw8xa")
+
+[node name="LbAddTable" type="Label" parent="BtnCheat/CheatBtns/BtnAddTable2"]
+layout_mode = 0
+offset_left = 26.6667
+offset_top = 23.3333
+offset_right = 217.667
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Table 2"
+
+[node name="BtnAddWaiter" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 6.66667
+offset_top = 433.333
+offset_right = 244.667
+offset_bottom = 544.333
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddWaiter" type="Label" parent="BtnCheat/CheatBtns/BtnAddWaiter"]
+layout_mode = 0
+offset_left = 36.6667
+offset_top = 26.6667
+offset_right = 250.667
+offset_bottom = 81.6667
+theme_override_font_sizes/font_size = 40
+text = "+ Waiter"
+
+[node name="BtnAddKitchen" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 323.333
+offset_right = 478.0
+offset_bottom = 434.333
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddKitchen" type="Label" parent="BtnCheat/CheatBtns/BtnAddKitchen"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 23.3333
+offset_right = 209.0
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "+ Kitchen"
+
+[node name="BtnAddVending" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 243.333
+offset_top = 430.0
+offset_right = 481.333
+offset_bottom = 541.0
+icon = ExtResource("30_cw7gg")
+flat = true
+
+[node name="LbAddVending" type="Label" parent="BtnCheat/CheatBtns/BtnAddVending"]
+layout_mode = 0
+offset_left = 23.3333
+offset_top = 20.0
+offset_right = 212.333
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "+ Vending"
+
+[node name="BtnGrid" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 110.0
+offset_right = 486.0
+offset_bottom = 221.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbGrid" type="Label" parent="BtnCheat/CheatBtns/BtnGrid"]
+layout_mode = 0
+offset_left = 76.6667
+offset_top = 23.3333
+offset_right = 260.666
+offset_bottom = 78.3333
+theme_override_font_sizes/font_size = 40
+text = "Grid"
+
+[node name="BtnPath" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 240.0
+offset_top = 216.667
+offset_right = 486.0
+offset_bottom = 327.667
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbPath" type="Label" parent="BtnCheat/CheatBtns/BtnPath"]
+layout_mode = 0
+offset_left = 73.3334
+offset_top = 26.6666
+offset_right = 257.333
+offset_bottom = 81.6666
+theme_override_font_sizes/font_size = 40
+text = "Path"
+
 [node name="InfoBoard" type="Node2D" parent="."]
 z_index = 4096
 
@@ -250,176 +420,6 @@ offset_right = 1083.0
 offset_bottom = 551.334
 icon = ExtResource("29_mu7wu")
 flat = true
-
-[node name="BtnCheat" type="Button" parent="InfoBoard"]
-offset_left = 33.3333
-offset_top = 200.0
-offset_right = 271.333
-offset_bottom = 311.0
-icon = ExtResource("30_cw7gg")
-flat = true
-script = ExtResource("31_b0tnb")
-
-[node name="CheatLb" type="Label" parent="InfoBoard/BtnCheat"]
-layout_mode = 0
-offset_left = 60.0
-offset_top = 23.3333
-offset_right = 172.0
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "Cheat"
-
-[node name="CheatBtns" type="Node2D" parent="InfoBoard/BtnCheat"]
-visible = false
-modulate = Color(1, 1, 1, 0.784314)
-
-[node name="ColorRect" type="ColorRect" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 6.66667
-offset_top = 103.333
-offset_right = 506.667
-offset_bottom = 603.333
-
-[node name="BtnAddArea" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 6.66664
-offset_top = 326.667
-offset_right = 252.666
-offset_bottom = 437.667
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_uqs8t")
-
-[node name="LbAddArea" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddArea"]
-layout_mode = 0
-offset_left = 33.3333
-offset_top = 23.3333
-offset_right = 217.333
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "+ Area
-"
-
-[node name="BtnAddTable1" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 3.33334
-offset_top = 106.667
-offset_right = 249.333
-offset_bottom = 217.667
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_yw8xa")
-
-[node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1"]
-layout_mode = 0
-offset_left = 26.6667
-offset_top = 23.3333
-offset_right = 217.667
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "+ Table 1"
-
-[node name="BtnAddTable2" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 3.33334
-offset_top = 216.667
-offset_right = 249.333
-offset_bottom = 327.667
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_yw8xa")
-
-[node name="LbAddTable" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2"]
-layout_mode = 0
-offset_left = 26.6667
-offset_top = 23.3333
-offset_right = 217.667
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "+ Table 2"
-
-[node name="BtnAddWaiter" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 6.66667
-offset_top = 433.333
-offset_right = 244.667
-offset_bottom = 544.333
-icon = ExtResource("30_cw7gg")
-flat = true
-
-[node name="LbAddWaiter" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter"]
-layout_mode = 0
-offset_left = 36.6667
-offset_top = 26.6667
-offset_right = 250.667
-offset_bottom = 81.6667
-theme_override_font_sizes/font_size = 40
-text = "+ Waiter"
-
-[node name="BtnAddKitchen" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 323.333
-offset_right = 478.0
-offset_bottom = 434.333
-icon = ExtResource("30_cw7gg")
-flat = true
-
-[node name="LbAddKitchen" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddKitchen"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 23.3333
-offset_right = 209.0
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "+ Kitchen"
-
-[node name="BtnAddVending" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 243.333
-offset_top = 430.0
-offset_right = 481.333
-offset_bottom = 541.0
-icon = ExtResource("30_cw7gg")
-flat = true
-
-[node name="LbAddVending" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnAddVending"]
-layout_mode = 0
-offset_left = 23.3333
-offset_top = 20.0
-offset_right = 212.333
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 40
-text = "+ Vending"
-
-[node name="BtnGrid" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 110.0
-offset_right = 486.0
-offset_bottom = 221.0
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_uqs8t")
-
-[node name="LbGrid" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnGrid"]
-layout_mode = 0
-offset_left = 76.6667
-offset_top = 23.3333
-offset_right = 260.666
-offset_bottom = 78.3333
-theme_override_font_sizes/font_size = 40
-text = "Grid"
-
-[node name="BtnPath" type="Button" parent="InfoBoard/BtnCheat/CheatBtns"]
-offset_left = 240.0
-offset_top = 216.667
-offset_right = 486.0
-offset_bottom = 327.667
-icon = ExtResource("30_cw7gg")
-flat = true
-script = SubResource("GDScript_uqs8t")
-
-[node name="LbPath" type="Label" parent="InfoBoard/BtnCheat/CheatBtns/BtnPath"]
-layout_mode = 0
-offset_left = 73.3334
-offset_top = 26.6666
-offset_right = 257.333
-offset_bottom = 81.6666
-theme_override_font_sizes/font_size = 40
-text = "Path"
 
 [node name="MoneyBox" type="ColorRect" parent="InfoBoard"]
 offset_left = 220.0
@@ -486,10 +486,10 @@ text = "Nghia64582
 "
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
-[connection signal="pressed" from="InfoBoard/BtnCheat" to="." method="_on_btn_cheat_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddArea" to="." method="_on_btn_add_area_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnGrid" to="." method="_on_btn_grid_pressed"]
-[connection signal="pressed" from="InfoBoard/BtnCheat/CheatBtns/BtnPath" to="." method="_on_btn_path_pressed"]
+[connection signal="pressed" from="BtnCheat" to="." method="_on_btn_cheat_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddArea" to="." method="_on_btn_add_area_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnGrid" to="." method="_on_btn_grid_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnPath" to="." method="_on_btn_path_pressed"]

@@ -36,22 +36,16 @@ var waiters: Array[Waiter] = []
 var bricks: Array[Node2D] = []
 var game_data: GameData
 var floor_sample: Node2D
-
-func test():
-	print(GameUtils.is_obtascle(Vector2(0, 0), Vector2(10, 0), Vector2(5, 1), 1))
-	print(GameUtils.distance_point_to_line(Vector2(0, 0), Vector2(1, -1), Vector2(1, 1)))
-	print(GameUtils.get_side_targets(Vector2(0, 0), Vector2(10, 0), 1))
+var auto_save_count_down: float
 
 func _ready():
-	#test()
-	#return
 	GameConfig.load_config()
+	load_game_data()
 	init_info()
 	init_floor()
 	init_kitchens()
 	init_tables()
 	init_waiter()
-	load_game_data()
 	init_path_finder()
 
 func load_game_data():
@@ -65,8 +59,16 @@ func update_ui_game_data():
 
 func _process(delta):
 	check_generating_guests(delta)
+	check_auto_save(delta)
+	
+func check_auto_save(delta):
+	auto_save_count_down -= delta
+	if auto_save_count_down <= 0:
+		auto_save_count_down = 5
+		save_game()
 
 func init_info():
+	auto_save_count_down = 5
 	guest_generator_cool_down = 1
 	floor_node.scale = Vector2(1.27, 1.27)
 
@@ -289,6 +291,29 @@ func add_table_by_type(type: int):
 func add_area():
 	FLOOR_WITDH += 1
 	init_floor()
+
+func save_game():
+	game_data.kitchen_pos = []
+	game_data.tables = []
+	for kitchen in kitchens:
+		game_data.kitchen_pos.append({
+			"x": kitchen.position.x,
+			"y": kitchen.position.y
+		})
+	for table in tables:
+		var table_data = {
+			"type": table.type,
+			"x": table.position.x,
+			"y": table.position.y
+		}
+		game_data.tables.append(table_data)
+	game_data.n_waiter = len(waiters)
+	game_data.n_width = FLOOR_WITDH
+	game_data.n_height = FLOOR_HEIGHT
+	GameUtils.save(game_data.get_dict())
+
+func add_kitchen():
+	pass
 
 func _on_btn_add_table_1_pressed():
 	add_table_by_type(TableConst.TYPE.SMALL)

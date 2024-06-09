@@ -18,6 +18,7 @@ class_name MainGame
 @export var table_row_nodes: Array[Node2D] = []
 @export var cheat_btns: Node2D
 @export var walls: Array[ColorRect] = []
+@export var level_box: ColorRect
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -48,19 +49,20 @@ func _ready():
 	init_waiter()
 	init_path_finder()
 
+func _process(delta):
+	check_generating_guests(delta)
+	check_auto_save(delta)
+	
 func load_game_data():
 	game_data = GameData.new()
-	game_data.init(self)
+	game_data.load_data()
+	game_data.set_game(self)
 	update_ui_game_data()
 
 func update_ui_game_data():
 	cash_lb.text = str(game_data.cash)
 	level_lb.text = GameUtils.get_level_text(game_data.exp)
 
-func _process(delta):
-	check_generating_guests(delta)
-	check_auto_save(delta)
-	
 func check_auto_save(delta):
 	auto_save_count_down -= delta
 	if auto_save_count_down <= 0:
@@ -69,10 +71,10 @@ func check_auto_save(delta):
 
 func init_info():
 	auto_save_count_down = 5
-	guest_generator_cool_down = 1
-	floor_node.scale = Vector2(1.27, 1.27)
+	guest_generator_cool_down = 5
 
 func init_floor():
+	#floor_node.scale = Vector2(1.27, 1.27)
 	for node in bricks:
 		floor_node.remove_child(node)
 	bricks = []
@@ -96,11 +98,12 @@ func init_floor():
 		side_walk_node.add_child(side_walk_brick)
 
 func init_kitchens():
-	for idx in range(N_KITCHENS):
+	for idx in range(len(game_data.kitchen_pos)):
+		var kitchen_data = game_data.kitchen_pos[idx]
 		var kitchen = kitchen_template.instantiate()
-		var kit_pos: Vector2 = kitchen_nodes[idx].position
+		var kit_pos: Vector2 = Vector2(kitchen_data["x"], kitchen_data["y"])
 		kitchen.game = self
-		kitchen.position = kitchen_nodes[idx].position
+		kitchen.position = kit_pos
 		kitchens.append(kitchen)
 		floor_node.add_child(kitchen)
 		var waiter_node = kitchen.waiter_node
@@ -125,10 +128,8 @@ func add_table(row: int, type: int):
 	init_floor()
 
 func init_tables():
-	for idx in range(3):
-		for row in range(2):
-			var type = randi_range(0, 1)
-			add_table(row, type)
+	for table_data in game_data.tables:
+		init_table(Vector2(table_data["x"], table_data["y"]), table_data["type"])
 
 func init_table(pos: Vector2, type):
 	var table = table_template.instantiate()
@@ -142,7 +143,7 @@ func init_table(pos: Vector2, type):
 		PathFinder.init_point(table.position)
 
 func init_waiter():
-	for idx in range(2):
+	for idx in range(game_data.n_waiter):
 		var waiter = waiter_template.instantiate()
 		waiter.game = self
 		waiter.update_position(idx * 200 + 300, 400)
@@ -310,7 +311,7 @@ func save_game():
 	game_data.n_waiter = len(waiters)
 	game_data.n_width = FLOOR_WITDH
 	game_data.n_height = FLOOR_HEIGHT
-	GameUtils.save(game_data.get_dict())
+	GameUtils.save_game(game_data.get_dict())
 
 func add_kitchen():
 	pass

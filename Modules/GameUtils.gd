@@ -3,11 +3,21 @@ class_name GameUtils
  
 static var game_data_path = "user://game_data.json"
 
-static func save(game_data):
+static func save_game(game_data):
 	var json_string = JSON.stringify(game_data)
 	var file = FileAccess.open(game_data_path, FileAccess.WRITE)
 	file.store_string(json_string)
 	file.close()
+	
+static func load_game():
+	return get_dict_from_file(game_data_path)
+
+static func get_dict_from_file(file_path):
+	var txt = FileAccess.get_file_as_string("Config/" + file_path)
+	if txt == "":
+		return {}
+	else:
+		return JSON.parse_string(txt)
 
 static func log(st):
 	print(st)

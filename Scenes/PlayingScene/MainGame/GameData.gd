@@ -5,8 +5,8 @@ var cash: int
 var exp: int
 var level: int
 var gem: int
-var kitchen_pos: Array[Dictionary]
-var tables: Array[Dictionary]
+var kitchen_pos: Array
+var tables: Array
 var n_waiter: int
 var n_width: int
 var n_height: int
@@ -25,13 +25,28 @@ func get_dict():
 		"n_width": n_width,
 		"n_height": n_height
 	}
+	
+func load_data():
+	var data = GameUtils.load_game()
+	print("Data1 : ", data)
+	if data == {}:
+		data = get_base_config()
+	print("Data2 : ", data)
+	cash = data["cash"]
+	exp = data["exp"]
+	level = data["level"]
+	gem = data["gem"]
+	kitchen_pos = data["kitchen_pos"]
+	tables = data["tables"]
+	n_waiter = data["n_waiter"]
+	n_width = data["n_width"]
+	n_height = data["n_height"]
 
-func init(t_game: MainGame):
+func get_base_config():
+	return GameUtils.get_dict_from_file("BaseConfig.json")
+
+func set_game(t_game: MainGame):
 	game = t_game
-	cash = 30
-	exp = 1
-	level = 1
-	gem = 100
 	
 func finished_guest_order(order: Order):
 	exp += 1

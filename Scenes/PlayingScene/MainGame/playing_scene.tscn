@@ -43,10 +43,10 @@ script/source = "extends Button
 script/source = "extends Button
 "
 
-[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "kitchen_nodes", "cash_lb", "level_lb")]
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "level_box", "kitchen_nodes", "cash_lb", "level_lb")]
 script = ExtResource("1_hm10v")
 FLOOR_WITDH = 5
-FLOOR_HEIGHT = 5
+FLOOR_HEIGHT = 6
 N_SIDE_WALK_BRICKS = 5
 floor_node = NodePath("Floor")
 side_walk_brick_template = ExtResource("2_m0r4i")
@@ -61,6 +61,7 @@ side_walk_node = NodePath("Floor/SideWalkNode")
 table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Components/TableNode2")]
 cheat_btns = NodePath("BtnCheat/CheatBtns")
 walls = [NodePath("Floor/Components/Wall1"), NodePath("Floor/Components/Wall2")]
+level_box = NodePath("InfoBoard/LevelBox")
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
 level_lb = NodePath("InfoBoard/LevelBox/LevelLb")

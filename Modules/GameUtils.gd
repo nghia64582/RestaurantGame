@@ -13,10 +13,13 @@ static func load_game():
 	return get_dict_from_file(game_data_path)
 
 static func get_dict_from_file(file_path):
-	var txt = FileAccess.get_file_as_string("Config/" + file_path)
+	print("Get dict from file : %s" % [file_path])
+	var txt = FileAccess.get_file_as_string(file_path)
 	if txt == "":
+		print("File %s is empty" % [file_path])
 		return {}
 	else:
+		print("Json from file %s is %s" % [file_path, txt])
 		return JSON.parse_string(txt)
 
 static func log(st):

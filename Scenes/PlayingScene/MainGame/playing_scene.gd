@@ -42,6 +42,13 @@ var auto_save_count_down: float
 func _ready():
 	GameConfig.load_config()
 	load_game_data()
+	init_game()
+
+func _process(delta):
+	check_generating_guests(delta)
+	check_auto_save(delta)
+	
+func init_game():
 	init_info()
 	init_floor()
 	init_kitchens()
@@ -49,15 +56,17 @@ func _ready():
 	init_waiter()
 	init_path_finder()
 
-func _process(delta):
-	check_generating_guests(delta)
-	check_auto_save(delta)
-	
 func load_game_data():
 	game_data = GameData.new()
 	game_data.load_data()
 	game_data.set_game(self)
 	update_ui_game_data()
+	
+func reset_game_data():
+	game_data.reset_game_data()
+	clean_game()
+	init_game()
+	cheat_btns.visible = false
 
 func update_ui_game_data():
 	cash_lb.text = str(game_data.cash)
@@ -74,9 +83,6 @@ func init_info():
 	guest_generator_cool_down = 5
 
 func init_floor():
-	#floor_node.scale = Vector2(1.27, 1.27)
-	for node in bricks:
-		floor_node.remove_child(node)
 	bricks = []
 	floor_sample = floor_part_template.instantiate()
 	for row in range(FLOOR_HEIGHT):
@@ -165,6 +171,23 @@ func add_random_guest():
 	guest.find_path(free_table.position)
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)
+
+func clean_game():
+	for kitchen in kitchens:
+		floor_node.remove_child(kitchen)
+	for table in tables:
+		floor_node.remove_child(table)
+	for guest in guests:
+		floor_node.remove_child(guest)
+	for waiter in waiters:
+		floor_node.remove_child(waiter)
+	for brick in bricks:
+		floor_node.remove_child(brick)
+	kitchens = []
+	tables = []
+	guests = []
+	waiters = []
+	bricks = []
 
 func do_guest_sit_on_table(guest: Guest):
 	guest.pre_pos = guest.position
@@ -342,3 +365,6 @@ func _on_btn_grid_pressed():
 func _on_btn_path_pressed():
 	init_floor()
 	DevConfig.SHOW_PATH = not DevConfig.SHOW_PATH
+
+func _on_btn_reset_pressed():
+	reset_game_data()

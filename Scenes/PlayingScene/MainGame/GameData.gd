@@ -28,10 +28,21 @@ func get_dict():
 	
 func load_data():
 	var data = GameUtils.load_game()
-	print("Data1 : ", data)
 	if data == {}:
 		data = get_base_config()
-	print("Data2 : ", data)
+	cash = data["cash"]
+	exp = data["exp"]
+	level = data["level"]
+	gem = data["gem"]
+	kitchen_pos = data["kitchen_pos"]
+	tables = data["tables"]
+	n_waiter = data["n_waiter"]
+	n_width = data["n_width"]
+	n_height = data["n_height"]
+
+func reset_game_data():
+	var data = get_base_config()
+	print("Reset game data : " + str(data))
 	cash = data["cash"]
 	exp = data["exp"]
 	level = data["level"]
@@ -43,7 +54,7 @@ func load_data():
 	n_height = data["n_height"]
 
 func get_base_config():
-	return GameUtils.get_dict_from_file("BaseConfig.json")
+	return GameUtils.get_dict_from_file("res://Config/BaseConfig.json")
 
 func set_game(t_game: MainGame):
 	game = t_game

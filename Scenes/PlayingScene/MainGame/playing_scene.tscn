@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://u8luybwnl5i"]
+[gd_scene load_steps=37 format=3 uid="uid://u8luybwnl5i"]
 
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
@@ -31,8 +31,12 @@
 [ext_resource type="Texture2D" uid="uid://c8x3u4xxi6wmi" path="res://Assets/Png/Ui/MoneyIcon.png" id="28_6httv"]
 [ext_resource type="Texture2D" uid="uid://bctq4mprl1u7" path="res://Assets/Png/Ui/Btn_AudioOn.png" id="29_mu7wu"]
 [ext_resource type="Texture2D" uid="uid://ccrheguqp3ny8" path="res://Assets/Png/Ui/Btn_Green.png" id="30_cw7gg"]
-[ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/BtnCheat.gd" id="31_b0tnb"]
 [ext_resource type="Script" path="res://Scenes/PlayingScene/MainGame/TimeLb.gd" id="31_do10p"]
+
+[sub_resource type="GDScript" id="GDScript_jd1ta"]
+script/source = "extends Button
+
+"
 
 [sub_resource type="GDScript" id="GDScript_uqs8t"]
 script/source = "extends Button
@@ -40,6 +44,10 @@ script/source = "extends Button
 "
 
 [sub_resource type="GDScript" id="GDScript_yw8xa"]
+script/source = "extends Button
+"
+
+[sub_resource type="GDScript" id="GDScript_4h8q8"]
 script/source = "extends Button
 "
 
@@ -210,13 +218,14 @@ offset_right = 1109.0
 offset_bottom = 2408.0
 
 [node name="BtnCheat" type="Button" parent="."]
+z_index = 1000
 offset_left = 33.3333
 offset_top = 200.0
 offset_right = 271.333
 offset_bottom = 311.0
 icon = ExtResource("30_cw7gg")
 flat = true
-script = ExtResource("31_b0tnb")
+script = SubResource("GDScript_jd1ta")
 
 [node name="CheatLb" type="Label" parent="BtnCheat"]
 layout_mode = 0
@@ -235,7 +244,7 @@ modulate = Color(1, 1, 1, 0.784314)
 offset_left = 6.66667
 offset_top = 103.333
 offset_right = 506.667
-offset_bottom = 603.333
+offset_bottom = 703.333
 
 [node name="BtnAddArea" type="Button" parent="BtnCheat/CheatBtns"]
 offset_left = 6.66664
@@ -325,6 +334,24 @@ offset_right = 209.0
 offset_bottom = 78.3333
 theme_override_font_sizes/font_size = 40
 text = "+ Kitchen"
+
+[node name="BtnReset" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 9.66669
+offset_top = 538.0
+offset_right = 247.667
+offset_bottom = 649.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_4h8q8")
+
+[node name="LbReset" type="Label" parent="BtnCheat/CheatBtns/BtnReset"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 40
+text = "Reset"
 
 [node name="BtnAddVending" type="Button" parent="BtnCheat/CheatBtns"]
 offset_left = 243.333
@@ -492,5 +519,6 @@ text = "Nghia64582
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddWaiter" to="." method="_on_btn_add_waiter_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnReset" to="." method="_on_btn_reset_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnGrid" to="." method="_on_btn_grid_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnPath" to="." method="_on_btn_path_pressed"]

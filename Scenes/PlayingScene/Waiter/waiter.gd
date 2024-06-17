@@ -205,24 +205,17 @@ func update_position(x, y):
 	z_index = y
 
 func update_next_state():
+	print("Waiter cur state %s" % [WaiterConst.STATE_NAME[state]])
 	if state == WaiterConst.STATE.GO_TO_GUEST:
 		update_state(WaiterConst.STATE.WAIT_FOR_GUEST)
-	elif state == WaiterConst.STATE.WAIT_FOR_GUEST:
-		update_state(WaiterConst.STATE.GO_TO_KITCHEN)
 	elif state == WaiterConst.STATE.GO_TO_KITCHEN:
 		update_state(WaiterConst.STATE.SEND_ORDER_TO_CHEF)
-	elif state == WaiterConst.STATE.SEND_ORDER_TO_CHEF:
-		update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST)
 	elif state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
 		update_state(WaiterConst.STATE.SEND_FOOD_TO_GUEST)
-	elif state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
-		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 	elif state == WaiterConst.STATE.GO_TO_IDLE_POS:
 		update_state(WaiterConst.STATE.IDLE)
 	elif state == WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT:
 		update_state(WaiterConst.STATE.CREATE_PAYMENT)
-	elif state == WaiterConst.STATE.CREATE_PAYMENT:
-		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:

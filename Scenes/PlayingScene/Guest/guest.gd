@@ -232,16 +232,13 @@ func update_position(x, y):
 	z_index = y
 
 func update_next_state():
+	print("Guest cur state %s" % [GuestConst.STATE_NAME[state]])
 	if state == GuestConst.STATE.GO_TO_TABLE:
 		update_state(GuestConst.STATE.WAIT_FOR_WAITER, 0)
 	elif state == GuestConst.STATE.PICK_FOOD:
 		update_state(GuestConst.STATE.WAIT_FOR_MEAL, 0)
-	elif state == GuestConst.STATE.WAIT_FOR_MEAL:
-		update_state(GuestConst.STATE.HAVE_MEAL, 3 * len(order.foods_id))
 	elif state == GuestConst.STATE.HAVE_MEAL:
 		update_state(GuestConst.STATE.REACT, 0)
-	elif state == GuestConst.STATE.REACT:
-		update_state(GuestConst.STATE.LEAVE, 0)
 	elif state == GuestConst.STATE.LEAVE:
 		update_state(GuestConst.STATE.LEFT, 0)
 

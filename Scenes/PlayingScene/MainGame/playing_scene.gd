@@ -162,6 +162,7 @@ func init_path_finder():
 func add_random_guest():
 	var guest = guest_template.instantiate()
 	guest.game = self
+	guest.start_time = Time.get_ticks_msec()
 	var free_table = find_free_table()
 	if free_table == null:
 		return
@@ -197,6 +198,7 @@ func do_guest_sit_on_table(guest: Guest):
 	guest.table.set_guest_pos(guest, 0)
 
 func do_guest_leave_table(guest: Guest):
+	print("Guest cycle time : " + str(Time.get_ticks_msec() - guest.start_time))
 	guest.table.remove_child(guest)
 	floor_node.add_child(guest)
 	guest.position = guest.pre_pos + Vector2(50, 0)
@@ -243,7 +245,7 @@ func find_free_table() -> Table:
 
 func find_idle_waiter() -> Waiter:
 	for waiter in waiters:
-		if waiter.state in [WaiterConst.STATE.IDLE]:
+		if waiter.state in [WaiterConst.STATE.IDLE, WaiterConst.STATE.PREPARE_TO_IDLE]:
 			return waiter
 	return null
 
@@ -269,7 +271,7 @@ func call_waiter_for_menu(guest: Guest):
 	if idle_waiter == null:
 		return false
 	idle_waiter.find_path(guest.table.position)
-	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST)
+	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST, 0)
 	idle_waiter.guest = guest
 	guest.waiter = idle_waiter
 	return true
@@ -278,7 +280,7 @@ func call_waiter_for_payment(guest: Guest):
 	var idle_waiter = find_idle_waiter()
 	if idle_waiter == null:
 		return false
-	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT)
+	idle_waiter.update_state(WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT, 0)
 	idle_waiter.guest_paid = guest
 	idle_waiter.find_path(guest.table.position)
 	return true
@@ -311,7 +313,7 @@ func add_table_by_type(type: int):
 			min_first_x = first_x
 			key_row = row
 	add_table(key_row, type)
-	
+
 func add_area():
 	FLOOR_WITDH += 1
 	init_floor()

@@ -37,6 +37,7 @@ var sprite_idx
 var state
 var guest
 var id
+var state_count_down
 # for moving path
 var cur_direction
 var speed = 500 # pixel per second
@@ -59,14 +60,22 @@ func _ready():
 	sprite_idx = -1
 	guest = null
 	id = IdGenerator.get_waiter_id()
-	update_state(WaiterConst.STATE.IDLE)
+	update_state(WaiterConst.STATE.IDLE, 0)
 	update_z_order()
 
 func _process(delta):
 	update_sprite()
 	queue_redraw()
 	check_and_move(delta)
+	update_state_count_down(delta)
 	update_state_label()
+
+func update_state_count_down(delta):
+	if state not in [WaiterConst.STATE.PREPARE_TO_IDLE]:
+		return
+	state_count_down -= delta
+	if state_count_down <= 0:
+		update_next_state()
 
 func update_sprite():
 	sprite_idx += 1
@@ -130,8 +139,7 @@ func is_moving():
 					WaiterConst.STATE.GO_TO_IDLE_POS,\
 					WaiterConst.STATE.GO_TO_KITCHEN,\
 					WaiterConst.STATE.IDLE,\
-					WaiterConst.STATE.SEND_ORDER_TO_CHEF,\
-					WaiterConst.STATE.SEND_FOOD_TO_GUEST]
+					WaiterConst.STATE.SEND_ORDER_TO_CHEF]
 
 func get_textures_of_state():
 	# display food
@@ -207,15 +215,17 @@ func update_position(x, y):
 func update_next_state():
 	print("Waiter cur state %s" % [WaiterConst.STATE_NAME[state]])
 	if state == WaiterConst.STATE.GO_TO_GUEST:
-		update_state(WaiterConst.STATE.WAIT_FOR_GUEST)
+		update_state(WaiterConst.STATE.WAIT_FOR_GUEST, 0)
 	elif state == WaiterConst.STATE.GO_TO_KITCHEN:
-		update_state(WaiterConst.STATE.SEND_ORDER_TO_CHEF)
+		update_state(WaiterConst.STATE.SEND_ORDER_TO_CHEF, 0)
 	elif state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
-		update_state(WaiterConst.STATE.SEND_FOOD_TO_GUEST)
+		update_state(WaiterConst.STATE.SEND_FOOD_TO_GUEST, 0)
 	elif state == WaiterConst.STATE.GO_TO_IDLE_POS:
-		update_state(WaiterConst.STATE.IDLE)
+		update_state(WaiterConst.STATE.IDLE, 0)
 	elif state == WaiterConst.STATE.GO_TO_GUEST_FOR_PAYMENT:
-		update_state(WaiterConst.STATE.CREATE_PAYMENT)
+		update_state(WaiterConst.STATE.CREATE_PAYMENT, 0)
+	elif state == WaiterConst.STATE.PREPARE_TO_IDLE:
+		update_state(WaiterConst.STATE.GO_TO_IDLE_POS, 0)
 
 func check_change_state(new_state):
 	if new_state == WaiterConst.STATE.GO_TO_IDLE_POS:
@@ -228,7 +238,7 @@ func check_change_state(new_state):
 		kitchen.main_chef.start_cooking()
 		kitchen.waiter = self
 	elif new_state == WaiterConst.STATE.SEND_FOOD_TO_GUEST:
-		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+		update_state(WaiterConst.STATE.PREPARE_TO_IDLE, 0.3)
 		guest.update_state(GuestConst.STATE.HAVE_MEAL, 3 * len(guest.order.foods_id))
 	elif new_state == WaiterConst.STATE.CREATE_PAYMENT:
 		var guest = guest_paid
@@ -236,10 +246,11 @@ func check_change_state(new_state):
 			return
 		var table = guest.table
 		guest.update_state(GuestConst.STATE.LEAVE, 0)
-		update_state(WaiterConst.STATE.GO_TO_IDLE_POS)
+		update_state(WaiterConst.STATE.PREPARE_TO_IDLE, 0.3)
 		table.update_state(TableConst.STATE.FREE)
 
-func update_state(new_state):
+func update_state(new_state, count_down):
+	state_count_down = count_down
 	state = new_state
 	check_change_state(new_state)
 

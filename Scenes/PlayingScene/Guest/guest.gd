@@ -21,6 +21,7 @@ var pre_z_index
 var called_waiter
 var next_target: Vector2
 var radius = 50
+var start_time
 @export var state_lb: Label
 @export var image: Sprite2D
 @export var progress_bar: ProgressBar
@@ -243,8 +244,8 @@ func update_next_state():
 		update_state(GuestConst.STATE.LEFT, 0)
 
 func update_state_label():
-	state_lb.text = "Id %d\n%s\nC %d\nT %.2f" % [id, GuestConst.STATE_NAME[state]\
-		, 1 if called_waiter else 0, state_count_down]
+	state_lb.text = "Id %d\n%s\nT %.2f" % [id, GuestConst.STATE_NAME[state]\
+		, state_count_down]
 
 func update_state(new_state, count_down):
 	check_change_state(new_state)
@@ -285,7 +286,7 @@ func pick_food():
 	var kitchen_pos = order.kitchen.position
 	var waiter_pos = order.kitchen.waiter_pos
 	waiter.find_path(waiter_pos)
-	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN)
+	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN, 0)
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
 

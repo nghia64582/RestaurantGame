@@ -1,0 +1,21 @@
+Guest cycle time : 25845
+Guest cycle time : 21429
+Guest cycle time : 27656
+Guest cycle time : 28954
+Guest cycle time : 29989
+Guest cycle time : 35965
+Guest cycle time : 42743
+Guest cycle time : 21012
+Guest cycle time : 27374
+Guest cycle time : 29971
+Guest cycle time : 56580
+Guest cycle time : 28173
+Guest cycle time : 26525
+Guest cycle time : 34238
+Guest cycle time : 26160
+Guest cycle time : 17151
+Guest cycle time : 35467
+Guest cycle time : 27707
+Guest cycle time : 19032
+Changes from NewFlow_1:
+	- Waiter change to prepare to idle after create payment

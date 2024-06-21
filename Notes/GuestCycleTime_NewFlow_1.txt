@@ -1,0 +1,30 @@
+Guest cycle time : 26524
+Guest cycle time : 19599
+Guest cycle time : 31903
+Guest cycle time : 33536
+Guest cycle time : 30707
+Guest cycle time : 43010
+Guest cycle time : 21281
+Guest cycle time : 54065
+Guest cycle time : 75398
+Guest cycle time : 24726
+Guest cycle time : 26440
+Guest cycle time : 27674
+Guest cycle time : 22295
+Guest cycle time : 26641
+Guest cycle time : 45789
+Guest cycle time : 24111
+Guest cycle time : 34718
+Guest cycle time : 22830
+Guest cycle time : 29339
+Guest cycle time : 97309
+Guest cycle time : 33118
+Guest cycle time : 29105
+Guest cycle time : 26658
+Guest cycle time : 78460
+Guest cycle time : 43192
+Guest cycle time : 36851
+Guest cycle time : 34934
+Guest cycle time : 39878
+Changes from OldFlow
+ - Waiter turn into idle after send food to guest

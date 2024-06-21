@@ -4,7 +4,7 @@ class_name Order
 var guest
 var table
 var foods_id = []
-var waiter
+var waiter: Waiter
 var kitchen
 var state
 

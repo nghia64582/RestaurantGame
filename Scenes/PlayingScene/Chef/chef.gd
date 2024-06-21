@@ -64,7 +64,7 @@ func start_cooking():
 func check_change_state(new_state):
 	if new_state == ChefConst.STATE.FINISH_COOKING:
 		var waiter = kitchen.waiter
-		waiter.update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST)
+		waiter.update_state(WaiterConst.STATE.BRING_FOOD_TO_GUEST, 0)
 		var guest = waiter.guest
 		var table = guest.order.table
 		waiter.find_path(table.position)

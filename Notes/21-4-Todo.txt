@@ -1,12 +1,13 @@
 TODO
  - Kiếm thêm sprite backward cho guest
- - Cải thiện flow cho game thật hơn
  - Thêm tính năng : thêm kitchen
+ - Khối tính năng : Nhập nguyên liệu về làm (để sau)
+DONE : 
+ - Cải thiện flow cho game thật hơn : Waiter khi khi free sẽ check guest có yêu cầu
+để ra giúp luôn
  - Lưu và tải data của game : Cứ mỗi khi game chạy được một khoảng thời gian
 (5 - 10 s) thì lưu dữ liệu lại, lần sau khi vào game sẽ load dữ liệu từ máy lên
 => tạo tính liên tục của game
- - Khối tính năng : Nhập nguyên liệu về làm (để sau)
-DONE : 
  - Thêm plate vào waiter khi mang từ kitchen ra table
  - Tạo Factory để sử dụng hết sprite của guest
  - Khởi tạo info board cơ bản : level, exp, tiền, gold per minute, ...

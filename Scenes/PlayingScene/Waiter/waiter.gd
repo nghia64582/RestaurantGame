@@ -74,7 +74,7 @@ func update_state_count_down(delta):
 	if state not in [WaiterConst.STATE.PREPARE_TO_IDLE]:
 		return
 	state_count_down -= delta
-	if state_count_down <= 0:
+	if state_count_down <= 0.0:
 		update_next_state()
 
 func update_sprite():

@@ -22,6 +22,10 @@ window/size/viewport_height=2400
 window/stretch/mode="viewport"
 window/handheld/orientation=1
 
+[dotnet]
+
+project/assembly_name="Restaurant Game"
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true

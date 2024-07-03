@@ -1,0 +1,15 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://ddpccw1id50w7"
+path="res://.godot/imported/Waiters.atlas-e7038d380647171fc87d79417ee52fec.spatlas"
+
+[deps]
+
+source_file="res://Assets/Spine/Waiters/Waiters.atlas"
+dest_files=["res://.godot/imported/Waiters.atlas-e7038d380647171fc87d79417ee52fec.spatlas"]
+
+[params]
+
+normal_map_prefix="n"

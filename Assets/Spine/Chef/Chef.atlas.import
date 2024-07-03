@@ -1,0 +1,15 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://buvq7hnu6aqvk"
+path="res://.godot/imported/Chef.atlas-80069596fb5ad74d704fed68d30b3b0c.spatlas"
+
+[deps]
+
+source_file="res://Assets/Spine/Chef/Chef.atlas"
+dest_files=["res://.godot/imported/Chef.atlas-80069596fb5ad74d704fed68d30b3b0c.spatlas"]
+
+[params]
+
+normal_map_prefix="n"

@@ -1,0 +1,15 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://c6frwuakmppat"
+path="res://.godot/imported/Cr3.atlas-bd874cfd4fc4d561d85c1b463e41576c.spatlas"
+
+[deps]
+
+source_file="res://Assets/Spine/Character 03/Cr3.atlas"
+dest_files=["res://.godot/imported/Cr3.atlas-bd874cfd4fc4d561d85c1b463e41576c.spatlas"]
+
+[params]
+
+normal_map_prefix="n"

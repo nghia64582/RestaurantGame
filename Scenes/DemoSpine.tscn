@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cig3xfbyxc2l"]
+
+[sub_resource type="SpineResource" id="SpineResource_frsk6"]
+skeleton_path = "res://Assets/Spine/Character 02/Cr2.json"
+
+[node name="DemoSpine" type="Node2D"]
+
+[node name="Spine" type="Spine" parent="."]
+resource = SubResource("SpineResource_frsk6")
+playback/play = "Satisfied2"
+position = Vector2(556, 809)

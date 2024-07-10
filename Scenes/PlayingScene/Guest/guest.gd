@@ -85,9 +85,7 @@ func update_sprite():
 	var anim_st = get_current_anim()
 	if anim_st == main_spine.get_current_animation():
 		return
-	print("Guest %d old anim : %s" % [id, main_spine.get_current_animation()])
 	main_spine.play(anim_st, true)
-	print("Guest %d new anim : %s" % [id, main_spine.get_current_animation()])
 	#var textures = get_textures_of_state()
 	#if sprite_idx / 3 >= len(textures):
 		#sprite_idx = 0

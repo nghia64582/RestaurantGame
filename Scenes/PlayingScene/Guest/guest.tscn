@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Guest/guest.gd" id="1_5hwp8"]
 [ext_resource type="PackedScene" uid="uid://dmb74rcwltf4o" path="res://Scenes/PlayingScene/Guest/GuestSpineFactory.tscn" id="2_0n242"]
-[ext_resource type="Texture2D" uid="uid://qgtbuuas22iy" path="res://Assets/Png/Characters/Customer01/Angry01/Angry01_00.png" id="2_n3e7t"]
+[ext_resource type="Texture2D" path="res://Assets/Png/Characters/Customer01/Angry01/Angry01_00.png" id="2_n3e7t"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="782_vkkf1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a423t"]

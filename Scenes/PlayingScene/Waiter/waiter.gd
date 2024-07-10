@@ -213,7 +213,7 @@ func get_textures_of_state():
 	return walk_back_images
 
 func update_z_order():
-	z_index = position.y + image.get_rect().size.y
+	z_index = position.y + waiter_spine.position.y
 
 func update_next_target_and_direction():
 	if len(list_points) == 0:

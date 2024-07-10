@@ -52,7 +52,7 @@ script/source = "extends Button
 "
 
 [sub_resource type="SpineResource" id="SpineResource_7a1cm"]
-skeleton_path = "res://Assets/Spine/Character 01/Cr1.json"
+skeleton_path = "res://Assets/Spine/Waiters/Waiters.json"
 resource_local_to_scene = true
 
 [node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "level_box", "tf_spine_name", "demo_spine", "kitchen_nodes", "cash_lb", "level_lb")]
@@ -75,7 +75,7 @@ cheat_btns = NodePath("BtnCheat/CheatBtns")
 walls = [NodePath("Floor/Components/Wall1"), NodePath("Floor/Components/Wall2")]
 level_box = NodePath("InfoBoard/LevelBox")
 tf_spine_name = NodePath("BtnCheat/CheatBtns/BtnPlaySpine/TfSpineName")
-demo_spine = NodePath("Spine")
+demo_spine = NodePath("BtnCheat/CheatBtns/Spine")
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
 level_lb = NodePath("InfoBoard/LevelBox/LevelLb")
@@ -224,6 +224,7 @@ offset_right = 1109.0
 offset_bottom = 2408.0
 
 [node name="BtnCheat" type="Button" parent="."]
+visible = false
 z_index = 1000
 offset_left = 33.3333
 offset_top = 200.0
@@ -439,6 +440,10 @@ offset_bottom = 81.6666
 theme_override_font_sizes/font_size = 40
 text = "Path"
 
+[node name="Spine" type="Spine" parent="BtnCheat/CheatBtns"]
+resource = SubResource("SpineResource_7a1cm")
+position = Vector2(871.667, 687)
+
 [node name="InfoBoard" type="Node2D" parent="."]
 z_index = 4096
 
@@ -545,11 +550,6 @@ offset_bottom = 105.667
 theme_override_font_sizes/font_size = 50
 text = "Nghia64582
 "
-
-[node name="Spine" type="Spine" parent="."]
-resource = SubResource("SpineResource_7a1cm")
-playback/play = "Satisfied3"
-position = Vector2(905, 887)
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
 [connection signal="pressed" from="BtnCheat" to="." method="_on_btn_cheat_pressed"]

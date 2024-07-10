@@ -81,8 +81,10 @@ func update_state_count_down(delta):
 
 func update_sprite():
 	#sprite_idx += 1
-	#var textures = get_textures_of_state()
+	var textures = get_textures_of_state()
 	var spine_st = get_spine_of_state()
+	if spine_st == waiter_spine.get_current_animation():
+		return
 	waiter_spine.play(spine_st, true)
 	#if sprite_idx / 3 >= len(textures):
 		#sprite_idx = 0
@@ -148,7 +150,7 @@ func is_moving():
 func get_spine_of_state():
 	if state == WaiterConst.STATE.WAIT_FOR_GUEST:
 		return "GetOrder"
-	if state == WaiterConst.STATE.IDLE:
+	if state in [WaiterConst.STATE.IDLE, WaiterConst.STATE.SEND_ORDER_TO_CHEF]:
 		return "Idle"
 	if cur_direction == GameConst.DIRECT.DOWN:
 		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:

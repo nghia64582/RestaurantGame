@@ -1,18 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckyrth6w7gpya"]
+[gd_scene load_steps=16 format=3 uid="uid://ckyrth6w7gpya"]
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Guest/guest.gd" id="1_5hwp8"]
-[ext_resource type="PackedScene" uid="uid://cxli4a0ahfwur" path="res://Scenes/PlayingScene/Guest/GuestSpritesFactory.tscn" id="2_fh0vi"]
+[ext_resource type="PackedScene" uid="uid://dmb74rcwltf4o" path="res://Scenes/PlayingScene/Guest/GuestSpineFactory.tscn" id="2_0n242"]
 [ext_resource type="Texture2D" uid="uid://qgtbuuas22iy" path="res://Assets/Png/Characters/Customer01/Angry01/Angry01_00.png" id="2_n3e7t"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="782_vkkf1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a423t"]
 
-[node name="Guest" type="Node2D" node_paths=PackedStringArray("state_lb", "image", "progress_bar")]
+[sub_resource type="SpineResource" id="SpineResource_n4jmt"]
+skeleton_path = "res://Assets/Spine/Character 01/Cr1.json"
+
+[sub_resource type="SpineResource" id="SpineResource_5af05"]
+skeleton_path = "res://Assets/Spine/Character 02/Cr2.json"
+
+[sub_resource type="SpineResource" id="SpineResource_7qb6r"]
+skeleton_path = "res://Assets/Spine/Character 03/Cr3.json"
+
+[sub_resource type="SpineResource" id="SpineResource_netur"]
+skeleton_path = "res://Assets/Spine/Character 04/Cr4.json"
+
+[sub_resource type="SpineResource" id="SpineResource_xo6q6"]
+skeleton_path = "res://Assets/Spine/Character 05/Cr5.json"
+
+[sub_resource type="SpineResource" id="SpineResource_yoyiu"]
+skeleton_path = "res://Assets/Spine/Character 06/Cr6.json"
+
+[sub_resource type="SpineResource" id="SpineResource_q6wyk"]
+skeleton_path = "res://Assets/Spine/Character 07/Cr7.json"
+
+[sub_resource type="SpineResource" id="SpineResource_wxuii"]
+skeleton_path = "res://Assets/Spine/Character 08/Cr8.json"
+
+[sub_resource type="SpineResource" id="SpineResource_rfrmx"]
+skeleton_path = "res://Assets/Spine/Character 09/Cr9.json"
+
+[sub_resource type="SpineResource" id="SpineResource_vurhv"]
+skeleton_path = "res://Assets/Spine/Character 10/Cr10.json"
+
+[node name="Guest" type="Node2D" node_paths=PackedStringArray("state_lb", "image", "progress_bar", "spine_list")]
 script = ExtResource("1_5hwp8")
 state_lb = NodePath("Components/StateLb")
 image = NodePath("Components/Image")
 progress_bar = NodePath("Components/ProgressBar")
-guest_sprite_factory_template = ExtResource("2_fh0vi")
+guest_spine_factory_template = ExtResource("2_0n242")
+spine_list = [NodePath("Components/Spines/Spine1"), NodePath("Components/Spines/Spine2"), NodePath("Components/Spines/Spine3"), NodePath("Components/Spines/Spine4"), NodePath("Components/Spines/Spine5"), NodePath("Components/Spines/Spine6"), NodePath("Components/Spines/Spine7"), NodePath("Components/Spines/Spine8"), NodePath("Components/Spines/Spine9"), NodePath("Components/Spines/Spine10")]
 
 [node name="Components" type="Control" parent="."]
 layout_mode = 3
@@ -23,6 +54,7 @@ offset_right = 26.0
 offset_bottom = -59.0
 
 [node name="Image" type="Sprite2D" parent="Components"]
+visible = false
 position = Vector2(28, 27)
 texture = ExtResource("2_n3e7t")
 
@@ -46,6 +78,39 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxTexture_a423t")
 step = 1.0
 value = 50.0
+
+[node name="Spines" type="Node2D" parent="Components"]
+position = Vector2(16, 338)
+
+[node name="Spine1" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_n4jmt")
+
+[node name="Spine2" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_5af05")
+
+[node name="Spine3" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_7qb6r")
+
+[node name="Spine4" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_netur")
+
+[node name="Spine5" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_xo6q6")
+
+[node name="Spine6" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_yoyiu")
+
+[node name="Spine7" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_q6wyk")
+
+[node name="Spine8" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_wxuii")
+
+[node name="Spine9" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_rfrmx")
+
+[node name="Spine10" type="Spine" parent="Components/Spines"]
+resource = SubResource("SpineResource_vurhv")
 
 [node name="PlayingScene" type="Sprite2D" parent="."]
 visible = false

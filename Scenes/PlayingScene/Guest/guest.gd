@@ -25,28 +25,10 @@ var start_time
 @export var state_lb: Label
 @export var image: Sprite2D
 @export var progress_bar: ProgressBar
-@export var guest_sprite_factory_template: PackedScene
-
-var angry_1_images: Array[Texture2D] = []
-var angry_2_images: Array[Texture2D] = []
-var back_view_1_images: Array[Texture2D] = []
-var back_view_2_images: Array[Texture2D] = []
-var bored_1_images: Array[Texture2D] = []
-var bored_2_images: Array[Texture2D] = []
-var call_waiter_images: Array[Texture2D] = []
-var drink_images: Array[Texture2D] = []
-var eat_images: Array[Texture2D] = []
-var read_menu_images: Array[Texture2D] = []
-var satisfied_1_images: Array[Texture2D] = []
-var satisfied_2_images: Array[Texture2D] = []
-var satisfied_3_images: Array[Texture2D] = []
-var stand_and_angry_images: Array[Texture2D] = []
-var stand_and_bored_images: Array[Texture2D] = []
-var stand_and_wait_images: Array[Texture2D] = []
-var waiting_for_food_1_images: Array[Texture2D] = []
-var waiting_for_food_2_images: Array[Texture2D] = []
-var waiting_for_food_3_images: Array[Texture2D] = []
-static var guest_sprite_factory
+@export var guest_spine_factory_template: PackedScene
+@export var spine_list: Array[Spine]
+var main_spine: Spine
+static var guest_spine_factory: GuestSpineFactory
 
 func _draw():
 	if DevConfig.SHOW_PATH:
@@ -60,37 +42,17 @@ func _draw():
 func _ready():
 	update_state(GuestConst.STATE.GO_TO_TABLE, 0)
 	sprite_idx = -1
-	init_sprite_type()
 	called_waiter = false
 	id = IdGenerator.get_guest_id()
 	update_z_order()
-
-func init_sprite_type():
-	var types = [1, 7, 8, 9, 10]
-	# todo 2, 3, 4, 5, 6
-	var idx = randi_range(0, len(types) - 1)
-	sprite_type = types[idx]
-	if guest_sprite_factory == null:
-		guest_sprite_factory = guest_sprite_factory_template.instantiate()
-	angry_1_images = guest_sprite_factory.angry_1_images(sprite_type)
-	angry_2_images = guest_sprite_factory.angry_2_images(sprite_type)
-	back_view_1_images = guest_sprite_factory.back_view_1_images(sprite_type)
-	back_view_2_images = guest_sprite_factory.back_view_2_images(sprite_type)
-	bored_1_images = guest_sprite_factory.bored_1_images(sprite_type)
-	bored_2_images = guest_sprite_factory.bored_2_images(sprite_type)
-	call_waiter_images = guest_sprite_factory.call_waiter_images(sprite_type)
-	drink_images = guest_sprite_factory.drink_images(sprite_type)
-	eat_images = guest_sprite_factory.eat_images(sprite_type)
-	read_menu_images = guest_sprite_factory.read_menu_images(sprite_type)
-	satisfied_1_images = guest_sprite_factory.satisfied_1_images(sprite_type)
-	satisfied_2_images = guest_sprite_factory.satisfied_2_images(sprite_type)
-	satisfied_3_images = guest_sprite_factory.satisfied_3_images(sprite_type)
-	stand_and_angry_images = guest_sprite_factory.stand_and_angry_images(sprite_type)
-	stand_and_bored_images = guest_sprite_factory.stand_and_bored_images(sprite_type)
-	stand_and_wait_images = guest_sprite_factory.stand_and_wait_images(sprite_type)
-	waiting_for_food_1_images = guest_sprite_factory.waiting_for_food_1_images(sprite_type)
-	waiting_for_food_2_images = guest_sprite_factory.waiting_for_food_2_images(sprite_type)
-	waiting_for_food_3_images = guest_sprite_factory.waiting_for_food_3_images(sprite_type)
+	init_spine()
+	
+func init_spine():
+	var spine_id = randi_range(1, 7)
+	main_spine = spine_list[spine_id]
+	for spine in spine_list:
+		spine.visible = false
+	main_spine.visible = true
 
 func _process(delta):
 	queue_redraw()
@@ -120,11 +82,34 @@ func update_progress_bar():
 
 func update_sprite():
 	sprite_idx += 1
-	var textures = get_textures_of_state()
-	if sprite_idx / 3 >= len(textures):
-		sprite_idx = 0
-	image.texture = textures[sprite_idx / 3]
-
+	var anim_st = get_current_anim()
+	if anim_st == main_spine.get_current_animation():
+		return
+	print("Guest %d old anim : %s" % [id, main_spine.get_current_animation()])
+	main_spine.play(anim_st, true)
+	print("Guest %d new anim : %s" % [id, main_spine.get_current_animation()])
+	#var textures = get_textures_of_state()
+	#if sprite_idx / 3 >= len(textures):
+		#sprite_idx = 0
+	#image.texture = textures[sprite_idx / 3]
+	
+func get_current_anim():
+	if state == GuestConst.STATE.GO_TO_TABLE:
+		return "stand and Bored"
+	if state == GuestConst.STATE.WAIT_FOR_WAITER:
+		return "Call Waiters"
+	if state == GuestConst.STATE.PICK_FOOD:
+		return "Read Menu"
+	if state == GuestConst.STATE.WAIT_FOR_MEAL:
+		return "Waiting for the food 1"
+	if state == GuestConst.STATE.HAVE_MEAL:
+		return "Eat"
+	if state == GuestConst.STATE.REACT:
+		return "Satisfied1"
+	if state == GuestConst.STATE.LEAVE:
+		return "stand and Bored"
+	return "stand and Bored"
+	
 func check_current_state():
 	if state == GuestConst.STATE.REACT and not called_waiter:
 		var success = game.call_waiter_for_payment(self)
@@ -182,26 +167,26 @@ func get_nearest_obstacles() -> Vector2:
 				min_dist = dist
 				result = guest.position
 	return result
-	
+
 func is_moving():
 	return state in [GuestConst.STATE.GO_TO_TABLE, GuestConst.STATE.LEAVE]
 
-func get_textures_of_state():
-	if state == GuestConst.STATE.GO_TO_TABLE:
-		return stand_and_wait_images
-	if state == GuestConst.STATE.WAIT_FOR_WAITER:
-		return call_waiter_images
-	if state == GuestConst.STATE.PICK_FOOD:
-		return read_menu_images
-	if state == GuestConst.STATE.WAIT_FOR_MEAL:
-		return waiting_for_food_1_images
-	if state == GuestConst.STATE.HAVE_MEAL:
-		return eat_images
-	if state == GuestConst.STATE.REACT:
-		return react_anim
-	if state == GuestConst.STATE.LEAVE:
-		return stand_and_wait_images
-	return stand_and_wait_images
+#func get_textures_of_state():
+	#if state == GuestConst.STATE.GO_TO_TABLE:
+		#return stand_and_wait_images
+	#if state == GuestConst.STATE.WAIT_FOR_WAITER:
+		#return call_waiter_images
+	#if state == GuestConst.STATE.PICK_FOOD:
+		#return read_menu_images
+	#if state == GuestConst.STATE.WAIT_FOR_MEAL:
+		#return waiting_for_food_1_images
+	#if state == GuestConst.STATE.HAVE_MEAL:
+		#return eat_images
+	#if state == GuestConst.STATE.REACT:
+		#return react_anim
+	#if state == GuestConst.STATE.LEAVE:
+		#return stand_and_wait_images
+	#return stand_and_wait_images
 
 func update_z_order():
 	z_index = position.y
@@ -255,7 +240,6 @@ func update_state(new_state, count_down):
 
 func check_change_state(new_state):
 	if new_state == GuestConst.STATE.REACT:
-		pick_random_react_anim()
 		called_waiter = false
 	if new_state == GuestConst.STATE.LEFT:
 		game.floor_node.remove_child(self)
@@ -289,12 +273,6 @@ func pick_food():
 	waiter.update_state(WaiterConst.STATE.GO_TO_KITCHEN, 0)
 	print("Guest %d picked food %s, waiter %d, kitchen %d" %
 		[id, str(order.foods_id), waiter.id, order.kitchen])
-
-func pick_random_react_anim():
-	var list_anim = [angry_1_images, angry_2_images, satisfied_1_images,\
-					 satisfied_2_images, satisfied_3_images]
-	var idx = randi_range(0, len(list_anim) - 1)
-	react_anim = list_anim[idx]
 
 # FINDING PATH METHODS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 func find_path(target: Vector2):

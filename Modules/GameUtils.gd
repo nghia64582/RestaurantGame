@@ -19,7 +19,6 @@ static func get_dict_from_file(file_path):
 		print("File %s is empty" % [file_path])
 		return {}
 	else:
-		print("Json from file %s is %s" % [file_path, txt])
 		return JSON.parse_string(txt)
 
 static func log(st):

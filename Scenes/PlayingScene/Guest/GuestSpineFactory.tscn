@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmb74rcwltf4o"]
+
+[ext_resource type="Script" path="res://Scenes/PlayingScene/Guest/GuestSpineFactory.gd" id="1_wjvf1"]
+
+[sub_resource type="SpineResource" id="SpineResource_rrxmh"]
+skeleton_path = "res://Assets/Spine/Character 01/Cr1.json"
+
+[sub_resource type="SpineResource" id="SpineResource_tt801"]
+skeleton_path = "res://Assets/Spine/Character 02/Cr2.json"
+
+[sub_resource type="SpineResource" id="SpineResource_6tcq4"]
+skeleton_path = "res://Assets/Spine/Character 03/Cr3.json"
+
+[sub_resource type="SpineResource" id="SpineResource_r3vrv"]
+skeleton_path = "res://Assets/Spine/Character 04/Cr4.json"
+
+[sub_resource type="SpineResource" id="SpineResource_4iy87"]
+skeleton_path = "res://Assets/Spine/Character 05/Cr5.json"
+
+[sub_resource type="SpineResource" id="SpineResource_b0l40"]
+skeleton_path = "res://Assets/Spine/Character 06/Cr6.json"
+
+[sub_resource type="SpineResource" id="SpineResource_xbaav"]
+skeleton_path = "res://Assets/Spine/Character 07/Cr7.json"
+
+[sub_resource type="SpineResource" id="SpineResource_jha38"]
+skeleton_path = "res://Assets/Spine/Character 08/Cr8.json"
+
+[sub_resource type="SpineResource" id="SpineResource_7sryv"]
+skeleton_path = "res://Assets/Spine/Character 09/Cr9.json"
+
+[sub_resource type="SpineResource" id="SpineResource_mn7hj"]
+skeleton_path = "res://Assets/Spine/Character 10/Cr10.json"
+
+[node name="GuestSpineFactory" type="Node2D" node_paths=PackedStringArray("guest_spine_1", "guest_spine_2", "guest_spine_3", "guest_spine_4", "guest_spine_5", "guest_spine_6", "guest_spine_7", "guest_spine_8", "guest_spine_9", "guest_spine_10")]
+script = ExtResource("1_wjvf1")
+guest_spine_1 = NodePath("Spine1")
+guest_spine_2 = NodePath("Spine2")
+guest_spine_3 = NodePath("Spine3")
+guest_spine_4 = NodePath("Spine4")
+guest_spine_5 = NodePath("Spine5")
+guest_spine_6 = NodePath("Spine6")
+guest_spine_7 = NodePath("Spine7")
+guest_spine_8 = NodePath("Spine8")
+guest_spine_9 = NodePath("Spine9")
+guest_spine_10 = NodePath("Spine10")
+
+[node name="Spine1" type="Spine" parent="."]
+resource = SubResource("SpineResource_rrxmh")
+
+[node name="Spine2" type="Spine" parent="."]
+resource = SubResource("SpineResource_tt801")
+
+[node name="Spine3" type="Spine" parent="."]
+resource = SubResource("SpineResource_6tcq4")
+
+[node name="Spine4" type="Spine" parent="."]
+resource = SubResource("SpineResource_r3vrv")
+
+[node name="Spine5" type="Spine" parent="."]
+resource = SubResource("SpineResource_4iy87")
+
+[node name="Spine6" type="Spine" parent="."]
+resource = SubResource("SpineResource_b0l40")
+
+[node name="Spine7" type="Spine" parent="."]
+resource = SubResource("SpineResource_xbaav")
+
+[node name="Spine8" type="Spine" parent="."]
+resource = SubResource("SpineResource_jha38")
+
+[node name="Spine9" type="Spine" parent="."]
+resource = SubResource("SpineResource_7sryv")
+
+[node name="Spine10" type="Spine" parent="."]
+resource = SubResource("SpineResource_mn7hj")

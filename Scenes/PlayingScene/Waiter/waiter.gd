@@ -9,6 +9,7 @@ class_name Waiter
 @export var left_food_node: Node2D
 @export var right_food_node: Node2D
 @export var mid_food_node: Node2D
+@export var waiter_spine: Spine
 
 @export_group("get order image")
 @export var get_order_images: Array[Texture2D] = []
@@ -65,6 +66,7 @@ func _ready():
 
 func _process(delta):
 	update_sprite()
+	update_food_nodes()
 	queue_redraw()
 	check_and_move(delta)
 	update_state_count_down(delta)
@@ -78,11 +80,13 @@ func update_state_count_down(delta):
 		update_next_state()
 
 func update_sprite():
-	sprite_idx += 1
-	var textures = get_textures_of_state()
-	if sprite_idx / 3 >= len(textures):
-		sprite_idx = 0
-	image.texture = textures[sprite_idx / 3]
+	#sprite_idx += 1
+	#var textures = get_textures_of_state()
+	var spine_st = get_spine_of_state()
+	waiter_spine.play(spine_st, true)
+	#if sprite_idx / 3 >= len(textures):
+		#sprite_idx = 0
+	#image.texture = textures[sprite_idx / 3]
 
 func check_and_move(delta):
 	if len(list_points) == 0:
@@ -141,7 +145,28 @@ func is_moving():
 					WaiterConst.STATE.IDLE,\
 					WaiterConst.STATE.SEND_ORDER_TO_CHEF]
 
-func get_textures_of_state():
+func get_spine_of_state():
+	if state == WaiterConst.STATE.WAIT_FOR_GUEST:
+		return "GetOrder"
+	if state == WaiterConst.STATE.IDLE:
+		return "Idle"
+	if cur_direction == GameConst.DIRECT.DOWN:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return "Walk_FrontWPlate1"
+		return "Walk_Front"
+	if cur_direction == GameConst.DIRECT.UP:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return "Walk_BackWPlate"
+		return "Walk_Back"
+	if cur_direction in [GameConst.DIRECT.RIGHT, GameConst.DIRECT.LEFT]:
+		if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
+			return "Walk_SideWPlate"
+		if state in [WaiterConst.STATE.GO_TO_GUEST, WaiterConst.STATE.GO_TO_KITCHEN]:
+			return "Walk_FrontWmenu"
+		return "Walk_Side"
+	return "Walk_Back"
+	
+func update_food_nodes():
 	# display food
 	if state == WaiterConst.STATE.BRING_FOOD_TO_GUEST:
 		if cur_direction == GameConst.DIRECT.DOWN:
@@ -160,6 +185,8 @@ func get_textures_of_state():
 		left_food_node.visible = false
 		right_food_node.visible = false
 		mid_food_node.visible = false
+
+func get_textures_of_state():
 	component.scale.x = -abs(component.scale.x) \
 		if cur_direction == GameConst.DIRECT.LEFT else \
 		abs(component.scale.x)

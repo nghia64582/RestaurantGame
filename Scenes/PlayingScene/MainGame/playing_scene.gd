@@ -19,6 +19,8 @@ class_name MainGame
 @export var cheat_btns: Node2D
 @export var walls: Array[ColorRect] = []
 @export var level_box: ColorRect
+@export var tf_spine_name: TextEdit
+@export var demo_spine: Spine
 
 @export_group("kitchen nodes")
 @export var kitchen_nodes: Array[Node2D] = []
@@ -370,3 +372,8 @@ func _on_btn_path_pressed():
 
 func _on_btn_reset_pressed():
 	reset_game_data()
+
+func _on_btn_play_spine_pressed():
+	var txt = tf_spine_name.text
+	print(txt)
+	demo_spine.play(txt, true)

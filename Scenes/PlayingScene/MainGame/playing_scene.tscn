@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://u8luybwnl5i"]
+[gd_scene load_steps=38 format=3 uid="uid://u8luybwnl5i"]
 
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="1_2175a"]
 [ext_resource type="Texture2D" uid="uid://cwjdmakahqlab" path="res://Assets/Png/Other Assets/Dishes.png" id="1_f7wxr"]
@@ -51,7 +51,11 @@ script/source = "extends Button
 script/source = "extends Button
 "
 
-[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "level_box", "kitchen_nodes", "cash_lb", "level_lb")]
+[sub_resource type="SpineResource" id="SpineResource_7a1cm"]
+skeleton_path = "res://Assets/Spine/Character 01/Cr1.json"
+resource_local_to_scene = true
+
+[node name="PlayingScene" type="Node2D" node_paths=PackedStringArray("floor_node", "component_node", "side_walk_node", "table_row_nodes", "cheat_btns", "walls", "level_box", "tf_spine_name", "demo_spine", "kitchen_nodes", "cash_lb", "level_lb")]
 script = ExtResource("1_hm10v")
 FLOOR_WITDH = 5
 FLOOR_HEIGHT = 6
@@ -70,6 +74,8 @@ table_row_nodes = [NodePath("Floor/Components/TableNode1"), NodePath("Floor/Comp
 cheat_btns = NodePath("BtnCheat/CheatBtns")
 walls = [NodePath("Floor/Components/Wall1"), NodePath("Floor/Components/Wall2")]
 level_box = NodePath("InfoBoard/LevelBox")
+tf_spine_name = NodePath("BtnCheat/CheatBtns/BtnPlaySpine/TfSpineName")
+demo_spine = NodePath("Spine")
 kitchen_nodes = [NodePath("Floor/Components/KitchenNode1"), NodePath("Floor/Components/KitchenNode2"), NodePath("Floor/Components/KitchenNode3"), NodePath("Floor/Components/KitchenNode4")]
 cash_lb = NodePath("InfoBoard/MoneyBox/MoneyLb")
 level_lb = NodePath("InfoBoard/LevelBox/LevelLb")
@@ -237,7 +243,6 @@ theme_override_font_sizes/font_size = 40
 text = "Cheat"
 
 [node name="CheatBtns" type="Node2D" parent="BtnCheat"]
-visible = false
 modulate = Color(1, 1, 1, 0.784314)
 
 [node name="ColorRect" type="ColorRect" parent="BtnCheat/CheatBtns"]
@@ -245,6 +250,34 @@ offset_left = 6.66667
 offset_top = 103.333
 offset_right = 506.667
 offset_bottom = 703.333
+
+[node name="BtnPlaySpine" type="Button" parent="BtnCheat/CheatBtns"]
+offset_left = 246.667
+offset_top = 534.0
+offset_right = 492.666
+offset_bottom = 645.0
+icon = ExtResource("30_cw7gg")
+flat = true
+script = SubResource("GDScript_uqs8t")
+
+[node name="LbPlaySpine" type="Label" parent="BtnCheat/CheatBtns/BtnPlaySpine"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 23.0
+offset_right = 216.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 40
+text = "Play Spine
+"
+
+[node name="TfSpineName" type="TextEdit" parent="BtnCheat/CheatBtns/BtnPlaySpine"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 16.0
+offset_right = 758.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 50
+placeholder_text = "Write spine text"
 
 [node name="BtnAddArea" type="Button" parent="BtnCheat/CheatBtns"]
 offset_left = 6.66664
@@ -513,8 +546,14 @@ theme_override_font_sizes/font_size = 50
 text = "Nghia64582
 "
 
+[node name="Spine" type="Spine" parent="."]
+resource = SubResource("SpineResource_7a1cm")
+playback/play = "Angry1"
+position = Vector2(905, 887)
+
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
 [connection signal="pressed" from="BtnCheat" to="." method="_on_btn_cheat_pressed"]
+[connection signal="pressed" from="BtnCheat/CheatBtns/BtnPlaySpine" to="." method="_on_btn_play_spine_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddArea" to="." method="_on_btn_add_area_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable1" to="." method="_on_btn_add_table_1_pressed"]
 [connection signal="pressed" from="BtnCheat/CheatBtns/BtnAddTable2" to="." method="_on_btn_add_table_2_pressed"]

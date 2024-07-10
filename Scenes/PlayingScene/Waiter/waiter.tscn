@@ -1,4 +1,4 @@
-[gd_scene load_steps=245 format=3 uid="uid://5ljqlwhlwdqe"]
+[gd_scene load_steps=246 format=3 uid="uid://5ljqlwhlwdqe"]
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Waiter/waiter.gd" id="1_0qnxx"]
 [ext_resource type="Texture2D" uid="uid://1nldgthy1gv4" path="res://Assets/Png/Characters/Waiters/GetOrders/GetOrders_00.png" id="1_q64ld"]
@@ -245,7 +245,10 @@
 [ext_resource type="Texture2D" uid="uid://l8xh7apfdqma" path="res://Assets/Png/Other Assets/Cake.png" id="242_y4kyk"]
 [ext_resource type="Texture2D" uid="uid://dt8theoe84f20" path="res://Assets/Png/Other Assets/Burger.png" id="243_15vkx"]
 
-[node name="Waiter" type="Node2D" node_paths=PackedStringArray("image", "state_lb", "component", "left_food_node", "right_food_node", "mid_food_node")]
+[sub_resource type="SpineResource" id="SpineResource_cmsdl"]
+skeleton_path = "res://Assets/Spine/Waiters/Waiters.json"
+
+[node name="Waiter" type="Node2D" node_paths=PackedStringArray("image", "state_lb", "component", "left_food_node", "right_food_node", "mid_food_node", "waiter_spine")]
 script = ExtResource("1_0qnxx")
 image = NodePath("Components/Image")
 state_lb = NodePath("Components/StateLb")
@@ -253,6 +256,7 @@ component = NodePath("Components")
 left_food_node = NodePath("Components/LeftFoodNode")
 right_food_node = NodePath("Components/RightFoodNode")
 mid_food_node = NodePath("Components/MiddleFoodNode")
+waiter_spine = NodePath("Components/Spine")
 get_order_images = Array[Texture2D]([ExtResource("1_q64ld"), ExtResource("3_6sd3r"), ExtResource("4_pwlik"), ExtResource("5_txu60"), ExtResource("6_2ekos"), ExtResource("7_g3fdv"), ExtResource("8_mivla"), ExtResource("9_sc10j"), ExtResource("10_hqnuj"), ExtResource("11_02mye"), ExtResource("12_avoad"), ExtResource("13_8ld51"), ExtResource("14_bg3tw"), ExtResource("15_48m7w"), ExtResource("16_da8l0"), ExtResource("17_oautj"), ExtResource("18_aw1c7"), ExtResource("19_crpbx"), ExtResource("20_2olrl"), ExtResource("21_kxrpf")])
 idle_images = Array[Texture2D]([ExtResource("22_0o8vq"), ExtResource("23_g830l"), ExtResource("24_ib022"), ExtResource("25_i1x5h"), ExtResource("26_tbvqj"), ExtResource("27_r4oin"), ExtResource("28_42jef"), ExtResource("29_0oioy"), ExtResource("30_rjjiy"), ExtResource("31_6d2g1"), ExtResource("32_bfwoh"), ExtResource("33_fu16k"), ExtResource("34_sl07l"), ExtResource("35_fh027"), ExtResource("36_ltqjd"), ExtResource("37_113ds"), ExtResource("38_b750p"), ExtResource("39_bdwm6"), ExtResource("40_dqnax"), ExtResource("41_3xnjl"), ExtResource("42_sbshg"), ExtResource("43_7wjp1"), ExtResource("44_txprk"), ExtResource("45_5l86t"), ExtResource("46_1nty5"), ExtResource("47_u0808"), ExtResource("48_scn85"), ExtResource("49_g51ai"), ExtResource("50_jgxge"), ExtResource("51_71gac"), ExtResource("52_oy6jn"), ExtResource("53_gchgl"), ExtResource("54_ax2d0"), ExtResource("55_mfiyn"), ExtResource("56_e306h"), ExtResource("57_a8sxw"), ExtResource("58_lqg5m"), ExtResource("59_0aceg"), ExtResource("60_5vv8q"), ExtResource("61_8yjsx")])
 walk_back_images = Array[Texture2D]([ExtResource("62_6ytns"), ExtResource("63_i7xac"), ExtResource("64_6tk0b"), ExtResource("65_r7hr1"), ExtResource("66_8laxm"), ExtResource("67_kh2b3"), ExtResource("68_rvqra"), ExtResource("69_ghe65"), ExtResource("70_gicw4"), ExtResource("71_o8jik"), ExtResource("72_ictqi"), ExtResource("73_jnloh"), ExtResource("74_d0qtv"), ExtResource("75_e0mum"), ExtResource("76_jvil8"), ExtResource("77_jxqym"), ExtResource("78_lpxrg"), ExtResource("79_qwpoo"), ExtResource("80_5dc5a"), ExtResource("81_6p1bi")])
@@ -272,8 +276,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Image" type="Sprite2D" parent="Components"]
+visible = false
 position = Vector2(0, -96.6667)
 texture = ExtResource("142_76si4")
+
+[node name="Spine" type="Spine" parent="Components"]
+resource = SubResource("SpineResource_cmsdl")
+position = Vector2(2, 249)
 
 [node name="StateLb" type="Label" parent="Components"]
 layout_mode = 0

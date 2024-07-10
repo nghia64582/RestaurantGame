@@ -548,7 +548,7 @@ text = "Nghia64582
 
 [node name="Spine" type="Spine" parent="."]
 resource = SubResource("SpineResource_7a1cm")
-playback/play = "Angry1"
+playback/play = "Satisfied3"
 position = Vector2(905, 887)
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Waiter/waiter.gd" id="1_0qnxx"]
 [ext_resource type="Texture2D" uid="uid://cpciw4xdb04vc" path="res://Assets/PlayingScene.png" id="2_00887"]
-[ext_resource type="Texture2D" path="res://Assets/Png/Other Assets/Cake.png" id="242_y4kyk"]
-[ext_resource type="Texture2D" path="res://Assets/Png/Other Assets/Burger.png" id="243_15vkx"]
+[ext_resource type="Texture2D" uid="uid://l8xh7apfdqma" path="res://Assets/Png/Other Assets/Cake.png" id="242_y4kyk"]
+[ext_resource type="Texture2D" uid="uid://dt8theoe84f20" path="res://Assets/Png/Other Assets/Burger.png" id="243_15vkx"]
 
 [sub_resource type="SpineResource" id="SpineResource_cmsdl"]
 skeleton_path = "res://Assets/Spine/Waiters/Waiters.json"

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Scenes/PlayingScene/Table/table.gd" id="1_hbyus"]
 [ext_resource type="PackedScene" uid="uid://c55xp7cmqep5n" path="res://Scenes/PlayingScene/FoodOnTable/food_on_table.tscn" id="2_0vsbi"]
-[ext_resource type="Texture2D" path="res://Assets/Png/Other Assets/TableSet1.png" id="2_16qmh"]
-[ext_resource type="Texture2D" path="res://Assets/Png/Other Assets/Bubble.png" id="3_c1edj"]
+[ext_resource type="Texture2D" uid="uid://djoqjctbgoktu" path="res://Assets/Png/Other Assets/TableSet1.png" id="2_16qmh"]
+[ext_resource type="Texture2D" uid="uid://xcxi0he3176c" path="res://Assets/Png/Other Assets/Bubble.png" id="3_c1edj"]
 [ext_resource type="PackedScene" uid="uid://ckyrth6w7gpya" path="res://Scenes/PlayingScene/Guest/guest.tscn" id="3_yevug"]
-[ext_resource type="Texture2D" path="res://Assets/Png/Other Assets/TableSet2.png" id="4_tqrcq"]
+[ext_resource type="Texture2D" uid="uid://cyifqxwy0npu6" path="res://Assets/Png/Other Assets/TableSet2.png" id="4_tqrcq"]
 
 [node name="Table" type="Node2D" node_paths=PackedStringArray("bt_component", "bt_guest_nodes", "bt_food_nodes", "bt_collide_area", "st_component", "st_guest_nodes", "st_food_nodes", "st_collide_area")]
 script = ExtResource("1_hbyus")

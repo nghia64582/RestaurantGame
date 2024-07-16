@@ -7,4 +7,5 @@ skeleton_path = "res://Assets/Spine/Character 02/Cr2.json"
 
 [node name="Spine" type="Spine" parent="."]
 resource = SubResource("SpineResource_frsk6")
+playback/play = "Read Menu"
 position = Vector2(556, 809)

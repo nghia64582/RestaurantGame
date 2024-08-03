@@ -28,6 +28,7 @@ var start_time
 @export var guest_spine_factory_template: PackedScene
 @export var spine_list: Array[Spine]
 var main_spine: Spine
+var cur_anim: String
 static var guest_spine_factory: GuestSpineFactory
 
 func _draw():
@@ -48,6 +49,7 @@ func _ready():
 	init_spine()
 	
 func init_spine():
+	cur_anim = ""
 	var spine_id = randi_range(1, 7)
 	main_spine = spine_list[spine_id]
 	for spine in spine_list:
@@ -83,9 +85,11 @@ func update_progress_bar():
 func update_sprite():
 	sprite_idx += 1
 	var anim_st = get_current_anim()
-	if anim_st == main_spine.get_current_animation():
+	if anim_st == cur_anim:
 		return
+	cur_anim = anim_st
 	main_spine.play(anim_st, true)
+	print("Guest ske : " + str(main_spine.get_skeleton()))
 	#var textures = get_textures_of_state()
 	#if sprite_idx / 3 >= len(textures):
 		#sprite_idx = 0

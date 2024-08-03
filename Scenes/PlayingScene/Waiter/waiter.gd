@@ -47,6 +47,7 @@ var guest_paid
 var radius = 50
 var game: MainGame
 var next_target: Vector2
+var cur_anim: String
 
 func _draw():
 	if DevConfig.SHOW_PATH:
@@ -58,6 +59,7 @@ func _draw():
 			draw_line(p1, p2, Color.RED, 5.0, true)
 
 func _ready():
+	cur_anim = ""
 	sprite_idx = -1
 	guest = null
 	id = IdGenerator.get_waiter_id()
@@ -82,10 +84,11 @@ func update_state_count_down(delta):
 func update_sprite():
 	#sprite_idx += 1
 	var textures = get_textures_of_state()
-	var spine_st = get_spine_of_state()
-	if spine_st == waiter_spine.get_current_animation():
+	var anim_st = get_spine_of_state()
+	if anim_st == cur_anim:
 		return
-	waiter_spine.play(spine_st, true)
+	cur_anim = anim_st
+	waiter_spine.play(anim_st, true)
 	#if sprite_idx / 3 >= len(textures):
 		#sprite_idx = 0
 	#image.texture = textures[sprite_idx / 3]

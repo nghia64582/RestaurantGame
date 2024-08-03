@@ -224,7 +224,6 @@ offset_right = 1109.0
 offset_bottom = 2408.0
 
 [node name="BtnCheat" type="Button" parent="."]
-visible = false
 z_index = 1000
 offset_left = 33.3333
 offset_top = 200.0

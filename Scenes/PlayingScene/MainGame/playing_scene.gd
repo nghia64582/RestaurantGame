@@ -374,12 +374,5 @@ func _on_btn_reset_pressed():
 	reset_game_data()
 
 func _on_btn_play_spine_pressed():
-	var txt = tf_spine_name.text
-	print("Set into : " + txt)
-	print("Cur anim : " + demo_spine.get_current_animation())
-	demo_spine.stop_all()
-	print("Cur anim (after stop all): " + str(demo_spine.get_current_animation()))
-	demo_spine.stop()
-	demo_spine.play("[stop]")
-	print("Cur anim (after stop): " + str(demo_spine.get_current_animation()))
+	var txt = tf_spine_name.texts
 	demo_spine.play(txt, true)

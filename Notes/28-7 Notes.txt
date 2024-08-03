@@ -1,0 +1,4 @@
+ - Kéo thả màn hình mượt hơn
+ - Tìm cách để guest không tele
+ - Tạo nhóm guest nhiều hơn 1 người
+ - 

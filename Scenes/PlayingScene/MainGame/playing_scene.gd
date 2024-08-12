@@ -30,7 +30,10 @@ class_name MainGame
 @export var gem_lb: Label
 @export var level_lb: Label
 
+# for dragging handling
 var dragging = false
+var speed_x = 0
+
 var guest_generator_cool_down
 var kitchens: Array[Kitchen] = []
 var tables: Array[Table] = []
@@ -49,7 +52,21 @@ func _ready():
 func _process(delta):
 	check_generating_guests(delta)
 	check_auto_save(delta)
+	check_sliding()
 	
+func check_sliding():
+	if abs(speed_x) < 4:
+		speed_x = 0
+	else:
+		speed_x = speed_x + 1 if speed_x < 0 else speed_x - 1
+	floor_node.position.x += speed_x
+	if side_walk_node.position.x + floor_node.position.x > 0:
+		floor_node.position.x = -side_walk_node.position.x
+	if randi_range(1, 20) == 1:
+		print("Compare %.2f, %.2f" % [floor_node.position.x, -FLOOR_WITDH * floor_sample.get_size().x])
+	if floor_node.position.x < -FLOOR_WITDH * floor_sample.get_size().x / 2:
+		floor_node.position.x = -FLOOR_WITDH * floor_sample.get_size().x / 2
+		
 func init_game():
 	init_info()
 	init_floor()
@@ -231,6 +248,8 @@ func _on_color_rect_gui_input(event):
 			var delta = event.relative
 			var pre_x = floor_node.position.x
 			var pre_y = floor_node.position.y
+			speed_x += delta.x / 10
+			speed_x = min(speed_x, max(speed_x, -100), 100)
 			floor_node.position = Vector2(pre_x + delta.x, pre_y + \
 				(delta.y if DevConfig.UP_DOWN_DRAG else 0))
 

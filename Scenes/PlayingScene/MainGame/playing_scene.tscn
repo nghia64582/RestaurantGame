@@ -82,7 +82,7 @@ level_lb = NodePath("InfoBoard/LevelBox/LevelLb")
 
 [node name="Floor" type="Node2D" parent="."]
 z_index = -1
-position = Vector2(119, 7)
+position = Vector2(89, 148)
 script = ExtResource("9_biof0")
 
 [node name="Components" type="Node2D" parent="Floor"]
@@ -243,6 +243,7 @@ theme_override_font_sizes/font_size = 40
 text = "Cheat"
 
 [node name="CheatBtns" type="Node2D" parent="BtnCheat"]
+visible = false
 modulate = Color(1, 1, 1, 0.784314)
 
 [node name="ColorRect" type="ColorRect" parent="BtnCheat/CheatBtns"]

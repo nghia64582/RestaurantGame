@@ -1,4 +1,6 @@
- - Kéo thả màn hình mượt hơn
  - Tìm cách để guest không tele
  - Tạo nhóm guest nhiều hơn 1 người
- - 
+ - Tạo action mà người chơi phải làm
+DONE:
+ - Kéo thả màn hình mượt hơn
+ - Tạo khoảng cách giữa dashboard với bếp

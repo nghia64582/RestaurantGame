@@ -89,12 +89,7 @@ func update_sprite():
 		return
 	cur_anim = anim_st
 	main_spine.play(anim_st, true)
-	print("Guest ske : " + str(main_spine.get_skeleton()))
-	#var textures = get_textures_of_state()
-	#if sprite_idx / 3 >= len(textures):
-		#sprite_idx = 0
-	#image.texture = textures[sprite_idx / 3]
-	
+
 func get_current_anim():
 	if state == GuestConst.STATE.GO_TO_TABLE:
 		return "stand and Bored"
@@ -352,7 +347,8 @@ func trace_back(last_point, distance, unit):
 	return path
 
 func add_path(path, target):
-	# concatenate path to list points# remove redundant points in path
+	# concatenate path to list points
+	# remove redundant points in path
 	var new_path = []
 	if len(path) >= 1:
 		new_path.append(path[0])

@@ -1,6 +1,13 @@
+TODO: 
+ - Tìm cách tìm đường đi ngắn nhất hiệu quả hơn
+   + Thiết lập tất cả các điểm khả thi trong game (guest hoặc waiter có thể đi đến)
+   + Tìm đường đi ngắn nhất giữa 2 điểm bất kì
+   + Lưu vào cache
+ - Điều chỉnh để guest đi đến một ghế nhất định trên bàn
  - Tìm cách để guest không tele
  - Tạo nhóm guest nhiều hơn 1 người
  - Tạo action mà người chơi phải làm
+ - Tạo câu nói cho guest và waiter, chef
 DONE:
  - Kéo thả màn hình mượt hơn
  - Tạo khoảng cách giữa dashboard với bếp

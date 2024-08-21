@@ -93,22 +93,12 @@ func set_guest_pos(guest, idx):
 func init_random_foods_and_drinks():
 	pass
 
-func init_guests():
-	for idx in range(N_GUESTS):
-		var guest = guest_template.instantiate()
-		var x = guest_nodes[idx].position.x * component.scale.x
-		var y = guest_nodes[idx].position.y * component.scale.x
-		guest.position = Vector2(x, y)
-		add_child(guest)
-		if idx < N_GUESTS / 2:
-			guest.z_index = -1
-
 func update_z_order():
 	z_index = position.y
 
 func update_state(new_state):
 	state = new_state
-	
+
 func update_foods(food_ids):
 	for idx in range(len(food_ids)):
 		var food_id = food_ids[idx]
@@ -121,7 +111,10 @@ func remove_food_with_idx(idx):
 	remove_child(foods[last_idx])
 	foods.remove_at(last_idx)
 
-func has_point(point: Vector2):
+func has_point(point: Vector2) -> bool:
 	var up_left = position + collide_area.get_rect().position * component.scale.x
 	var size = collide_area.get_rect().size * component.scale.x
 	return Rect2(up_left, size).has_point(point)
+
+func get_a_random_pos() -> int:
+	return randi_range(0, len(guest_nodes) - 1)

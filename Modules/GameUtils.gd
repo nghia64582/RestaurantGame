@@ -2,6 +2,7 @@ extends Object
 class_name GameUtils
  
 static var game_data_path = "user://game_data.json"
+static var distances_data_path = "user://distances_data.json"
 
 static func save_game(game_data):
 	var json_string = JSON.stringify(game_data)
@@ -11,15 +12,62 @@ static func save_game(game_data):
 	
 static func load_game():
 	return get_dict_from_file(game_data_path)
+	
+static func load_distances_data():
+	var tmp = get_dict_from_file(distances_data_path)
+	if tmp == {}:
+		return {}
+	for key in tmp:
+		var hash = key.to_int()
+		if not hash is int:
+			continue
+		var point = convert_hash_to_point(hash)
+		tmp[point] = tmp[key]
+	for key in tmp:
+		if key is int:
+			tmp.erase(key)
+	return tmp
+	
+static func save_distances_data(distances):
+	for point in distances:
+		if not point is Vector2:
+			continue
+		var hash = convert_point_to_hash(point)
+		distances[hash] = distances[point]
+	for key in distances:
+		if key is Vector2:
+			distances.erase(key)
+	var json_string = JSON.stringify(distances)
+	var file = FileAccess.open(distances_data_path, FileAccess.WRITE)
+	file.store_string(json_string)
+	file.close()
 
 static func get_dict_from_file(file_path):
 	print("Get dict from file : %s" % [file_path])
-	var txt = FileAccess.get_file_as_string(file_path)
-	if txt == "":
-		print("File %s is empty" % [file_path])
-		return {}
+	var chunk_size = 4096  # Size of each chunk in bytes
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	
+	if file != null:
+		var content = ""
+		while not file.eof_reached():
+			var chunk = file.get_buffer(chunk_size)
+			content += chunk.get_string_from_utf8()
+			# Process the chunk if needed
+			print("Read chunk of size: %d" % chunk.size())
+		file.close()
+		# Now content contains the entire file data
+		print("File read completely")
+		return JSON.parse_string(content)
 	else:
-		return JSON.parse_string(txt)
+		print("Failed to open file")
+		return {}
+		
+	#var txt = FileAccess.get_file_as_string(file_path)
+	#if txt == "":
+		#print("File %s is empty" % [file_path])
+		#return {}
+	#else:
+		#return JSON.parse_string(txt)
 
 static func log(st):
 	print(st)

@@ -1,0 +1,16 @@
+I'm building a restaurant simulator game, the main flow is:
+S1 : The guest move into the restaurant
+S2 : A waiter move to the guest from waiting position
+and bring the menu to the guest.
+S3 : The guest watches the menu for a few seconds and
+pick some dishes.
+S4 : The waiter move to a random chef and give him
+the order.
+S5 : The chef cook the meal
+S6 : After the meal is finished, the waiter brings 
+the dishes to the guest.
+S7 : After the guest finished his meal, he would react
+some emotions.
+S8 : A waiter moves to the guest and bring the receipt
+S9 : The guest leaves the restaurant.
+Please write me some conversation sentences for each steps

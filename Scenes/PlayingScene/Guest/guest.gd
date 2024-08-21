@@ -5,8 +5,8 @@ var sprite_idx
 var state
 var id
 var sprite_type
-var table
-var waiter
+var table: Table
+var waiter: Waiter
 # for moving path
 var cur_direction
 var speed = 400 # pixel per second
@@ -22,6 +22,7 @@ var called_waiter
 var next_target: Vector2
 var radius = 50
 var start_time
+var seat_idx: int
 @export var state_lb: Label
 @export var image: Sprite2D
 @export var progress_bar: ProgressBar

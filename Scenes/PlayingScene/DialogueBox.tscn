@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl5vhle75inxx"]
+
+[ext_resource type="Texture2D" uid="uid://dxttgi5woukj2" path="res://Assets/Png/Ui/Bubble_Mid.png" id="1_3fyq3"]
+
+[node name="DialogueBox" type="Node"]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_right = 105.0
+offset_bottom = 105.0
+texture = ExtResource("1_3fyq3")
+draw_center = false
+region_rect = Rect2(0, 0, 100, 100)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 100
+patch_margin_bottom = 100

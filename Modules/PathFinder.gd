@@ -9,6 +9,11 @@ static func init(t_game: MainGame):
 	print("Start initing path finder")
 	var start = Time.get_ticks_msec()
 	game = t_game
+	var distances_data = GameUtils.load_distances_data()
+	if distances_data != {}:
+		print("Time for path finder %d" % [Time.get_ticks_msec() - start])
+		distances = distances_data
+		return
 	for table in game.tables:
 		init_point(table.position)
 	for kitchen in game.kitchens:
@@ -17,6 +22,7 @@ static func init(t_game: MainGame):
 	init_point(Vector2(500, 400))
 	init_point(Vector2(700, 400))
 	init_point(Vector2(100, 900))
+	GameUtils.save_distances_data(distances)
 	print("Time for path finder %d" % [Time.get_ticks_msec() - start])
 
 static func init_point(start: Vector2):

@@ -62,8 +62,6 @@ func check_sliding():
 	floor_node.position.x += speed_x
 	if side_walk_node.position.x + floor_node.position.x > 0:
 		floor_node.position.x = -side_walk_node.position.x
-	if randi_range(1, 20) == 1:
-		print("Compare %.2f, %.2f" % [floor_node.position.x, -FLOOR_WITDH * floor_sample.get_size().x])
 	if floor_node.position.x < -FLOOR_WITDH * floor_sample.get_size().x / 2:
 		floor_node.position.x = -FLOOR_WITDH * floor_sample.get_size().x / 2
 		
@@ -179,7 +177,8 @@ func init_path_finder():
 	PathFinder.init(self)
 
 func add_random_guest():
-	var guest = guest_template.instantiate()
+	var guest: Guest
+	guest = guest_template.instantiate()
 	guest.game = self
 	guest.start_time = Time.get_ticks_msec()
 	var free_table = find_free_table()
@@ -188,6 +187,7 @@ func add_random_guest():
 	guests.append(guest)
 	guest.position = Vector2(100, 900)
 	guest.table = free_table
+	guest.seat_idx = free_table.get_a_random_pos()
 	guest.find_path(free_table.position)
 	free_table.state = TableConst.STATE.USED
 	floor_node.add_child(guest)

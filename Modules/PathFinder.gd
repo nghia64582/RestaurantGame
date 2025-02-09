@@ -42,17 +42,18 @@ static func init_point(start: Vector2):
 			if b1 and b2:
 				distance[hash] = distance[head_hash] + UNIT
 				queue.push_back(next_point)
-	distances[start] = distance
+	distances[GameUtils.convert_point_to_hash(start)] = distance
 
 static func find_path(start: Vector2, target: Vector2):
-	for point in distances.keys():
+	for hash in distances.keys():
+		var point = GameUtils.convert_hash_to_point(hash)
 		if start.distance_to(point) < 1:
 			var min_dist = 1e10
 			var last_point = Vector2(0, 0)
-			var distance = distances[point]
-			for hash in distance.keys():
-				var t_point = GameUtils.convert_hash_to_point(hash)
-				var total_dist = distance[hash] + abs(t_point.x - target.x) + \
+			var distance = distances[hash]
+			for t_hash in distance.keys():
+				var t_point = GameUtils.convert_hash_to_point(t_hash)
+				var total_dist = distance[t_hash] + abs(t_point.x - target.x) + \
 					abs(t_point.y - target.y)
 				if total_dist < min_dist and t_point.distance_to(target) < UNIT * sqrt(2):
 					min_dist = total_dist

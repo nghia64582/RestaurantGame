@@ -48,6 +48,8 @@ func _ready():
 	GameConfig.load_config()
 	load_game_data()
 	init_game()
+	for i in range(1000):
+		_process(1.0 / 60)
 
 func _process(delta):
 	check_generating_guests(delta)
